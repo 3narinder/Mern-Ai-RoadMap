@@ -1,62 +1,42 @@
 import mongoose from "mongoose";
 
-// Schema for individual check items with completion date
-const checkItemSchema = new mongoose.Schema(
-  {
-    id: {
-      type: String,
-      required: true,
-    },
-    completed: {
-      type: Boolean,
-      default: false,
-    },
-    completedAt: {
-      type: Date,
-      default: null,
-    },
-  },
-  { _id: false }
-);
-
-// Schema for daily activity tracking (GitHub-style)
-const activitySchema = new mongoose.Schema(
-  {
-    date: {
-      type: String, // Format: YYYY-MM-DD
-      required: true,
-    },
-    count: {
-      type: Number,
-      default: 0,
-    },
-  },
-  { _id: false }
-);
-
+// Schema definition for storing checkbox progress
 const progressSchema = new mongoose.Schema(
   {
-    // Using a simple identifier for now (can be replaced with userId for auth)
-    identifier: {
+    userId: {
       type: String,
       required: true,
       unique: true,
       default: "default_user",
+      index: true,
     },
-    // Store checks as an array of check items with completion dates
-    checks: [checkItemSchema],
-    // Daily activity for the heatmap
-    dailyActivity: [activitySchema],
+    // Checkbox states: { "item-1": true, "item-2": false }
+    checks: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
+    // Completion timestamps: { "item-1": "2026-05-28T..." }
+    completionDates: {
+      type: Map,
+      of: String,
+      default: {},
+    },
+    // Daily activity for heatmap
+    dailyActivity: [
+      {
+        date: String,      // Format: YYYY-MM-DD
+        count: Number,     // How many completed that day
+        _id: false,
+      },
+    ],
   },
   {
-    timestamps: true,
+    timestamps: true,     // createdAt, updatedAt
   }
 );
 
-// Index for efficient queries
-progressSchema.index({ identifier: 1 });
-progressSchema.index({ "dailyActivity.date": 1 });
-
+// Create model
 const Progress = mongoose.model("Progress", progressSchema);
 
 export default Progress;

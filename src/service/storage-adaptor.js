@@ -103,9 +103,4 @@ export const apiAdapter = {
   },
 };
 
-// ─────────────────────────────────────────────────────────────
-// ACTIVE ADAPTER
-// Uses API adapter when backend is available, falls back to local
-// ─────────────────────────────────────────────────────────────
-
 export const adapter = apiAdapter;

@@ -28,13 +28,13 @@ export function CheckProvider({ children }) {
             completionDates: data.completionDates || {},
             dailyActivity: data.dailyActivity || [],
           },
-        })
+        }),
       )
       .catch((err) =>
         dispatch({
           type: "ERROR",
           payload: err.message,
-        })
+        }),
       );
   }, []);
 
@@ -71,34 +71,28 @@ export function CheckProvider({ children }) {
         }
       }
     },
-    [state.checks]
+    [state.checks],
   );
 
-  const checkAll = useCallback(
-    async (ids) => {
-      dispatch({
-        type: "CHECK_MANY",
-        payload: ids,
-      });
+  const checkAll = useCallback(async (ids) => {
+    dispatch({
+      type: "CHECK_MANY",
+      payload: ids,
+    });
 
-      // Sync with API if enabled
-      if (USE_API) {
-        // We'll rely on the periodic sync for bulk operations
-        // or implement a bulk toggle endpoint if needed
-      }
-    },
-    []
-  );
+    // Sync with API if enabled
+    if (USE_API) {
+      // We'll rely on the periodic sync for bulk operations
+      // or implement a bulk toggle endpoint if needed
+    }
+  }, []);
 
-  const uncheckAll = useCallback(
-    async (ids) => {
-      dispatch({
-        type: "UNCHECK_MANY",
-        payload: ids,
-      });
-    },
-    []
-  );
+  const uncheckAll = useCallback(async (ids) => {
+    dispatch({
+      type: "UNCHECK_MANY",
+      payload: ids,
+    });
+  }, []);
 
   const clearAll = useCallback(async () => {
     dispatch({ type: "CLEAR" });

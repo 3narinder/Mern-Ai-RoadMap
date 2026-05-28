@@ -20,11 +20,11 @@ import { useChecks } from "./Hooks/useChecks";
 const RoadmapApp = () => {
   const [phase, setPhase] = useState("p1");
   const [showHeatmap, setShowHeatmap] = useState(true);
-  const { 
-    checks, 
-    toggle, 
-    countChecked, 
-    loading, 
+  const {
+    checks,
+    toggle,
+    countChecked,
+    loading,
     clearAll,
     completionDates,
     dailyActivity,
@@ -75,7 +75,7 @@ const RoadmapApp = () => {
             <span className="text-xs">{showHeatmap ? "▼" : "▶"}</span>
             <span className="font-medium">Progress Activity</span>
           </button>
-          
+
           {showHeatmap && (
             <ActivityHeatmap
               dailyActivity={dailyActivity}

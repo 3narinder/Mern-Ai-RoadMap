@@ -2,10 +2,18 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/roadmap-dev";
+    
+    console.log("📡 Connecting to MongoDB...");
+    console.log("📍 URI:", mongoURI);
+    
+    await mongoose.connect(mongoURI);
+    
+    console.log("✅ MongoDB Connected Successfully!");
+    return true;
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error("❌ MongoDB Connection Error:", error.message);
+    console.error("💡 Make sure MongoDB is running: mongod");
     process.exit(1);
   }
 };
