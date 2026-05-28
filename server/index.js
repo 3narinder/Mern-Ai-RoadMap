@@ -2,18 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import progressRoutes from "./routes/progress.js";
+import progressRoutes from "./routes/progressRoutes.js";
 
 dotenv.config({ path: "../.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ─────────────────────────────────────────────────────────────
-// MIDDLEWARE
-// ─────────────────────────────────────────────────────────────
-
-// CORS - Allow frontend to make requests
 app.use(
   cors({
     origin: "http://localhost:5173",

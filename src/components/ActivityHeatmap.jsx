@@ -2,8 +2,18 @@ import { useMemo, useState } from "react";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
 // Color intensity based on activity count (GitHub-style)
@@ -23,29 +33,21 @@ const getLegendColors = () => [
   { label: "7+", class: "bg-emerald-600 border border-emerald-700" },
 ];
 
-const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
+const ActivityHeatmap = ({ dailyActivity = [] }) => {
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
-  // Build activity map from both sources
+  // Build activity map directly from dailyActivity source of truth
   const activityMap = useMemo(() => {
     const map = {};
-
-    // Add from dailyActivity array
-    dailyActivity.forEach(({ date, count }) => {
-      map[date] = (map[date] || 0) + count;
-    });
-
-    // Also count from completion dates for accuracy
-    Object.values(completionDates).forEach((dateStr) => {
-      if (dateStr) {
-        const date = new Date(dateStr).toISOString().split("T")[0];
-        if (!map[date]) map[date] = 0;
-      }
-    });
-
+    if (Array.isArray(dailyActivity)) {
+      dailyActivity.forEach(({ date, count }) => {
+        // Enforce counts never drop below zero
+        map[date] = Math.max(0, count);
+      });
+    }
     return map;
-  }, [dailyActivity, completionDates]);
+  }, [dailyActivity]);
 
   // Generate calendar grid for the last 365 days
   const calendarData = useMemo(() => {
@@ -62,22 +64,26 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
     startDate.setDate(startDate.getDate() - dayOfWeek);
 
     let currentDate = new Date(startDate);
-    let currentMonth = -1;
-    let weekIndex = 0;
+    let lastMonthLabel = "";
 
     while (currentDate <= today) {
-      // Track month changes for labels
-      if (currentDate.getMonth() !== currentMonth) {
-        currentMonth = currentDate.getMonth();
-        months.push({ month: MONTHS[currentMonth], weekIndex });
-      }
-
       const week = [];
+      let weekHasMonthLabel = false;
+      let labelToAssign = "";
+
       for (let day = 0; day < 7; day++) {
         const dateStr = currentDate.toISOString().split("T")[0];
         const count = activityMap[dateStr] || 0;
         const isToday = dateStr === today.toISOString().split("T")[0];
         const isFuture = currentDate > today;
+
+        // Check if month changes at any point during this week's collection loop
+        const monthLabel = MONTHS[currentDate.getMonth()];
+        if (monthLabel !== lastMonthLabel && !weekHasMonthLabel) {
+          lastMonthLabel = monthLabel;
+          labelToAssign = monthLabel;
+          weekHasMonthLabel = true;
+        }
 
         week.push({
           date: dateStr,
@@ -89,8 +95,9 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
 
         currentDate.setDate(currentDate.getDate() + 1);
       }
+
       weeks.push(week);
-      weekIndex++;
+      months.push(labelToAssign); // Align months array index directly with week index
     }
 
     return { weeks, months };
@@ -100,14 +107,13 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
   const stats = useMemo(() => {
     const totalCompletions = Object.values(activityMap).reduce(
       (sum, count) => sum + count,
-      0
+      0,
     );
     const activeDays = Object.keys(activityMap).filter(
-      (date) => activityMap[date] > 0
+      (date) => activityMap[date] > 0,
     ).length;
-    const maxInDay = Math.max(0, ...Object.values(activityMap));
 
-    // Current streak
+    // Calculate streak
     let currentStreak = 0;
     const today = new Date();
     let checkDate = new Date(today);
@@ -118,14 +124,13 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
         currentStreak++;
         checkDate.setDate(checkDate.getDate() - 1);
       } else if (dateStr === today.toISOString().split("T")[0]) {
-        // Today might not have activity yet, check yesterday
         checkDate.setDate(checkDate.getDate() - 1);
       } else {
         break;
       }
     }
 
-    return { totalCompletions, activeDays, maxInDay, currentStreak };
+    return { totalCompletions, activeDays, currentStreak };
   }, [activityMap]);
 
   const handleMouseEnter = (e, day) => {
@@ -139,7 +144,7 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-5">
+    <div className="bg-white border border-gray-200 rounded-lg p-5 select-none">
       {/* Header with stats */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <h3 className="font-semibold text-gray-900 text-base">Activity</h3>
@@ -161,13 +166,13 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
 
       {/* Calendar container */}
       <div className="overflow-x-auto">
-        <div className="inline-flex gap-2">
+        <div className="inline-flex gap-2 min-w-full pt-2">
           {/* Day labels column */}
           <div className="flex flex-col pt-6 pr-1">
             {DAYS_OF_WEEK.map((day, idx) => (
               <div
                 key={day}
-                className="h-[14px] mb-[3px] flex items-center justify-end text-xs text-gray-500 font-medium"
+                className="h-3.5 mb-0.75 flex items-center justify-end text-[10px] text-gray-400 font-medium"
                 style={{ visibility: idx % 2 === 0 ? "hidden" : "visible" }}
               >
                 {day}
@@ -175,30 +180,33 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
             ))}
           </div>
 
-          {/* Grid with month labels */}
-          <div className="relative">
-            {/* Month labels */}
-            <div className="h-5 relative mb-1">
-              {calendarData.months.map(({ month, weekIndex }, idx) => (
-                <span
-                  key={`${month}-${idx}`}
-                  className="absolute text-xs text-gray-500 font-medium"
-                  style={{ left: `${weekIndex * 17}px` }}
+          {/* Grid Container */}
+          <div className="flex flex-col">
+            {/* 🚀 THE FIXED MONTH ROW: Spaced columns to completely stop overlap */}
+            <div className="flex gap-0.75 h-5 mb-1">
+              {calendarData.months.map((monthLabel, idx) => (
+                <div
+                  key={idx}
+                  className="w-3.5 text-[11px] text-gray-400 font-medium relative"
                 >
-                  {month}
-                </span>
+                  {monthLabel && (
+                    <span className="absolute left-0 top-0 whitespace-nowrap z-10">
+                      {monthLabel}
+                    </span>
+                  )}
+                </div>
               ))}
             </div>
 
             {/* Grid cells */}
-            <div className="flex gap-[3px]">
+            <div className="flex gap-0.75">
               {calendarData.weeks.map((week, weekIdx) => (
-                <div key={weekIdx} className="flex flex-col gap-[3px]">
+                <div key={weekIdx} className="flex flex-col gap-0.75">
                   {week.map((day) => (
                     <div
                       key={day.date}
-                      className={`w-[14px] h-[14px] rounded-[3px] border cursor-pointer transition-transform hover:scale-110
-                        ${day.isFuture ? "bg-transparent border-transparent" : getColorClass(day.count)}
+                      className={`w-3.5 h-3.5 rounded-xs border cursor-pointer transition-all duration-150 hover:scale-125 hover:z-10
+                        ${day.isFuture ? "bg-transparent border-transparent pointer-events-none" : getColorClass(day.count)}
                         ${day.isToday ? "ring-2 ring-gray-400 ring-offset-1" : ""}
                       `}
                       onMouseEnter={(e) => handleMouseEnter(e, day)}
@@ -212,10 +220,10 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
         </div>
       </div>
 
-      {/* Fixed tooltip - appears as overlay */}
+      {/* Floating Tooltip */}
       {hoveredCell && (
         <div
-          className="fixed z-50 px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-md shadow-lg pointer-events-none transform -translate-x-1/2 -translate-y-full"
+          className="fixed z-50 px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-md shadow-lg pointer-events-none transform -translate-x-1/2 -translate-y-full transition-all duration-70"
           style={{
             left: tooltipPosition.x,
             top: tooltipPosition.y,
@@ -232,7 +240,6 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
           <div className="text-gray-300">
             {hoveredCell.count} completion{hoveredCell.count !== 1 ? "s" : ""}
           </div>
-          {/* Arrow */}
           <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
         </div>
       )}
@@ -243,7 +250,7 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
         {getLegendColors().map(({ label, class: colorClass }) => (
           <div
             key={label}
-            className={`w-[14px] h-[14px] rounded-[3px] ${colorClass}`}
+            className={`w-3.5 h-3.5 rounded-xs ${colorClass}`}
             title={label}
           />
         ))}
