@@ -1,0 +1,124 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                      VERCEL DEPLOYMENT CHECKLIST                           ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+BEFORE YOU START
+[ ] Read QUICK_DEPLOY.md (5 min overview)
+[ ] Have MongoDB Atlas account ready
+[ ] Have Vercel account ready (sign in with GitHub)
+[ ] Code committed to GitHub main branch
+
+STEP 1: MONGODB ATLAS SETUP (2 min)
+┌─────────────────────────────────────────────────────────────────────────────┐
+[ ] Go to https://www.mongodb.com/cloud/atlas
+[ ] Click "Network Access" in left sidebar
+[ ] Click "Add IP Address"
+[ ] Select "Allow Access from Anywhere" → "0.0.0.0/0"
+[ ] Click "Confirm"
+[ ] Click "Database" in left sidebar
+[ ] Click "Connect" on your cluster
+[ ] Copy connection string (looks like:)
+    mongodb+srv://username:password@cluster.mongodb.net/?appName=Cluster0
+[ ] Save this somewhere safe - you'll need it next
+└─────────────────────────────────────────────────────────────────────────────┘
+
+STEP 2: COMMIT & PUSH TO GITHUB (1 min)
+┌─────────────────────────────────────────────────────────────────────────────┐
+From your project folder, run:
+
+    git add .
+    git commit -m "Setup Vercel deployment"
+    git push origin main
+
+Wait for it to complete ✓
+└─────────────────────────────────────────────────────────────────────────────┘
+
+STEP 3: DEPLOY ON VERCEL (2 min)
+┌─────────────────────────────────────────────────────────────────────────────┐
+[ ] Go to https://vercel.com
+[ ] Click "Add New Project"
+[ ] Select your "Mern-Ai-RoadMap" repository
+[ ] Framework: Should auto-detect as "Vite" ✓
+[ ] Click "Configure Project Settings" (optional, defaults are good)
+[ ] **IMPORTANT:** Scroll down to "Environment Variables"
+
+[ ] Add these environment variables (one by one):
+
+    Name: MONGODB_URI
+    Value: (paste your connection string from Step 1)
+    Click "Add"
+
+    Name: NODE_ENV
+    Value: production
+    Click "Add"
+
+    Name: VITE_USE_API
+    Value: true
+    Click "Add"
+
+[ ] Click "Deploy" button (big blue button)
+[ ] Wait for deployment to complete (1-2 min)
+[ ] You'll see "Deployment Complete ✓"
+[ ] Click on the deployment to see your URL
+└─────────────────────────────────────────────────────────────────────────────┘
+
+STEP 4: TEST YOUR APP (1 min)
+┌─────────────────────────────────────────────────────────────────────────────┐
+[ ] Open the Vercel URL in browser (e.g., https://your-app.vercel.app)
+[ ] You should see the roadmap app
+[ ] Try checking an item
+[ ] Uncheck it
+[ ] Verify it saves and the grid updates
+
+[ ] Test API health:
+    https://your-app.vercel.app/api/health
+    
+    Should return JSON: {"status":"ok","timestamp":"2026-05-28T..."}
+└─────────────────────────────────────────────────────────────────────────────┘
+
+TROUBLESHOOTING
+┌─────────────────────────────────────────────────────────────────────────────┐
+[ ] If app loads but can't save data:
+    → Check Vercel env variables are set correctly
+    → Check MongoDB connection string is correct
+    → Go to Vercel → Deployments → Logs (check for errors)
+
+[ ] If you see CORS error:
+    → Vercel auto-proxies /api/* - should not happen
+    → If it does, check browser console for exact error
+    → Share the error in VERCEL_DEPLOYMENT.md troubleshooting
+
+[ ] If nothing loads:
+    → Check Vercel deployment status (should be "Ready")
+    → Click "Logs" to see build/runtime errors
+    → Most common: Missing MONGODB_URI env variable
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SUCCESS INDICATORS
+┌─────────────────────────────────────────────────────────────────────────────┐
+✓ App loads at vercel.app URL
+✓ You can check/uncheck items
+✓ Data persists after refresh
+✓ /api/health returns {"status":"ok",...}
+✓ Grid colors update properly
+✓ No console errors in browser DevTools
+
+If all ✓, you're done! 🎉
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUICK REFERENCE
+┌─────────────────────────────────────────────────────────────────────────────┐
+MongoDB Atlas:      https://www.mongodb.com/cloud/atlas
+Vercel Dashboard:   https://vercel.com/dashboard
+Your App:           https://your-project.vercel.app
+API Health:         https://your-project.vercel.app/api/health
+
+Documentation:
+  • QUICK_DEPLOY.md - 5 min overview
+  • VERCEL_DEPLOYMENT.md - Full guide with troubleshooting
+  • VERCEL_SETUP_COMPLETE.md - What I configured
+└─────────────────────────────────────────────────────────────────────────────┘
+
+TIME ESTIMATE: ~10 minutes total
+
+Questions? See VERCEL_DEPLOYMENT.md for detailed troubleshooting!
