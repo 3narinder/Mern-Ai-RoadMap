@@ -2,11 +2,6 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "NODE_ENV": "production",
-    "VITE_USE_API": "true"
-  },
   "functions": {
     "api/progress.js": {
       "runtime": "nodejs20.x",

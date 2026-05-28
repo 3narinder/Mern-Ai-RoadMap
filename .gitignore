@@ -1,4 +1,25 @@
-# Logs
+# 🔒 Environment Secrets & Credentials
+.env
+.env.local
+.env.production
+.env.development
+*.env
+config.json
+
+# 📦 Dependencies
+node_modules/
+/node_modules
+jspm_packages/
+web_modules/
+
+# 🏗️ Production Builds & Outputs
+dist/
+dist-ssr/
+build/
+.next/
+out/
+
+# 📋 Logs & Debugging
 logs
 *.log
 npm-debug.log*
@@ -7,16 +28,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# 🛠️ Editor Directories & OS Junk Files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
