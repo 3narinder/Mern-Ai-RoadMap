@@ -11,6 +11,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     checkAll,
     uncheckAll,
     allChecked,
+    getCompletionDate,
   } = useChecks();
 
   const ids = mod.topics.map((t) => t.id);
@@ -22,6 +23,16 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     e.stopPropagation();
     complete ? uncheckAll(ids) : checkAll(ids);
   }
+
+  // Format date for display
+  const formatDate = (dateStr) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   return (
     <div className="border border-gray-200 rounded-lg bg-white overflow-hidden">
@@ -79,7 +90,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
                   <span className="font-medium text-gray-800 shrink-0">
                     {r.label}
                   </span>
-                  <span className="text-gray-300">—</span>
+                  <span className="text-gray-300">-</span>
                   <span className="text-gray-500">{r.note}</span>
                 </div>
               ))}
@@ -90,33 +101,45 @@ const ModuleCard = ({ mod, open, onToggle }) => {
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 px-1">
             Topics{" "}
             <span className="text-amber-500 font-normal ml-1 normal-case">
-              ★ = interview topic
+              * = interview topic
             </span>
           </p>
 
-          {mod.topics.map((t) => (
-            <label
-              key={t.id}
-              className={`flex items-start gap-2.5 py-1.5 px-2 rounded cursor-pointer hover:bg-gray-50 ${
-                isChecked(t.id) ? "opacity-40" : ""
-              }`}
-            >
-              <Tick on={isChecked(t.id)} toggle={() => toggle(t.id)} />
+          {mod.topics.map((t) => {
+            const completionDate = getCompletionDate(t.id);
+            const checked = isChecked(t.id);
 
-              <span
-                className={`text-sm leading-snug ${
-                  isChecked(t.id)
-                    ? "line-through text-gray-400"
-                    : "text-gray-700"
+            return (
+              <label
+                key={t.id}
+                className={`flex items-start gap-2.5 py-1.5 px-2 rounded cursor-pointer hover:bg-gray-50 ${
+                  checked ? "opacity-40" : ""
                 }`}
               >
-                {t.interview && (
-                  <span className="text-amber-500 mr-1 text-xs">★</span>
+                <Tick on={checked} toggle={() => toggle(t.id)} />
+
+                <span
+                  className={`text-sm leading-snug flex-1 ${
+                    checked
+                      ? "line-through text-gray-400"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {t.interview && (
+                    <span className="text-amber-500 mr-1 text-xs">*</span>
+                  )}
+                  {t.text}
+                </span>
+
+                {/* Show completion date if completed */}
+                {checked && completionDate && (
+                  <span className="text-xs text-gray-400 shrink-0">
+                    {formatDate(completionDate)}
+                  </span>
                 )}
-                {t.text}
-              </span>
-            </label>
-          ))}
+              </label>
+            );
+          })}
         </div>
       )}
     </div>

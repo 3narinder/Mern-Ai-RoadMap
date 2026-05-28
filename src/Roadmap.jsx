@@ -13,12 +13,22 @@ import PhaseHeader from "./components/PhaseHeader";
 import Footer from "./components/Footer";
 import Tabs from "./components/Tabs";
 import Header from "./components/Header";
+import ActivityHeatmap from "./components/ActivityHeatmap";
 import { useChecks } from "./Hooks/useChecks";
 
 // ─── Inner app — has access to CheckContext ───────────────────
 const RoadmapApp = () => {
   const [phase, setPhase] = useState("p1");
-  const { checks, toggle, countChecked, loading, clearAll } = useChecks();
+  const [showHeatmap, setShowHeatmap] = useState(true);
+  const { 
+    checks, 
+    toggle, 
+    countChecked, 
+    loading, 
+    clearAll,
+    completionDates,
+    dailyActivity,
+  } = useChecks();
 
   const allIds = [
     ...MODULES.flatMap((m) => m.topics.map((t) => t.id)),
@@ -36,7 +46,7 @@ const RoadmapApp = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-sm text-gray-400">Loading progress…</p>
+        <p className="text-sm text-gray-400">Loading progress...</p>
       </div>
     );
   }
@@ -56,6 +66,24 @@ const RoadmapApp = () => {
 
       {/* content */}
       <div className="max-w-full mx-auto px-4 py-5">
+        {/* Activity Heatmap Section */}
+        <div className="mb-5">
+          <button
+            onClick={() => setShowHeatmap(!showHeatmap)}
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-3 transition-colors"
+          >
+            <span className="text-xs">{showHeatmap ? "▼" : "▶"}</span>
+            <span className="font-medium">Progress Activity</span>
+          </button>
+          
+          {showHeatmap && (
+            <ActivityHeatmap
+              dailyActivity={dailyActivity}
+              completionDates={completionDates}
+            />
+          )}
+        </div>
+
         {PHASES.filter((p) => p.id === phase).map((p) => (
           <div key={p.id}>
             <PhaseHeader phase={p} border={PHASE_BORDER} badge={PHASE_BADGE} />

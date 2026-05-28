@@ -13,6 +13,7 @@ const DSACard = ({ dsa }) => {
     checkAll,
     uncheckAll,
     allChecked,
+    getCompletionDate,
   } = useChecks();
 
   const ids = dsa.topics.map((t) => t.id);
@@ -25,6 +26,16 @@ const DSACard = ({ dsa }) => {
     completed ? uncheckAll(ids) : checkAll(ids);
   }
 
+  // Format date for display
+  const formatDate = (dateStr) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   return (
     <div
       className={`rounded-xl overflow-hidden border transition-colors duration-300 ${
@@ -34,8 +45,9 @@ const DSACard = ({ dsa }) => {
       {/* header */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer completed ? "" : "hover:bg-gray-50"
-      }`}
+        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer ${
+          completed ? "" : "hover:bg-gray-50"
+        }`}
       >
         <span className="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
           {dsa.week}
@@ -78,34 +90,46 @@ const DSACard = ({ dsa }) => {
       {/* expanded topics */}
       {open && (
         <div className="px-4 py-2 border-t border-gray-100">
-          {dsa.topics.map((t) => (
-            <label
-              key={t.id}
-              className={`flex items-center gap-2.5 py-1.5 px-1 rounded cursor-pointer hover:bg-gray-50 ${
-                isChecked(t.id) ? "opacity-40" : ""
-              }`}
-            >
-              <Tick on={isChecked(t.id)} toggle={() => toggle(t.id)} />
+          {dsa.topics.map((t) => {
+            const completionDate = getCompletionDate(t.id);
+            const checked = isChecked(t.id);
 
-              <span
-                className={`text-sm flex-1 ${
-                  isChecked(t.id)
-                    ? "line-through text-gray-400"
-                    : "text-gray-700"
+            return (
+              <label
+                key={t.id}
+                className={`flex items-center gap-2.5 py-1.5 px-1 rounded cursor-pointer hover:bg-gray-50 ${
+                  checked ? "opacity-40" : ""
                 }`}
               >
-                {t.text}
-              </span>
+                <Tick on={checked} toggle={() => toggle(t.id)} />
 
-              <span
-                className={`text-xs font-medium ${
-                  DIFF_STYLE[t.diff] || "text-gray-400"
-                }`}
-              >
-                {t.diff}
-              </span>
-            </label>
-          ))}
+                <span
+                  className={`text-sm flex-1 ${
+                    checked
+                      ? "line-through text-gray-400"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {t.text}
+                </span>
+
+                {/* Show completion date if completed */}
+                {checked && completionDate && (
+                  <span className="text-xs text-gray-400 mr-2">
+                    {formatDate(completionDate)}
+                  </span>
+                )}
+
+                <span
+                  className={`text-xs font-medium ${
+                    DIFF_STYLE[t.diff] || "text-gray-400"
+                  }`}
+                >
+                  {t.diff}
+                </span>
+              </label>
+            );
+          })}
         </div>
       )}
     </div>
