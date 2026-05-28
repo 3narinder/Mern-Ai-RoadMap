@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useCallback } from "react";
+import { useReducer, useEffect, useCallback, useRef } from "react";
 
 import CheckContext from "./CheckContext";
 import { reducer, initialState } from "./reducer";
@@ -16,7 +16,10 @@ const USE_API = import.meta.env.VITE_USE_API === "true";
 export function CheckProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // 📥 On initial mount, pull progress data down from database
+  // Use a ref to prevent infinite sync loops between local state changes and backend saves
+  const previousChecksStr = useRef("");
+
+  // 📥 1. Initial Data Fetch on Mount
   useEffect(() => {
     const load = async () => {
       try {
@@ -30,6 +33,8 @@ export function CheckProvider({ children }) {
             dailyActivity: data.dailyActivity || [],
           },
         });
+
+        previousChecksStr.current = JSON.stringify(data.checks || {});
       } catch (err) {
         dispatch({ type: "ERROR", payload: err.message });
       }
@@ -38,44 +43,84 @@ export function CheckProvider({ children }) {
     load();
   }, []);
 
-  // 🔄 Local storage synchronization fallback (Only runs if USE_API is false)
+  // 🔄 2. Background Synchronization Hook (Handles bulk operations and backups)
   useEffect(() => {
     if (state.loading) return;
 
-    if (!USE_API) {
-      apiAdapter.save(state.checks, state.completionDates, state.dailyActivity);
-    }
+    const currentChecksStr = JSON.stringify(state.checks);
+    // Skip if the layout hasn't actually modified keys since the last pass
+    if (currentChecksStr === previousChecksStr.current) return;
+    previousChecksStr.current = currentChecksStr;
+
+    const syncWithBackend = async () => {
+      // If using API, sync progress entirely (especially helpful for checkAll/uncheckAll bulk loops)
+      if (USE_API) {
+        try {
+          console.log("⚡ Syncing full roadmap state with backend...");
+          const result = await apiAdapter.save(
+            state.checks,
+            state.completionDates,
+          );
+
+          // If the save endpoint returns the re-calculated daily counts, sync them to frontend
+          if (result && result.dailyActivity) {
+            dispatch({
+              type: "TOGGLE_SUCCESS",
+              payload: { dailyActivity: result.dailyActivity },
+            });
+          }
+        } catch (err) {
+          console.error("❌ Full sync persistence failure:", err.message);
+        }
+      } else {
+        // Local Storage fallback tracker
+        apiAdapter.save(
+          state.checks,
+          state.completionDates,
+          state.dailyActivity,
+        );
+      }
+    };
+
+    // 400ms debounce buffer to let rapid clicking finish safely before network write operations
+    const bounceTimer = setTimeout(syncWithBackend, 400);
+    return () => clearTimeout(bounceTimer);
   }, [state.checks, state.completionDates, state.dailyActivity, state.loading]);
 
   // ─── ACTIONS ────────────────────────────────────────────────────────
 
-  // 📝 1. TOGGLE ACTION (Optimistic with Automatic Network Rollback)
+  // 📝 1. TOGGLE ACTION (Optimistic + Fixed State Reference Capture)
   const toggle = useCallback(
     async (id) => {
       const wasCompleted = !!state.checks[id];
       const newCompletedState = !wasCompleted;
 
-      // Click UI checkbox instantly for high performance responsiveness
+      // 1. Instantly click UI locally for zero-latency performance
       dispatch({
         type: "TOGGLE",
         payload: { id },
       });
 
+      // 2. Persist directly to individual toggle engine endpoint
       if (USE_API) {
         try {
           const result = await apiAdapter.toggle(id, newCompletedState);
 
-          if (result.success) {
+          if (result && result.success) {
+            // Overwrite local activity tracking array with backend's absolute data array calculation
             dispatch({
               type: "TOGGLE_SUCCESS",
-              payload: { dailyActivity: result.dailyActivity },
+              payload: { dailyActivity: result.dailyActivity || [] },
             });
           } else {
             throw new Error("Server rejected state change");
           }
         } catch (err) {
-          console.error("❌ Sync failure, rolling back UI:", err.message);
-          // Reverse state switch if server request crashes out
+          console.error(
+            "❌ Sync failure, rolling back UI check state:",
+            err.message,
+          );
+          // Rollback toggle switch locally if network fails
           dispatch({
             type: "TOGGLE",
             payload: { id },
@@ -83,10 +128,10 @@ export function CheckProvider({ children }) {
         }
       }
     },
-    [state.checks, state.dailyActivity],
+    [state.checks], // Dependency footprint simplified cleanly
   );
 
-  // 👥 2. BULK OPERATIONS
+  // 👥 2. BULK OPERATIONS (Will automatically fall back to background auto-syncer hook above)
   const checkAll = useCallback(async (ids) => {
     dispatch({
       type: "CHECK_MANY",
@@ -101,18 +146,18 @@ export function CheckProvider({ children }) {
     });
   }, []);
 
-  // 🗑️ 3. CLEAN SINGLE CLEAR_ALL ACTION DEFINITION
+  // 🗑️ 3. CLEAR ALL PROGRESS DATA
   const clearAll = useCallback(async () => {
     const previousState = { ...state };
 
     dispatch({ type: "CLEAR" });
+    previousChecksStr.current = JSON.stringify({});
 
     if (USE_API) {
       try {
         await apiAdapter.clear();
       } catch (err) {
         console.error("❌ Clear operation failed on server:", err);
-        // Rollback layout to state snapshot memory if server unreachable
         dispatch({ type: "LOADED", payload: previousState });
       }
     }

@@ -23,7 +23,7 @@ export function reducer(state, action) {
       const now = new Date();
       const today = now.toISOString().split("T")[0];
 
-      // Update completion dates
+      // 1. Update completion dates
       const newCompletionDates = { ...state.completionDates };
       if (newCompleted) {
         newCompletionDates[id] = now.toISOString();
@@ -31,10 +31,12 @@ export function reducer(state, action) {
         delete newCompletionDates[id];
       }
 
-      // Update daily activity
+      // 2. Update daily activity (FIXED: Now handles subtraction on uncheck!)
       let newDailyActivity = [...state.dailyActivity];
+      const actIdx = newDailyActivity.findIndex((a) => a.date === today);
+
       if (newCompleted) {
-        const actIdx = newDailyActivity.findIndex((a) => a.date === today);
+        // Handle Checking
         if (actIdx >= 0) {
           newDailyActivity[actIdx] = {
             ...newDailyActivity[actIdx],
@@ -42,6 +44,21 @@ export function reducer(state, action) {
           };
         } else {
           newDailyActivity.push({ date: today, count: 1 });
+        }
+      } else {
+        // Handle Unchecking
+        if (actIdx >= 0) {
+          const updatedCount = Math.max(0, newDailyActivity[actIdx].count - 1);
+
+          if (updatedCount === 0) {
+            // Remove the date entry entirely so the square turns back to crisp white
+            newDailyActivity.splice(actIdx, 1);
+          } else {
+            newDailyActivity[actIdx] = {
+              ...newDailyActivity[actIdx],
+              count: updatedCount,
+            };
+          }
         }
       }
 
@@ -56,31 +73,29 @@ export function reducer(state, action) {
       };
     }
 
-    case "TOGGLE_SUCCESS": {
-      // Update from API response
-      if (action.payload.dailyActivity) {
-        return {
-          ...state,
-          dailyActivity: action.payload.dailyActivity,
-        };
-      }
-      return state;
-    }
+    case "TOGGLE_SUCCESS":
+      return {
+        ...state,
+        // Overwrite local activity with the server's absolute source of truth
+        dailyActivity: action.payload.dailyActivity || [],
+      };
 
     case "CHECK_MANY": {
       const now = new Date();
       const today = now.toISOString().split("T")[0];
       const updates = Object.fromEntries(
-        action.payload.map((id) => [id, true])
+        action.payload.map((id) => [id, true]),
       );
       const dateUpdates = Object.fromEntries(
         action.payload
           .filter((id) => !state.checks[id])
-          .map((id) => [id, now.toISOString()])
+          .map((id) => [id, now.toISOString()]),
       );
 
       // Count new completions for activity
-      const newCompletions = action.payload.filter((id) => !state.checks[id]).length;
+      const newCompletions = action.payload.filter(
+        (id) => !state.checks[id],
+      ).length;
 
       let newDailyActivity = [...state.dailyActivity];
       if (newCompletions > 0) {
@@ -110,11 +125,39 @@ export function reducer(state, action) {
     }
 
     case "UNCHECK_MANY": {
+      const today = new Date().toISOString().split("T")[0];
       const updates = Object.fromEntries(
-        action.payload.map((id) => [id, false])
+        action.payload.map((id) => [id, false]),
       );
+
       const newCompletionDates = { ...state.completionDates };
+
+      // Count how many items were ACTUALLY checked before we remove them
+      const itemsToUncheckCount = action.payload.filter(
+        (id) => state.checks[id] === true,
+      ).length;
+
       action.payload.forEach((id) => delete newCompletionDates[id]);
+
+      // 3. Update daily activity (FIXED: Subtract multi-unchecks from today's counts)
+      let newDailyActivity = [...state.dailyActivity];
+      if (itemsToUncheckCount > 0) {
+        const actIdx = newDailyActivity.findIndex((a) => a.date === today);
+        if (actIdx >= 0) {
+          const updatedCount = Math.max(
+            0,
+            newDailyActivity[actIdx].count - itemsToUncheckCount,
+          );
+          if (updatedCount === 0) {
+            newDailyActivity.splice(actIdx, 1);
+          } else {
+            newDailyActivity[actIdx] = {
+              ...newDailyActivity[actIdx],
+              count: updatedCount,
+            };
+          }
+        }
+      }
 
       return {
         ...state,
@@ -123,6 +166,7 @@ export function reducer(state, action) {
           ...updates,
         },
         completionDates: newCompletionDates,
+        dailyActivity: newDailyActivity,
       };
     }
 
