@@ -8,23 +8,24 @@ const MONTHS = [
 
 // Color intensity based on activity count (GitHub-style)
 const getColorClass = (count) => {
-  if (count === 0) return "bg-gray-100";
-  if (count === 1) return "bg-emerald-200";
-  if (count <= 3) return "bg-emerald-400";
-  if (count <= 6) return "bg-emerald-500";
-  return "bg-emerald-600";
+  if (count === 0) return "bg-gray-100 border-gray-200";
+  if (count === 1) return "bg-emerald-200 border-emerald-300";
+  if (count <= 3) return "bg-emerald-400 border-emerald-500";
+  if (count <= 6) return "bg-emerald-500 border-emerald-600";
+  return "bg-emerald-600 border-emerald-700";
 };
 
 const getLegendColors = () => [
-  { label: "None", class: "bg-gray-100" },
-  { label: "1", class: "bg-emerald-200" },
-  { label: "2-3", class: "bg-emerald-400" },
-  { label: "4-6", class: "bg-emerald-500" },
-  { label: "7+", class: "bg-emerald-600" },
+  { label: "None", class: "bg-gray-100 border border-gray-200" },
+  { label: "1", class: "bg-emerald-200 border border-emerald-300" },
+  { label: "2-3", class: "bg-emerald-400 border border-emerald-500" },
+  { label: "4-6", class: "bg-emerald-500 border border-emerald-600" },
+  { label: "7+", class: "bg-emerald-600 border border-emerald-700" },
 ];
 
 const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
   const [hoveredCell, setHoveredCell] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   // Build activity map from both sources
   const activityMap = useMemo(() => {
@@ -127,11 +128,22 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
     return { totalCompletions, activeDays, maxInDay, currentStreak };
   }, [activityMap]);
 
+  const handleMouseEnter = (e, day) => {
+    if (day.isFuture) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltipPosition({
+      x: rect.left + rect.width / 2,
+      y: rect.top - 8,
+    });
+    setHoveredCell(day);
+  };
+
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Activity</h3>
-        <div className="flex items-center gap-4 text-xs text-gray-500">
+    <div className="bg-white border border-gray-200 rounded-lg p-5">
+      {/* Header with stats */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+        <h3 className="font-semibold text-gray-900 text-base">Activity</h3>
+        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
           <span>
             <strong className="text-gray-900">{stats.totalCompletions}</strong>{" "}
             completions
@@ -147,94 +159,95 @@ const ActivityHeatmap = ({ dailyActivity = [], completionDates = {} }) => {
         </div>
       </div>
 
-      {/* Month labels */}
-      <div className="flex text-xs text-gray-400 mb-1 ml-8">
-        {calendarData.months.map(({ month, weekIndex }, idx) => (
-          <span
-            key={`${month}-${weekIndex}`}
-            className="absolute"
-            style={{ left: `${weekIndex * 14 + 32}px` }}
-          >
-            {month}
-          </span>
-        ))}
-      </div>
-
-      <div className="flex gap-1 overflow-x-auto pb-2 relative">
-        {/* Day labels */}
-        <div className="flex flex-col gap-0.5 text-xs text-gray-400 pr-2 shrink-0">
-          {DAYS_OF_WEEK.map((day, idx) => (
-            <div
-              key={day}
-              className={`h-3 flex items-center ${
-                idx % 2 === 1 ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {day}
-            </div>
-          ))}
-        </div>
-
-        {/* Grid */}
-        <div className="flex gap-0.5 relative">
-          {/* Month labels positioned above the grid */}
-          <div className="absolute -top-5 left-0 flex text-xs text-gray-400">
-            {calendarData.months.map(({ month, weekIndex }, idx) => (
-              <span
-                key={`${month}-${idx}`}
-                className="absolute whitespace-nowrap"
-                style={{ left: `${weekIndex * 14}px` }}
+      {/* Calendar container */}
+      <div className="overflow-x-auto">
+        <div className="inline-flex gap-2">
+          {/* Day labels column */}
+          <div className="flex flex-col pt-6 pr-1">
+            {DAYS_OF_WEEK.map((day, idx) => (
+              <div
+                key={day}
+                className="h-[14px] mb-[3px] flex items-center justify-end text-xs text-gray-500 font-medium"
+                style={{ visibility: idx % 2 === 0 ? "hidden" : "visible" }}
               >
-                {month}
-              </span>
+                {day}
+              </div>
             ))}
           </div>
 
-          {calendarData.weeks.map((week, weekIdx) => (
-            <div key={weekIdx} className="flex flex-col gap-0.5">
-              {week.map((day) => (
-                <div
-                  key={day.date}
-                  className={`w-3 h-3 rounded-sm cursor-pointer transition-all relative
-                    ${day.isFuture ? "bg-transparent" : getColorClass(day.count)}
-                    ${day.isToday ? "ring-1 ring-gray-400" : ""}
-                    ${!day.isFuture ? "hover:ring-1 hover:ring-gray-500" : ""}
-                  `}
-                  onMouseEnter={() => !day.isFuture && setHoveredCell(day)}
-                  onMouseLeave={() => setHoveredCell(null)}
-                />
+          {/* Grid with month labels */}
+          <div className="relative">
+            {/* Month labels */}
+            <div className="h-5 relative mb-1">
+              {calendarData.months.map(({ month, weekIndex }, idx) => (
+                <span
+                  key={`${month}-${idx}`}
+                  className="absolute text-xs text-gray-500 font-medium"
+                  style={{ left: `${weekIndex * 17}px` }}
+                >
+                  {month}
+                </span>
               ))}
             </div>
-          ))}
+
+            {/* Grid cells */}
+            <div className="flex gap-[3px]">
+              {calendarData.weeks.map((week, weekIdx) => (
+                <div key={weekIdx} className="flex flex-col gap-[3px]">
+                  {week.map((day) => (
+                    <div
+                      key={day.date}
+                      className={`w-[14px] h-[14px] rounded-[3px] border cursor-pointer transition-transform hover:scale-110
+                        ${day.isFuture ? "bg-transparent border-transparent" : getColorClass(day.count)}
+                        ${day.isToday ? "ring-2 ring-gray-400 ring-offset-1" : ""}
+                      `}
+                      onMouseEnter={(e) => handleMouseEnter(e, day)}
+                      onMouseLeave={() => setHoveredCell(null)}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Tooltip */}
+      {/* Fixed tooltip - appears as overlay */}
       {hoveredCell && (
-        <div className="mt-2 text-xs text-gray-600">
-          <strong>
+        <div
+          className="fixed z-50 px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-md shadow-lg pointer-events-none transform -translate-x-1/2 -translate-y-full"
+          style={{
+            left: tooltipPosition.x,
+            top: tooltipPosition.y,
+          }}
+        >
+          <div className="font-semibold">
             {new Date(hoveredCell.date).toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
+              weekday: "short",
+              month: "short",
               day: "numeric",
+              year: "numeric",
             })}
-          </strong>
-          : {hoveredCell.count} completion{hoveredCell.count !== 1 ? "s" : ""}
+          </div>
+          <div className="text-gray-300">
+            {hoveredCell.count} completion{hoveredCell.count !== 1 ? "s" : ""}
+          </div>
+          {/* Arrow */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
         </div>
       )}
 
       {/* Legend */}
-      <div className="flex items-center justify-end gap-1 mt-3 text-xs text-gray-500">
-        <span>Less</span>
+      <div className="flex items-center justify-end gap-2 mt-4 text-xs text-gray-500">
+        <span className="font-medium">Less</span>
         {getLegendColors().map(({ label, class: colorClass }) => (
           <div
             key={label}
-            className={`w-3 h-3 rounded-sm ${colorClass}`}
+            className={`w-[14px] h-[14px] rounded-[3px] ${colorClass}`}
             title={label}
           />
         ))}
-        <span>More</span>
+        <span className="font-medium">More</span>
       </div>
     </div>
   );
