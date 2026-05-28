@@ -83,7 +83,7 @@ export function CheckProvider({ children }) {
         }
       }
     },
-    [state.checks, state.dailyActivity, state.completionDates],
+    [state.checks, state.dailyActivity],
   );
 
   // 👥 2. BULK OPERATIONS
