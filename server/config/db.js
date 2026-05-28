@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/roadmap-dev";
-    
+    const mongoURI = process.env.MONGODB_URI;
+
     console.log("📡 Connecting to MongoDB...");
     console.log("📍 URI:", mongoURI);
-    
+
     await mongoose.connect(mongoURI);
-    
+
     console.log("✅ MongoDB Connected Successfully!");
     return true;
   } catch (error) {

@@ -1,106 +1,41 @@
-// API ADAPTER (MongoDB Backend)
-// ─────────────────────────────────────────────────────────────
-
-export const apiAdapter = {
+const apiAdapter = {
   async load() {
-    try {
-      const res = await fetch("/api/progress", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to load progress (${res.status})`);
-      }
-
-      const data = await res.json();
-
-      return {
-        checks: data?.checks || {},
-        completionDates: data?.completionDates || {},
-        dailyActivity: data?.dailyActivity || [],
-      };
-    } catch (error) {
-      console.error("[apiAdapter.load]", error);
-      // Fallback to local storage on API failure
-    }
+    const res = await fetch("/api/progress");
+    return res.json();
   },
 
   async save(checks, completionDates) {
-    try {
-      const res = await fetch("/api/progress", {
-        method: "PUT",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ checks, completionDates }),
-      });
+    const res = await fetch("/api/progress", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ checks, completionDates }),
+    });
 
-      if (!res.ok) {
-        throw new Error(`Failed to save progress (${res.status})`);
-      }
-
-      return { success: true };
-    } catch (error) {
-      console.error("[apiAdapter.save]", error);
-      return { success: false, error: error.message };
-    }
+    return res.json();
   },
 
   async toggle(id, completed) {
-    try {
-      const res = await fetch("/api/progress/toggle", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, completed }),
-      });
+    const res = await fetch("/api/progress/toggle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, completed }),
+    });
 
-      if (!res.ok) {
-        throw new Error(`Failed to toggle item (${res.status})`);
-      }
-
-      return await res.json();
-    } catch (error) {
-      console.error("[apiAdapter.toggle]", error);
-      return { success: false, error: error.message };
-    }
+    return res.json();
   },
 
   async clear() {
-    try {
-      const res = await fetch("/api/progress", {
-        method: "DELETE",
-        credentials: "include",
-      });
+    const res = await fetch("/api/progress", {
+      method: "DELETE",
+    });
 
-      if (!res.ok) {
-        throw new Error(`Failed to clear progress (${res.status})`);
-      }
-
-      return { success: true };
-    } catch (error) {
-      console.error("[apiAdapter.clear]", error);
-      return { success: false, error: error.message };
-    }
+    return res.json();
   },
 
   async getActivity() {
-    try {
-      const res = await fetch("/api/progress/activity", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to get activity (${res.status})`);
-      }
-
-      return await res.json();
-    } catch (error) {
-      console.error("[apiAdapter.getActivity]", error);
-      return { dailyActivity: [] };
-    }
+    const res = await fetch("/api/progress/activity");
+    return res.json();
   },
 };
 
-export const adapter = apiAdapter;
+export default apiAdapter;

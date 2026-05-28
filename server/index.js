@@ -4,8 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import progressRoutes from "./routes/progress.js";
 
-// Load environment variables
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,7 +18,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 
 // Parse JSON bodies

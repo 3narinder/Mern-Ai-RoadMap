@@ -9,18 +9,18 @@ import {
   allChecked,
   isChecked,
 } from "../utils/check-helpers";
-import { adapter, apiAdapter } from "../service/storage-adaptor";
+import apiAdapter from "../service/storage-adaptor";
 
 const USE_API = import.meta.env.VITE_USE_API === "true";
 
 export function CheckProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // load
   useEffect(() => {
-    adapter
-      .load()
-      .then((data) =>
+    const load = async () => {
+      try {
+        const data = await apiAdapter.load();
+
         dispatch({
           type: "LOADED",
           payload: {
@@ -28,16 +28,14 @@ export function CheckProvider({ children }) {
             completionDates: data.completionDates || {},
             dailyActivity: data.dailyActivity || [],
           },
-        }),
-      )
-      .catch((err) =>
-        dispatch({
-          type: "ERROR",
-          payload: err.message,
-        }),
-      );
-  }, []);
+        });
+      } catch (err) {
+        dispatch({ type: "ERROR", payload: err.message });
+      }
+    };
 
+    load();
+  }, []);
   // persist on changes (debounced for local adapter)
   useEffect(() => {
     if (state.loading) return;
@@ -45,7 +43,7 @@ export function CheckProvider({ children }) {
     // For API adapter, we handle saving on each action
     // For local adapter, save the full state
     if (!USE_API) {
-      adapter.save(state.checks, state.completionDates, state.dailyActivity);
+      apiAdapter.save(state.checks, state.completionDates, state.dailyActivity);
     }
   }, [state.checks, state.completionDates, state.dailyActivity, state.loading]);
 
@@ -96,7 +94,7 @@ export function CheckProvider({ children }) {
 
   const clearAll = useCallback(async () => {
     dispatch({ type: "CLEAR" });
-    await adapter.clear();
+    await apiAdapter.clear();
   }, []);
 
   const value = {
