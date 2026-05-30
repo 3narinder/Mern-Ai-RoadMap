@@ -14,7 +14,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:3000",
-      process.env.FRONTEND_URL || "https://your-domain.vercel.app",
+      process.env.FRONTEND_URL || "https://mern-ai-road-map.vercel.app/",
     ],
     credentials: true,
   }),

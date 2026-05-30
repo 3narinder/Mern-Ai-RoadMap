@@ -18,26 +18,18 @@ dotenv.config({ path: path.join(__dirname, ".env") }); // Backup check for inter
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🌍 DYNAMIC CORS: Allow local development AND production domains
-const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.FRONTEND_URL, // Useful fallback option for Vercel production
-].filter(Boolean);
+const allowedOrigins = [process.env.LOCAL_URL, process.env.FRONTEND_URL].filter(
+  Boolean,
+);
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, curl, or serverless internal loops)
       if (!origin) return callback(null, true);
 
-      // Allow local development or matches with your deployed dashboard
-      if (
-        allowedOrigins.indexOf(origin) !== -1 ||
-        process.env.NODE_ENV === "production"
-      ) {
+      if (allowedOrigins.indexOf(origin) !== -1) {
         return callback(null, true);
       }
-
       return callback(new Error("CORS policy violation"), false);
     },
     credentials: true,
