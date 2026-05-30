@@ -36,7 +36,6 @@ export const buildActivityMap = (dailyActivity) => {
   const map = {};
   if (Array.isArray(dailyActivity)) {
     dailyActivity.forEach(({ date, count }) => {
-      // Enforce counts never drop below zero
       map[date] = Math.max(0, count);
     });
   }
@@ -53,7 +52,6 @@ export const calculateStats = (activityMap) => {
     (date) => activityMap[date] > 0,
   ).length;
 
-  // Calculate streak
   let currentStreak = 0;
   const today = new Date();
   let checkDate = new Date(today);
