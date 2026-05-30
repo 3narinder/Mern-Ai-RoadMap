@@ -2,8 +2,6 @@ import { DAYS_OF_WEEK } from "../../utils/heatmap-utils";
 import WeekColumn from "./WeekColumn";
 
 const HeatmapGrid = ({ calendarData, onMouseEnter, onMouseLeave }) => {
-  console.log("Rendering HeatmapGrid with calendarData:", calendarData);
-
   return (
     <div className="overflow-x-auto">
       <div className="inline-flex gap-2 min-w-full pt-2">

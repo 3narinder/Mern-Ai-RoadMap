@@ -43,26 +43,28 @@ export function CheckProvider({ children }) {
     load();
   }, []);
 
-  // 🔄 2. Background Synchronization Hook (Handles bulk operations and backups)
+  // 🔄 2. Background Synchronization Hook (Inside your CheckProvider file)
+
   useEffect(() => {
     if (state.loading) return;
 
     const currentChecksStr = JSON.stringify(state.checks);
-    // Skip if the layout hasn't actually modified keys since the last pass
     if (currentChecksStr === previousChecksStr.current) return;
     previousChecksStr.current = currentChecksStr;
 
     const syncWithBackend = async () => {
-      // If using API, sync progress entirely (especially helpful for checkAll/uncheckAll bulk loops)
       if (USE_API) {
         try {
           console.log("⚡ Syncing full roadmap state with backend...");
+
+          // Send all active data matrices to your updated PUT endpoint
           const result = await apiAdapter.save(
             state.checks,
             state.completionDates,
+            state.dailyActivity, // Sending local state as backup insurance
           );
 
-          // If the save endpoint returns the re-calculated daily counts, sync them to frontend
+          // 🚀 THE FIX: Dispatch the backend's verified array directly into your TOGGLE_SUCCESS reducer action
           if (result && result.dailyActivity) {
             dispatch({
               type: "TOGGLE_SUCCESS",
@@ -73,7 +75,6 @@ export function CheckProvider({ children }) {
           console.error("❌ Full sync persistence failure:", err.message);
         }
       } else {
-        // Local Storage fallback tracker
         apiAdapter.save(
           state.checks,
           state.completionDates,
@@ -82,38 +83,31 @@ export function CheckProvider({ children }) {
       }
     };
 
-    // 400ms debounce buffer to let rapid clicking finish safely before network write operations
     const bounceTimer = setTimeout(syncWithBackend, 400);
     return () => clearTimeout(bounceTimer);
   }, [state.checks, state.completionDates, state.dailyActivity, state.loading]);
 
-  // ─── ACTIONS ────────────────────────────────────────────────────────
-
-  // 📝 1. TOGGLE ACTION (Optimistic + Fixed State Reference Capture)
+  // 📝 1. TOGGLE ACTION (Fixed Express Payload Capture)
   const toggle = useCallback(
     async (id) => {
       const wasCompleted = !!state.checks[id];
       const newCompletedState = !wasCompleted;
 
-      // 1. Instantly click UI locally for zero-latency performance
       dispatch({
         type: "TOGGLE",
         payload: { id },
       });
 
-      // 2. Persist directly to individual toggle engine endpoint
       if (USE_API) {
         try {
           const result = await apiAdapter.toggle(id, newCompletedState);
 
-          if (result && result.success) {
-            // Overwrite local activity tracking array with backend's absolute data array calculation
+          // 🚀 THE CRITICAL FIX: Your Express server returns dailyActivity directly without a success flag!
+          if (result && result.dailyActivity) {
             dispatch({
               type: "TOGGLE_SUCCESS",
-              payload: { dailyActivity: result.dailyActivity || [] },
+              payload: { dailyActivity: result.dailyActivity },
             });
-          } else {
-            throw new Error("Server rejected state change");
           }
         } catch (err) {
           console.error(
@@ -128,9 +122,8 @@ export function CheckProvider({ children }) {
         }
       }
     },
-    [state.checks], // Dependency footprint simplified cleanly
+    [state.checks],
   );
-
   // 👥 2. BULK OPERATIONS (Will automatically fall back to background auto-syncer hook above)
   const checkAll = useCallback(async (ids) => {
     dispatch({

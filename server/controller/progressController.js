@@ -23,7 +23,6 @@ export const getProgress = async (req, res) => {
 };
 
 // 📝 POST /api/progress/toggle
-// 📝 POST /api/progress/toggle
 export const toggleProgress = async (req, res) => {
   try {
     const userId = req.body.userId || "default_user";
@@ -87,7 +86,7 @@ export const toggleProgress = async (req, res) => {
   }
 };
 
-// 💾 PUT /api/progress
+// 💾 PUT /api/progress (Inside your backend controller)
 export const syncProgress = async (req, res) => {
   try {
     const userId = req.body.userId || "default_user";
@@ -103,11 +102,9 @@ export const syncProgress = async (req, res) => {
         dailyActivity: dailyActivity || [],
       });
     } else {
-      // Clear out old records safely
       progress.checks.clear();
       progress.completionDates.clear();
 
-      // 🚀 DEFENSIVE PROTECTION: Ensure checks is a plain object and filter out bad keys
       if (checks && typeof checks === "object" && !Array.isArray(checks)) {
         Object.entries(checks).forEach(([key, value]) => {
           if (key && key !== "undefined") {
@@ -116,7 +113,6 @@ export const syncProgress = async (req, res) => {
         });
       }
 
-      // 🚀 DEFENSIVE PROTECTION: Same for completionDates
       if (
         completionDates &&
         typeof completionDates === "object" &&
@@ -134,7 +130,6 @@ export const syncProgress = async (req, res) => {
       }
     }
 
-    // 🚀 THE CRITICAL FIX: Explicitly notify Mongoose to save these changes to MongoDB
     if (progress && !progress.isNew) {
       progress.markModified("checks");
       progress.markModified("completionDates");
@@ -142,12 +137,16 @@ export const syncProgress = async (req, res) => {
     }
 
     await progress.save();
-    res.json({ success: true });
+
+    // 🚀 THE FIX: Return the updated data structure instead of just { success: true }
+    res.json({
+      success: true,
+      dailyActivity: progress.dailyActivity,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 // 🗑️ DELETE /api/progress
 export const clearProgress = async (req, res) => {
   try {

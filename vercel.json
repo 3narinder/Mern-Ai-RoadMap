@@ -2,11 +2,11 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/progress/:path*",
       "destination": "/api/progress.js"
     },
     {
-      "source": "/progress/(.*)",
+      "source": "/api/progress",
       "destination": "/api/progress.js"
     },
     {
