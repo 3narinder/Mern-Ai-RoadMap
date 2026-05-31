@@ -9,7 +9,9 @@ import HeatmapGrid from "./heatmap/HeatmapGrid";
 import HeatmapTooltip from "./heatmap/HeatmapTooltip";
 import HeatmapLegend from "./heatmap/HeatmapLegend";
 
-const ActivityHeatmap = ({ dailyActivity = [] }) => {
+const ActivityHeatmap = ({ dailyActivity, completionDates }) => {
+  console.log("Rendering ActivityHeatmap with dailyActivity:", dailyActivity);
+
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 

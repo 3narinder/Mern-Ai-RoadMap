@@ -16,8 +16,8 @@ const USE_API = import.meta.env.VITE_USE_API === "true";
 export function CheckProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Use a ref to prevent infinite sync loops between local state changes and backend saves
-  const previousChecksStr = useRef("");
+  // 🚀 FIX: Cache the full state snapshot string to prevent early exit blocking
+  const previousStateStr = useRef("");
 
   // 📥 1. Initial Data Fetch on Mount
   useEffect(() => {
@@ -34,7 +34,11 @@ export function CheckProvider({ children }) {
           },
         });
 
-        previousChecksStr.current = JSON.stringify(data.checks || {});
+        // Initialize snapshot with everything retrieved
+        previousStateStr.current = JSON.stringify({
+          checks: data.checks || {},
+          dailyActivity: data.dailyActivity || [],
+        });
       } catch (err) {
         dispatch({ type: "ERROR", payload: err.message });
       }
@@ -43,29 +47,37 @@ export function CheckProvider({ children }) {
     load();
   }, []);
 
-  // 🔄 2. Background Synchronization Hook (Inside your CheckProvider file)
-
+  // 🔄 2. Background Synchronization Hook
   useEffect(() => {
     if (state.loading) return;
 
-    const currentChecksStr = JSON.stringify(state.checks);
-    if (currentChecksStr === previousChecksStr.current) return;
-    previousChecksStr.current = currentChecksStr;
+    // 🚀 FIX: Track both maps together. If dailyActivity alters via bulk actions, sync executes!
+    const currentStateStr = JSON.stringify({
+      checks: state.checks,
+      dailyActivity: state.dailyActivity,
+    });
+
+    if (currentStateStr === previousStateStr.current) return;
+    previousStateStr.current = currentStateStr;
 
     const syncWithBackend = async () => {
       if (USE_API) {
         try {
           console.log("⚡ Syncing full roadmap state with backend...");
 
-          // Send all active data matrices to your updated PUT endpoint
           const result = await apiAdapter.save(
             state.checks,
             state.completionDates,
-            state.dailyActivity, // Sending local state as backup insurance
+            state.dailyActivity,
           );
 
-          // 🚀 THE FIX: Dispatch the backend's verified array directly into your TOGGLE_SUCCESS reducer action
           if (result && result.dailyActivity) {
+            // Update the string cache right before dispatching to prevent an infinite recursive loop
+            previousStateStr.current = JSON.stringify({
+              checks: state.checks,
+              dailyActivity: result.dailyActivity,
+            });
+
             dispatch({
               type: "TOGGLE_SUCCESS",
               payload: { dailyActivity: result.dailyActivity },
@@ -87,7 +99,7 @@ export function CheckProvider({ children }) {
     return () => clearTimeout(bounceTimer);
   }, [state.checks, state.completionDates, state.dailyActivity, state.loading]);
 
-  // 📝 1. TOGGLE ACTION (Fixed Express Payload Capture)
+  // 📝 1. TOGGLE ACTION
   const toggle = useCallback(
     async (id) => {
       const wasCompleted = !!state.checks[id];
@@ -102,8 +114,13 @@ export function CheckProvider({ children }) {
         try {
           const result = await apiAdapter.toggle(id, newCompletedState);
 
-          // 🚀 THE CRITICAL FIX: Your Express server returns dailyActivity directly without a success flag!
           if (result && result.dailyActivity) {
+            // Match the state string update protocol here too
+            previousStateStr.current = JSON.stringify({
+              checks: { ...state.checks, [id]: newCompletedState },
+              dailyActivity: result.dailyActivity,
+            });
+
             dispatch({
               type: "TOGGLE_SUCCESS",
               payload: { dailyActivity: result.dailyActivity },
@@ -114,7 +131,6 @@ export function CheckProvider({ children }) {
             "❌ Sync failure, rolling back UI check state:",
             err.message,
           );
-          // Rollback toggle switch locally if network fails
           dispatch({
             type: "TOGGLE",
             payload: { id },
@@ -124,7 +140,8 @@ export function CheckProvider({ children }) {
     },
     [state.checks],
   );
-  // 👥 2. BULK OPERATIONS (Will automatically fall back to background auto-syncer hook above)
+
+  // 👥 2. BULK OPERATIONS
   const checkAll = useCallback(async (ids) => {
     dispatch({
       type: "CHECK_MANY",
@@ -144,7 +161,10 @@ export function CheckProvider({ children }) {
     const previousState = { ...state };
 
     dispatch({ type: "CLEAR" });
-    previousChecksStr.current = JSON.stringify({});
+    previousStateStr.current = JSON.stringify({
+      checks: {},
+      dailyActivity: [],
+    });
 
     if (USE_API) {
       try {
@@ -164,13 +184,11 @@ export function CheckProvider({ children }) {
     loading: state.loading,
     error: state.error,
 
-    // Bound handlers
     toggle,
     checkAll,
     uncheckAll,
     clearAll,
 
-    // Functional Selectors
     isChecked: (id) => isChecked(state.checks, id),
     getCompletionDate: (id) => state.completionDates[id] || null,
     countChecked: (ids) => countChecked(state.checks, ids),

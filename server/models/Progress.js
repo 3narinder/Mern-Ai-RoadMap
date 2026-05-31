@@ -22,18 +22,16 @@ const progressSchema = new mongoose.Schema(
       of: String,
       default: {},
     },
-    // Daily activity for heatmap
+    // Daily activity for heatmap: [{ date: "2026-05-28" }]
     dailyActivity: [
       {
-        date: String,      // Format: YYYY-MM-DD
-        count: Number,     // How many completed that day
-        _id: false,
+        date: String,
       },
     ],
   },
   {
-    timestamps: true,     // createdAt, updatedAt
-  }
+    timestamps: true,
+  },
 );
 
 // Create model

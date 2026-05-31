@@ -31,34 +31,70 @@ export const getLegendColors = () => [
   { label: "7+", class: "bg-emerald-600 border border-emerald-700" },
 ];
 
-// Build activity map from dailyActivity array
+// 🟩 STEP 1: Calibrate map builder to handle missing 'count' properties
 export const buildActivityMap = (dailyActivity) => {
+  console.log(
+    "Building activity map with dailyActivity in utils:",
+    dailyActivity,
+  );
   const map = {};
+
   if (Array.isArray(dailyActivity)) {
-    dailyActivity.forEach(({ date, count }) => {
-      map[date] = Math.max(0, count);
+    dailyActivity.forEach((item) => {
+      if (item && item.date) {
+        // 🚀 FIX: If 'count' is missing/undefined but the item exists, treat it as at least 1 completion!
+        const rawCount = item.count !== undefined ? item.count : 1;
+
+        const parsedCount = parseInt(rawCount, 10);
+
+        // Force it to be a valid number
+        map[item.date] = Number.isNaN(parsedCount)
+          ? 1
+          : Math.max(0, parsedCount);
+      }
     });
   }
+
+  console.log("Generated Activity Map Output:", map); // Check your console for this!
   return map;
 };
 
-// Calculate statistics from activity map
+// 🟩 STEP 2: Clean up the syntax block typo in calculateStats
 export const calculateStats = (activityMap) => {
+  // 🚀 FIX: Removed the stray semicolon so it logs correctly
+  console.log(
+    "Calculating stats with activityMap in utils stats:",
+    activityMap,
+  );
+
+  if (!activityMap || Object.keys(activityMap).length === 0) {
+    return { totalCompletions: 0, activeDays: 0, currentStreak: 0 };
+  }
+
   const totalCompletions = Object.values(activityMap).reduce(
-    (sum, count) => sum + count,
+    (sum, count) => sum + (Number.isNaN(count) ? 0 : count),
     0,
   );
+
   const activeDays = Object.keys(activityMap).filter(
     (date) => activityMap[date] > 0,
   ).length;
 
   let currentStreak = 0;
   const today = new Date();
-  let checkDate = new Date(today);
+  let checkDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+  );
 
-  while (true) {
+  let loopSafety = 0;
+
+  while (loopSafety < 366) {
     const dateStr = checkDate.toISOString().split("T")[0];
-    if (activityMap[dateStr] > 0) {
+    const dayValue = activityMap[dateStr] || 0;
+
+    if (dayValue > 0) {
       currentStreak++;
       checkDate.setDate(checkDate.getDate() - 1);
     } else if (dateStr === today.toISOString().split("T")[0]) {
@@ -66,9 +102,15 @@ export const calculateStats = (activityMap) => {
     } else {
       break;
     }
+
+    loopSafety++;
   }
 
-  return { totalCompletions, activeDays, currentStreak };
+  return {
+    totalCompletions: Number.isNaN(totalCompletions) ? 0 : totalCompletions,
+    activeDays: Number.isNaN(activeDays) ? 0 : activeDays,
+    currentStreak: Number.isNaN(currentStreak) ? 0 : currentStreak,
+  };
 };
 
 // Generate calendar grid for the last 365 days

@@ -45,11 +45,6 @@ app.use(express.json());
 
 connectDB();
 
-// ─────────────────────────────────────────────────────────────
-// ROUTES
-// ─────────────────────────────────────────────────────────────
-
-// 🚀 SMART VERCEL COMPATIBILITY: Handles both raw paths and base API routing paths cleanly
 app.use("/api/progress", progressRoutes);
 app.use("/progress", progressRoutes); // Backup path mapping when Vercel rewrites target directories
 
@@ -68,14 +63,12 @@ app.get("/api/health", (req, res) => {
 // ─────────────────────────────────────────────────────────────
 
 app.listen(PORT, () => {
-  console.log("");
   console.log("╔════════════════════════════════════════════╗");
   console.log("║  🚀 Server Started Successfully!          ║");
   console.log("╠════════════════════════════════════════════╣");
   console.log(`║  URL:  http://localhost:${PORT}                  ║`);
   console.log("║  API:  http://localhost:5000/api/progress ║");
   console.log("╚════════════════════════════════════════════╝");
-  console.log("");
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -87,4 +80,4 @@ process.on("SIGINT", () => {
   process.exit(0);
 });
 
-export default app; // 👈 NECESSARY FOR VERCEL SERVERLESS TRANSFERS
+export default app;

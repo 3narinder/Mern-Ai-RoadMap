@@ -9,10 +9,13 @@ import {
 
 const router = express.Router();
 
-// Elegant structural mapping
-router.route("/").get(getProgress).put(syncProgress).delete(clearProgress);
+// Base endpoint paths: /api/progress
+router.get("/", getProgress);
+router.put("/", syncProgress);
+router.delete("/", clearProgress);
+router.get("/activities", getActivity);
 
+// 🚀 Toggle specific path: POST /api/progress/toggle
 router.post("/toggle", toggleProgress);
-router.get("/activity", getActivity);
 
 export default router;
