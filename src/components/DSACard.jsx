@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DIFF_STYLE } from "../data/roadmap-data";
 import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
+import { getDateRange, formatDateShort } from "../utils/check-helpers";
 
 const DSACard = ({ dsa }) => {
   const [open, setOpen] = useState(false);
@@ -14,27 +15,19 @@ const DSACard = ({ dsa }) => {
     uncheckAll,
     allChecked,
     getCompletionDate,
+    completionDates,
   } = useChecks();
 
   const ids = dsa.topics.map((t) => t.id);
   const done = countChecked(ids);
   const pct = pctComplete(ids);
   const completed = allChecked(ids);
+  const dateRange = getDateRange(completionDates, ids, completed);
 
   function handleBulk(e) {
     e.stopPropagation();
     completed ? uncheckAll(ids) : checkAll(ids);
   }
-
-  // Format date for display
-  const formatDate = (dateStr) => {
-    if (!dateStr) return null;
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <div
@@ -63,6 +56,10 @@ const DSACard = ({ dsa }) => {
 
         <div className="flex items-center gap-2 shrink-0">
           {/* bulk toggle */}
+
+          {dateRange && (
+            <p className="text-xs text-emerald-600 font-medium">{dateRange}</p>
+          )}
           <div
             onClick={handleBulk}
             className="text-xs text-gray-400 hover:text-gray-700 border border-gray-200 rounded px-2 py-0.5 transition-colors"
@@ -105,9 +102,7 @@ const DSACard = ({ dsa }) => {
 
                 <span
                   className={`text-sm flex-1 ${
-                    checked
-                      ? "line-through text-gray-400"
-                      : "text-gray-700"
+                    checked ? "line-through text-gray-400" : "text-gray-700"
                   }`}
                 >
                   {t.text}
@@ -116,7 +111,7 @@ const DSACard = ({ dsa }) => {
                 {/* Show completion date if completed */}
                 {checked && completionDate && (
                   <span className="text-xs text-gray-400 mr-2">
-                    {formatDate(completionDate)}
+                    {formatDateShort(completionDate)}
                   </span>
                 )}
 

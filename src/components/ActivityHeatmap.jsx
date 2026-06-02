@@ -28,8 +28,6 @@ const ActivityHeatmap = ({ dailyActivity }) => {
   // Calculate stats
   const stats = useMemo(() => calculateStats(activityMap), [activityMap]);
 
-  console.log(stats);
-
   const handleMouseEnter = (e, day) => {
     if (day.isFuture) return;
     const rect = e.currentTarget.getBoundingClientRect();

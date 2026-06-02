@@ -53,9 +53,7 @@ const WeekCard = ({ week, modules }) => {
 
         <div className="flex items-center gap-2.5 shrink-0">
           {dateRange && (
-            <p className="text-xs text-emerald-600 font-medium mt-1.5">
-              {dateRange}
-            </p>
+            <p className="text-xs text-emerald-600 font-medium">{dateRange}</p>
           )}
           {/* bulk toggle */}
           <div

@@ -38,8 +38,8 @@ export const getDateRange = (completionDates, ids, allCompleted) => {
   const endStr = formatDateShort(maxDate.toISOString());
 
   if (allCompleted) {
-    // If all items completed, show date range
-    return startStr === endStr ? startStr : `${startStr} - ${endStr}`;
+    // Always show start and end date, even if same day
+    return `${startStr} - ${endStr}`;
   } else {
     // If partially completed, show "started on X - in progress"
     return `${startStr} - in progress`;

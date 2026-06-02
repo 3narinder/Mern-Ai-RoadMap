@@ -1,7 +1,7 @@
 import { TAG_STYLE } from "../data/roadmap-data";
 import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
-import { getDateRange } from "../utils/check-helpers";
+import { getDateRange, formatDateShort } from "../utils/check-helpers";
 
 const ModuleCard = ({ mod, open, onToggle }) => {
   const {
@@ -26,16 +26,6 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     e.stopPropagation();
     complete ? uncheckAll(ids) : checkAll(ids);
   }
-
-  // Format date for display
-  const formatDate = (dateStr) => {
-    if (!dateStr) return null;
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <div className="border border-gray-200 rounded-lg bg-white overflow-hidden">
@@ -142,7 +132,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
                 {/* Show completion date if completed */}
                 {checked && completionDate && (
                   <span className="text-xs text-gray-400 shrink-0">
-                    {formatDate(completionDate)}
+                    {formatDateShort(completionDate)}
                   </span>
                 )}
               </label>
