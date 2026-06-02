@@ -50,6 +50,7 @@ const apiAdapter = {
           userId: DEFAULT_USER,
           checks,
           completionDates,
+          dailyActivity,
         });
         return response.data;
       } catch (error) {

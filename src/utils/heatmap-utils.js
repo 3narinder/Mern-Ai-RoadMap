@@ -33,10 +33,6 @@ export const getLegendColors = () => [
 
 // 🟩 STEP 1: Calibrate map builder to handle missing 'count' properties
 export const buildActivityMap = (dailyActivity) => {
-  console.log(
-    "Building activity map with dailyActivity in utils:",
-    dailyActivity,
-  );
   const map = {};
 
   if (Array.isArray(dailyActivity)) {
@@ -55,18 +51,19 @@ export const buildActivityMap = (dailyActivity) => {
     });
   }
 
-  console.log("Generated Activity Map Output:", map); // Check your console for this!
   return map;
+};
+
+// Helper function to get today's date in YYYY-MM-DD format (timezone-aware)
+const getTodayDateStr = () => {
+  const d = new Date();
+  const offset = d.getTimezoneOffset();
+  const localDate = new Date(d.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split("T")[0];
 };
 
 // 🟩 STEP 2: Clean up the syntax block typo in calculateStats
 export const calculateStats = (activityMap) => {
-  // 🚀 FIX: Removed the stray semicolon so it logs correctly
-  console.log(
-    "Calculating stats with activityMap in utils stats:",
-    activityMap,
-  );
-
   if (!activityMap || Object.keys(activityMap).length === 0) {
     return { totalCompletions: 0, activeDays: 0, currentStreak: 0 };
   }
@@ -81,12 +78,9 @@ export const calculateStats = (activityMap) => {
   ).length;
 
   let currentStreak = 0;
-  const today = new Date();
-  let checkDate = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate(),
-  );
+  const todayStr = getTodayDateStr();
+  let checkDate = new Date(todayStr);
+  checkDate.setUTCHours(0, 0, 0, 0);
 
   let loopSafety = 0;
 
@@ -97,7 +91,7 @@ export const calculateStats = (activityMap) => {
     if (dayValue > 0) {
       currentStreak++;
       checkDate.setDate(checkDate.getDate() - 1);
-    } else if (dateStr === today.toISOString().split("T")[0]) {
+    } else if (dateStr === todayStr) {
       checkDate.setDate(checkDate.getDate() - 1);
     } else {
       break;

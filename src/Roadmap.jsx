@@ -15,6 +15,7 @@ import Tabs from "./components/Tabs";
 import Header from "./components/Header";
 import ActivityHeatmap from "./components/ActivityHeatmap";
 import { useChecks } from "./Hooks/useChecks";
+import Loader from "./components/Loader";
 
 // ─── Inner app — has access to CheckContext ───────────────────
 const RoadmapApp = () => {
@@ -46,7 +47,7 @@ const RoadmapApp = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-sm text-gray-400">Loading progress...</p>
+        <Loader />
       </div>
     );
   }

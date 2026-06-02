@@ -25,7 +25,8 @@ const progressSchema = new mongoose.Schema(
     // Daily activity for heatmap: [{ date: "2026-05-28" }]
     dailyActivity: [
       {
-        date: String,
+        date: { type: String, required: true },
+        count: { type: Number, default: 0 },
       },
     ],
   },

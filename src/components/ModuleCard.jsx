@@ -1,6 +1,7 @@
 import { TAG_STYLE } from "../data/roadmap-data";
 import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
+import { getDateRange } from "../utils/check-helpers";
 
 const ModuleCard = ({ mod, open, onToggle }) => {
   const {
@@ -12,12 +13,14 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     uncheckAll,
     allChecked,
     getCompletionDate,
+    completionDates,
   } = useChecks();
 
   const ids = mod.topics.map((t) => t.id);
   const done = countChecked(ids);
   const pct = pctComplete(ids);
   const complete = allChecked(ids);
+  const dateRange = getDateRange(completionDates, ids, complete);
 
   function handleBulk(e) {
     e.stopPropagation();
@@ -53,6 +56,13 @@ const ModuleCard = ({ mod, open, onToggle }) => {
         <span className="flex-1 font-semibold text-gray-900 text-sm">
           {mod.title}
         </span>
+
+        {/* Date range if started */}
+        {dateRange && (
+          <span className="text-xs text-emerald-600 font-medium mr-2">
+            {dateRange}
+          </span>
+        )}
 
         {/* bulk toggle */}
         <div
@@ -120,9 +130,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
 
                 <span
                   className={`text-sm leading-snug flex-1 ${
-                    checked
-                      ? "line-through text-gray-400"
-                      : "text-gray-700"
+                    checked ? "line-through text-gray-400" : "text-gray-700"
                   }`}
                 >
                   {t.interview && (

@@ -1,19 +1,27 @@
 import { useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { useChecks } from "../Hooks/useChecks";
+import { getDateRange } from "../utils/check-helpers";
 
 const WeekCard = ({ week, modules }) => {
   const [open, setOpen] = useState(false);
 
   const [activeModule, setActiveModule] = useState(null);
 
-  const { countChecked, pctComplete, checkAll, uncheckAll, allChecked } =
-    useChecks();
+  const {
+    countChecked,
+    pctComplete,
+    checkAll,
+    uncheckAll,
+    allChecked,
+    completionDates,
+  } = useChecks();
 
   const ids = modules.flatMap((m) => m.topics.map((t) => t.id));
   const done = countChecked(ids);
   const pct = pctComplete(ids);
   const completed = allChecked(ids);
+  const dateRange = getDateRange(completionDates, ids, completed);
 
   function handleBulk(e) {
     e.stopPropagation();
@@ -29,8 +37,9 @@ const WeekCard = ({ week, modules }) => {
       {/* header row */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer completed ? "" : "hover:bg-gray-50"
-      }`}
+        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer ${
+          completed ? "" : "hover:bg-gray-50"
+        }`}
       >
         <div className="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
           W{week.n}
@@ -43,6 +52,11 @@ const WeekCard = ({ week, modules }) => {
         </div>
 
         <div className="flex items-center gap-2.5 shrink-0">
+          {dateRange && (
+            <p className="text-xs text-emerald-600 font-medium mt-1.5">
+              {dateRange}
+            </p>
+          )}
           {/* bulk toggle */}
           <div
             onClick={handleBulk}

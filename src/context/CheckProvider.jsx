@@ -63,8 +63,6 @@ export function CheckProvider({ children }) {
     const syncWithBackend = async () => {
       if (USE_API) {
         try {
-          console.log("⚡ Syncing full roadmap state with backend...");
-
           const result = await apiAdapter.save(
             state.checks,
             state.completionDates,
@@ -142,19 +140,25 @@ export function CheckProvider({ children }) {
   );
 
   // 👥 2. BULK OPERATIONS
-  const checkAll = useCallback(async (ids) => {
-    dispatch({
-      type: "CHECK_MANY",
-      payload: ids,
-    });
-  }, []);
+  const checkAll = useCallback(
+    async (ids) => {
+      dispatch({
+        type: "CHECK_MANY",
+        payload: ids,
+      });
+    },
+    [state.checks, state.completionDates, state.dailyActivity],
+  );
 
-  const uncheckAll = useCallback(async (ids) => {
-    dispatch({
-      type: "UNCHECK_MANY",
-      payload: ids,
-    });
-  }, []);
+  const uncheckAll = useCallback(
+    async (ids) => {
+      dispatch({
+        type: "UNCHECK_MANY",
+        payload: ids,
+      });
+    },
+    [state.checks, state.completionDates, state.dailyActivity],
+  );
 
   // 🗑️ 3. CLEAR ALL PROGRESS DATA
   const clearAll = useCallback(async () => {

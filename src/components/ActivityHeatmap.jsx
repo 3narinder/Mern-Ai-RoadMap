@@ -9,9 +9,7 @@ import HeatmapGrid from "./heatmap/HeatmapGrid";
 import HeatmapTooltip from "./heatmap/HeatmapTooltip";
 import HeatmapLegend from "./heatmap/HeatmapLegend";
 
-const ActivityHeatmap = ({ dailyActivity, completionDates }) => {
-  console.log("Rendering ActivityHeatmap with dailyActivity:", dailyActivity);
-
+const ActivityHeatmap = ({ dailyActivity }) => {
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
@@ -29,6 +27,8 @@ const ActivityHeatmap = ({ dailyActivity, completionDates }) => {
 
   // Calculate stats
   const stats = useMemo(() => calculateStats(activityMap), [activityMap]);
+
+  console.log(stats);
 
   const handleMouseEnter = (e, day) => {
     if (day.isFuture) return;
