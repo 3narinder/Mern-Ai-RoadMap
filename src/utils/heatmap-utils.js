@@ -15,7 +15,11 @@ export const MONTHS = [
 ];
 
 // Color intensity based on activity count (GitHub-style)
-export const getColorClass = (count) => {
+// isMissedInStreak: true if this day breaks the current streak
+export const getColorClass = (count, isMissedInStreak = false) => {
+  // If missed day in active streak, show red
+  if (count === 0 && isMissedInStreak) return "bg-red-200 border-red-300";
+  // Regular no-activity days
   if (count === 0) return "bg-gray-100 border-gray-200";
   if (count === 1) return "bg-emerald-200 border-emerald-300";
   if (count <= 3) return "bg-emerald-400 border-emerald-500";
@@ -24,6 +28,7 @@ export const getColorClass = (count) => {
 };
 
 export const getLegendColors = () => [
+  { label: "Missed", class: "bg-red-200 border border-red-300" },
   { label: "None", class: "bg-gray-100 border border-gray-200" },
   { label: "1", class: "bg-emerald-200 border border-emerald-300" },
   { label: "2-3", class: "bg-emerald-400 border border-emerald-500" },
@@ -108,54 +113,96 @@ export const calculateStats = (activityMap) => {
 };
 
 // Generate calendar grid for the last 365 days
+// Grid is ordered: Today first (left), then 364 days back
 export const generateCalendarData = (activityMap) => {
   const today = new Date();
   const weeks = [];
   const months = [];
 
-  // Start from 364 days ago
-  const startDate = new Date(today);
-  startDate.setDate(startDate.getDate() - 364);
+  // Start from today
+  let currentDate = new Date(today);
+  const endDate = new Date(today);
+  endDate.setDate(endDate.getDate() - 364);
 
-  // Adjust to start from Sunday
-  const dayOfWeek = startDate.getDay();
-  startDate.setDate(startDate.getDate() - dayOfWeek);
+  // Build ALL days (today to 364 days ago)
+  const allDays = [];
+  let tempDate = new Date(today);
+  for (let i = 0; i < 365; i++) {
+    const dateStr = tempDate.toISOString().split("T")[0];
+    const count = activityMap[dateStr] || 0;
+    const isToday = dateStr === today.toISOString().split("T")[0];
 
-  let currentDate = new Date(startDate);
+    allDays.push({
+      date: dateStr,
+      count,
+      isToday,
+      dayOfWeek: tempDate.getDay(),
+      monthLabel: MONTHS[tempDate.getMonth()],
+    });
+
+    tempDate.setDate(tempDate.getDate() - 1);
+  }
+
+  // Calculate which days break the streak (for coloring)
+  const streakBreakers = new Set();
+  let streakActive = false;
+  let streakStartIndex = -1;
+
+  // Check from today backwards to find active streak
+  for (let i = 0; i < allDays.length; i++) {
+    if (allDays[i].count > 0) {
+      if (!streakActive) {
+        streakActive = true;
+        streakStartIndex = i;
+      }
+    } else {
+      // count === 0
+      if (streakActive) {
+        // Found a break in the streak
+        streakBreakers.add(i);
+        streakActive = false;
+      }
+    }
+  }
+
+  // Reverse so today is first, organize by weeks (Sunday-Saturday)
+  allDays.reverse();
   let lastMonthLabel = "";
 
-  while (currentDate <= today) {
+  for (let i = 0; i < allDays.length; i += 7) {
     const week = [];
-    let weekHasMonthLabel = false;
-    let labelToAssign = "";
 
-    for (let day = 0; day < 7; day++) {
-      const dateStr = currentDate.toISOString().split("T")[0];
-      const count = activityMap[dateStr] || 0;
-      const isToday = dateStr === today.toISOString().split("T")[0];
-      const isFuture = currentDate > today;
+    for (let j = 0; j < 7 && i + j < allDays.length; j++) {
+      const day = allDays[i + j];
+      const isMissedInStreak = streakBreakers.has(allDays.length - 1 - (i + j));
+      let labelToAssign = "";
 
-      // Check if month changes at any point during this week's collection loop
-      const monthLabel = MONTHS[currentDate.getMonth()];
-      if (monthLabel !== lastMonthLabel && !weekHasMonthLabel) {
-        lastMonthLabel = monthLabel;
-        labelToAssign = monthLabel;
-        weekHasMonthLabel = true;
+      if (day.monthLabel !== lastMonthLabel) {
+        lastMonthLabel = day.monthLabel;
+        labelToAssign = day.monthLabel;
       }
 
       week.push({
-        date: dateStr,
-        count,
-        isToday,
-        isFuture,
-        dayOfWeek: day,
+        date: day.date,
+        count: day.count,
+        isToday: day.isToday,
+        isFuture: false,
+        dayOfWeek: day.dayOfWeek,
+        isMissedInStreak,
+        monthLabel: labelToAssign,
       });
-
-      currentDate.setDate(currentDate.getDate() + 1);
     }
 
     weeks.push(week);
-    months.push(labelToAssign); // Align months array index directly with week index
+  }
+
+  // Extract months for labels
+  for (let week of weeks) {
+    if (week[0] && week[0].monthLabel) {
+      months.push(week[0].monthLabel);
+    } else {
+      months.push("");
+    }
   }
 
   return { weeks, months };
