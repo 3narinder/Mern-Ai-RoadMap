@@ -13,6 +13,23 @@ import apiAdapter from "../service/storage-adaptor";
 
 const USE_API = import.meta.env.VITE_USE_API === "true";
 
+// Helper: Reconstruct dailyActivity from completionDates
+const reconstructDailyActivity = (completionDates) => {
+  const activity = {};
+
+  if (completionDates && typeof completionDates === "object") {
+    Object.values(completionDates).forEach((isoString) => {
+      if (isoString) {
+        const date = isoString.split("T")[0]; // Extract YYYY-MM-DD
+        activity[date] = (activity[date] || 0) + 1;
+      }
+    });
+  }
+
+  // Convert to array format
+  return Object.entries(activity).map(([date, count]) => ({ date, count }));
+};
+
 export function CheckProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -25,19 +42,27 @@ export function CheckProvider({ children }) {
       try {
         const data = await apiAdapter.load();
 
+        // Reconstruct dailyActivity from completionDates if not already present
+        const completionDates = data.completionDates || {};
+        let dailyActivity = data.dailyActivity || [];
+        
+        if (Object.keys(completionDates).length > 0 && dailyActivity.length === 0) {
+          dailyActivity = reconstructDailyActivity(completionDates);
+        }
+
         dispatch({
           type: "LOADED",
           payload: {
             checks: data.checks || {},
-            completionDates: data.completionDates || {},
-            dailyActivity: data.dailyActivity || [],
+            completionDates,
+            dailyActivity,
           },
         });
 
         // Initialize snapshot with everything retrieved
         previousStateStr.current = JSON.stringify({
           checks: data.checks || {},
-          dailyActivity: data.dailyActivity || [],
+          dailyActivity,
         });
       } catch (err) {
         dispatch({ type: "ERROR", payload: err.message });
