@@ -17,10 +17,8 @@ export const MONTHS = [
 // Color intensity based on activity count (GitHub-style)
 // isMissedInStreak: true if this day breaks the current streak
 export const getColorClass = (count, isMissedInStreak = false) => {
-  // If missed day in active streak, show red
-  if (count === 0 && isMissedInStreak) return "bg-red-200 border-red-300";
-  // Regular no-activity days
-  if (count === 0) return "bg-gray-100 border-gray-200";
+  // All zero completion days show in dark red for high visibility
+  if (count === 0) return "bg-red-700 border-red-900";
   if (count === 1) return "bg-emerald-200 border-emerald-300";
   if (count <= 3) return "bg-emerald-400 border-emerald-500";
   if (count <= 6) return "bg-emerald-500 border-emerald-600";
@@ -28,8 +26,7 @@ export const getColorClass = (count, isMissedInStreak = false) => {
 };
 
 export const getLegendColors = () => [
-  { label: "Missed", class: "bg-red-200 border border-red-300" },
-  { label: "None", class: "bg-gray-100 border border-gray-200" },
+  { label: "None", class: "bg-red-700 border border-red-900" },
   { label: "1", class: "bg-emerald-200 border border-emerald-300" },
   { label: "2-3", class: "bg-emerald-400 border border-emerald-500" },
   { label: "4-6", class: "bg-emerald-500 border border-emerald-600" },
