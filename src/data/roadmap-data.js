@@ -1,4 +1,5 @@
 export const PHASES = [
+  //********************** ************ Phase 1 ************ ************ /
   {
     id: "p1",
     label: "Phase 1",
@@ -6,6 +7,8 @@ export const PHASES = [
     subtitle: "Weeks 1–4 · JS + TS + React",
     weeks: ["w1", "w2", "w3", "w4"],
   },
+
+  //********************** ************ phase 2 ************ ************ /
   {
     id: "p2",
     label: "Phase 2",
@@ -13,6 +16,8 @@ export const PHASES = [
     subtitle: "Weeks 5–8 · Next.js + MERN + Testing",
     weeks: ["w5", "w6", "w7", "w8"],
   },
+
+  //********************** ************ Phase 3 ************ ************ /
   {
     id: "p3",
     label: "Phase 3",
@@ -21,6 +26,7 @@ export const PHASES = [
     weeks: ["w9", "w10", "w11", "w12"],
   },
 
+  //********************** ************ Phase 4 ************ ************ /
   {
     id: "dsa",
     label: "Phase 4",
@@ -31,6 +37,7 @@ export const PHASES = [
 ];
 
 export const WEEKS = [
+  //********************** ************ WEEK 1 ************ ************ /
   {
     id: "w1",
     n: 1,
@@ -39,6 +46,8 @@ export const WEEKS = [
     milestone: "Answer basic JS / TS / React interview questions",
     outcome: "Typed React app with hooks deployed",
   },
+
+  //********************** ************ WEEK 2 ************ ************ /
   {
     id: "w2",
     n: 2,
@@ -47,6 +56,8 @@ export const WEEKS = [
     milestone: "Closures, event loop, generics, re-renders confident",
     outcome: "React dashboard with TanStack Query + Zustand",
   },
+
+  //********************** ************ WEEK 3 ************ ************ /
   {
     id: "w3",
     n: 3,
@@ -55,38 +66,54 @@ export const WEEKS = [
     milestone: "TanStack Query, Suspense, machine coding ready",
     outcome: "Production-grade React SaaS UI",
   },
+
+  //********************** ************ WEEK 4 ************ ************ /
   {
     id: "w4",
     n: 4,
     phase: "p1",
-    title: "React Projects + Interview Prep",
-    milestone: "Frontend interview ready — SD1 level",
-    outcome: "2 deployed portfolio projects",
+    title: "React — Machine Coding Engineering",
+    milestone: "Frontend interview ready — SDE-1 level",
+    outcome: "Production-ready component library & 12 optimized UI patterns",
   },
+
+  //********************** ************ WEEK 5 ************ ************ /
   {
     id: "w5",
     n: 5,
     phase: "p2",
-    title: "Next.js Fundamentals + App Router",
-    milestone: "SSR vs SSG vs ISR explained confidently",
-    outcome: "Next.js SaaS with auth + dashboard",
+    title: "Next.js Fundamentals to advance + App Router Architecture",
+    milestone:
+      "SSR, SSG, ISR, and PPR paradigms explained confidently at an architectural level",
+    outcome:
+      "Production-grade, highly cached Next.js SaaS UI with custom dashboards and edge auth",
   },
+
+  //********************** ************ WEEK 6 ************ ************ /
   {
     id: "w6",
     n: 6,
     phase: "p2",
-    title: "Next.js Advanced + Node.js + Express",
-    milestone: "Server Actions, REST API design, caching layers",
-    outcome: "Full-stack Next.js + Express API",
+    title: "Backend Core — Node.js Engine, Express & Database Architecture",
+    milestone:
+      "Event Loop mastery, advanced aggregation pipelines, and runtime query optimizations",
+    outcome:
+      "Production-ready Node.js + Express REST API backed by optimized MongoDB schemas",
   },
+
+  //********************** ************ WEEK 7 ************ ************ /
   {
     id: "w7",
     n: 7,
     phase: "p2",
-    title: "Backend — Auth, Redis, BullMQ, Security",
-    milestone: "JWT, Redis patterns, background jobs, RBAC",
-    outcome: "Production-grade API with auth + caching",
+    title:
+      "Backend Infra — Security, Token Cryptography, Distributed Caching & Async Workers",
+    milestone:
+      "JWT security protocols, sliding window rate limits, and event-driven background job queues",
+    outcome:
+      "Enterprise-grade, security-hardened API scaling with decoupled job workers and caching layouts",
   },
+  //********************** ************ WEEK 8 ************ ************ /
   {
     id: "w8",
     n: 8,
@@ -95,22 +122,32 @@ export const WEEKS = [
     milestone: "Testing pyramid, CI pipeline, Docker basics",
     outcome: "Full test suite + CI/CD + Docker Compose",
   },
+
+  //********************** ************ WEEK 9 ************ ************ /
   {
     id: "w9",
     n: 9,
     phase: "p3",
-    title: "AI — OpenAI + Vercel AI SDK + Streaming",
-    milestone: "Streaming chat, function calling, cost optimization",
-    outcome: "AI chat feature with streaming UI",
+    title: "AI Integration — OpenAI, Vercel AI SDK & Streaming Architecture",
+    milestone:
+      "Mastery of Server-Sent Events (SSE), type-safe structured outputs, and autonomous function-calling pipelines",
+    outcome:
+      "Production-grade generative AI chat companion with real-time UI streaming and adaptive cost controls",
   },
+
+  //********************** ************ WEEK 10 ************ ************ /
   {
     id: "w10",
     n: 10,
     phase: "p3",
-    title: "AI Advanced — RAG + Vector DBs + Agents",
-    milestone: "RAG pipeline, embeddings, agent design",
-    outcome: "Document Q&A app with citations",
+    title: "AI Advanced — RAG Architecture + Autonomous Agents",
+    milestone:
+      "Production RAG evaluation, semantic search tuning, and graph-based agent orchestration",
+    outcome:
+      "Enterprise Document Q&A workspace with context citations and tool-augmented agents",
   },
+
+  //********************** ************ WEEK 11 ************ ************ /
   {
     id: "w11",
     n: 11,
@@ -119,6 +156,8 @@ export const WEEKS = [
     milestone: "Deployment pipeline, AWS basics, observability",
     outcome: "SaaS on AWS EC2 with Sentry + monitoring",
   },
+
+  //********************** ************ WEEK 12 ************ ************ /
   {
     id: "w12",
     n: 12,
@@ -130,7 +169,9 @@ export const WEEKS = [
 ];
 
 export const MODULES = [
-  // ── WEEK 1 ──────────────────────────────────────────────────
+  //********************** ************ WEEK 1 ************ ************ /
+
+  //----JS basics -------
   {
     id: "m-js-basic",
     weekId: "w1",
@@ -210,6 +251,8 @@ export const MODULES = [
       },
     ],
   },
+
+  //----TS advance -------
   {
     id: "m-ts-basic",
     weekId: "w1",
@@ -284,6 +327,8 @@ export const MODULES = [
       },
     ],
   },
+
+  //----React Fundamentals -------
   {
     id: "m-react-basic",
     weekId: "w1",
@@ -368,7 +413,10 @@ export const MODULES = [
       },
     ],
   },
-  // ── WEEK 2 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 2 ************ ************ /
+
+  //----JS advance -------
   {
     id: "m-js-adv",
     weekId: "w2",
@@ -461,6 +509,7 @@ export const MODULES = [
       },
     ],
   },
+  //----TS advance -------
   {
     id: "m-ts-adv",
     weekId: "w2",
@@ -535,6 +584,7 @@ export const MODULES = [
       },
     ],
   },
+  //----React Intermediate -------
   {
     id: "m-react-mid",
     weekId: "w2",
@@ -614,486 +664,613 @@ export const MODULES = [
       },
     ],
   },
-  // ── WEEK 3 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 3 ************ ************ /
+
+  //----React Advance P-1 -------
   {
-    id: "m-react-adv",
+    id: "m-react-adv-1",
     weekId: "w3",
     tag: "React",
     level: "Advanced",
-    title: "React — Advanced",
+    title: "React Advanced (Part 1) — Architecture & Concurrent Performance",
     resources: [
       {
         label: "Jack Herrington",
-        note: "Fiber internals, concurrent React, advanced patterns",
+        note: "Fiber internals, concurrent React, and profiler deep-dives",
       },
       {
         label: "Fireship",
-        note: "React 18 concurrent features explained quickly",
+        note: "React 18/19 concurrent features explained quickly",
       },
       {
-        label: "Web Dev Simplified",
-        note: "Suspense + Error boundary patterns step by step",
+        label: "TkDodo's Blog",
+        note: "The definitive guide to TanStack Query architecture and caching",
       },
     ],
     topics: [
       {
-        id: "r-a-1",
-        text: "Fiber architecture — unit of work, render vs commit phase",
+        id: "r-a1-1",
+        text: "Fiber architecture — the unit of work, singly-linked fiber trees, and the cooperative scheduling work loop",
         interview: true,
       },
       {
-        id: "r-a-2",
-        text: "Reconciliation — diffing rules, keys, element type check",
+        id: "r-a1-2",
+        text: "Render vs Commit phase — side-effects isolation, double buffering strategy, and DOM mutations execution",
         interview: true,
       },
       {
-        id: "r-a-3",
-        text: "Automatic batching in React 18 — how it changed",
-        interview: false,
-      },
-      {
-        id: "r-a-4",
-        text: "useTransition — mark state update as non-urgent",
+        id: "r-a1-3",
+        text: "Reconciliation engine — O(n) diffing heuristic, rules of keys, element type checks, and component unmounting mechanics",
         interview: true,
       },
       {
-        id: "r-a-5",
-        text: "useDeferredValue — defer a value update",
-        interview: false,
-      },
-      {
-        id: "r-a-6",
-        text: "Compound components — Select+Option example with context",
-        interview: true,
-      },
-      { id: "r-a-7", text: "Render props pattern", interview: false },
-      {
-        id: "r-a-8",
-        text: "HOC — higher-order component pattern",
-        interview: false,
-      },
-      {
-        id: "r-a-9",
-        text: "Suspense boundaries — granular loading, prevent waterfalls",
+        id: "r-a1-4",
+        text: "The React Compiler — how automatic build-time memoization works, dependency array elimination, and code rules required to prevent compiler opt-out",
         interview: true,
       },
       {
-        id: "r-a-10",
-        text: "Error boundaries — react-error-boundary lib and patterns",
+        id: "r-a1-5",
+        text: "useTransition & useDeferredValue — prioritizing high-urgency user inputs over non-urgent expensive background UI updates",
         interview: true,
       },
       {
-        id: "r-a-11",
-        text: "React.lazy + dynamic import — component-level code splitting",
+        id: "r-a1-6",
+        text: "React 19 Actions API — managing async pending states natively via form action props, useActionState, and useFormStatus",
         interview: true,
       },
       {
-        id: "r-a-12",
-        text: "React DevTools Profiler — flamegraph, why-did-you-render",
+        id: "r-a1-7",
+        text: "TanStack Query Engine — query keys, state lifecycle (stale, fresh, fetching, inactive), and automatic garbage collection",
         interview: true,
       },
       {
-        id: "r-a-13",
-        text: "Accessibility: ARIA, focus trap, keyboard navigation",
+        id: "r-a1-8",
+        text: "TanStack Query Mutations — optimistic updates, cache invalidation strategies, and request deduplication flows",
+        interview: true,
+      },
+      {
+        id: "r-a1-9",
+        text: "React DevTools Profiler — reading flamegraphs, interaction tracking, and identifying commit phase performance bottlenecks",
+        interview: true,
+      },
+    ],
+  },
+
+  //----React Advance P-2 -------
+  {
+    id: "m-react-adv-2",
+    weekId: "w3",
+    tag: "React",
+    level: "Advanced",
+    title: "React Advanced (Part 2) — Design Patterns & Resilient Architecture",
+    resources: [
+      {
+        label: "Web Dev Simplified",
+        note: "Suspense + Error boundary patterns step by step",
+      },
+      {
+        label: "Frontend Masters",
+        note: "Advanced React Component Patterns (Compound, Controlled/Uncontrolled)",
+      },
+    ],
+    topics: [
+      {
+        id: "r-a2-1",
+        text: "Compound components — structural flexibility using React Context, explicit vs implicit child state sharing (Select/Option, Tabs)",
+        interview: true,
+      },
+      {
+        id: "r-a2-2",
+        text: "Control Props & State Reducer patterns — building highly customizable design system elements with external state overrides",
+        interview: true,
+      },
+      {
+        id: "r-a2-3",
+        text: "Global Client State Architecture — lightweight atomic state management via Zustand vs legacy Redux Toolkit/Context solutions",
+        interview: true,
+      },
+      {
+        id: "r-a2-4",
+        text: "React Server Components (RSC) — data fetching on the server, zero-bundle-size components, and defining the client-server serialization boundary ('use client' vs 'use server')",
+        interview: true,
+      },
+      {
+        id: "r-a2-5",
+        text: "The use() Hook — handling un-awaited promises and Context values conditionally inside loops or early returns",
+        interview: true,
+      },
+      {
+        id: "r-a2-6",
+        text: "Suspense & Streaming SSR — data-fetching orchestration, avoiding network waterfalls, and handling skeleton screen states",
+        interview: true,
+      },
+      {
+        id: "r-a2-7",
+        text: "Error Boundaries — catching runtime rendering crashes, react-error-boundary integration, fallbacks, and boundary-reset actions",
+        interview: true,
+      },
+      {
+        id: "r-a2-8",
+        text: "Code splitting at scale — React.lazy, dynamic import syntax, and route-level vs conditional-level boundary chunking",
+        interview: true,
+      },
+      {
+        id: "r-a2-9",
+        text: "Enterprise Accessibility & WAI-ARIA — managing dynamic focus traps, screen reader announcements, and keyboard navigation profiles",
         interview: false,
       },
     ],
   },
-  // ── WEEK 4 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 4 ************ ************ /
+  // --- PART 1: MACHINE CODING FUNDAMENTALS --- //
   {
-    id: "m-react-interview",
+    id: "m-react-mc-1",
     weekId: "w4",
     tag: "React",
     level: "Interview",
-    title: "React — Machine Coding + Interview Q&A",
+    title:
+      "React Machine Coding (Part 1) — UI Fundamentals & DOM Interactivity",
     resources: [
       {
         label: "Jack Herrington",
-        note: "Machine coding walkthroughs — real engineering depth",
+        note: "Machine coding walkthroughs — compound components and DOM state",
       },
       {
         label: "GreatFrontEnd",
-        note: "Practice problems + frontend system design guides",
-      },
-      {
-        label: "Codevolution",
-        note: "React interview Q&A playlist — comprehensive",
+        note: "Component practice problems and core interaction specs",
       },
     ],
     topics: [
       {
         id: "r-i-1",
-        text: "Build autocomplete — debounced input, dropdown, keyboard nav",
+        text: "Build accordion — animated transitions, full keyboard accessibility, single vs multi-open toggles, utilizing compound component design pattern",
         interview: true,
       },
       {
         id: "r-i-2",
-        text: "Build infinite scroll — IntersectionObserver + useInfiniteQuery",
+        text: "Build multi-select dropdown — internal text filtering/search input, managed check/uncheck token states, removable selection tags, click-outside-to-close event handling",
         interview: true,
       },
       {
         id: "r-i-3",
-        text: "Build accessible modal — focus trap, Escape key, aria-modal",
+        text: "Build star rating component — tracking interactive hover states vs actual selection states, supporting fraction/half stars, read-only display mode, custom configuration injecting SVG icons",
         interview: true,
       },
       {
         id: "r-i-4",
-        text: "Build accordion — animated, accessible, single/multi open",
-        interview: true,
-      },
-      {
-        id: "r-i-5",
-        text: "Build multi-select dropdown — search + check/uncheck + tags",
-        interview: true,
-      },
-      {
-        id: "r-i-6",
-        text: "Build data table — sortable columns, filter, pagination",
-        interview: true,
-      },
-      {
-        id: "r-i-7",
-        text: "Interview Q: What is reconciliation?",
-        interview: true,
-      },
-      {
-        id: "r-i-8",
-        text: "Interview Q: Rules of hooks and why they exist",
-        interview: true,
-      },
-      {
-        id: "r-i-9",
-        text: "Interview Q: When does a component re-render?",
-        interview: true,
-      },
-      {
-        id: "r-i-10",
-        text: "Interview Q: useMemo vs useCallback — difference",
-        interview: true,
-      },
-      {
-        id: "r-i-11",
-        text: "Interview Q: What is the virtual DOM?",
-        interview: true,
-      },
-      {
-        id: "r-i-12",
-        text: "Interview Q: Explain concurrent rendering in React 18",
+        text: "Build tabs component — dynamic panel switching, state-driven active markers, supporting vertical vs horizontal orientation, and automatic tab-key focus shifting",
         interview: true,
       },
     ],
   },
-  // ── WEEK 5 ──────────────────────────────────────────────────
+
+  // --- PART 2: MACHINE CODING INTERMEDIATE --- //
   {
-    id: "m-next-basic",
-    weekId: "w5",
-    tag: "Next.js",
-    level: "Beginner",
-    title: "Next.js — Fundamentals",
+    id: "m-react-mc-2",
+    weekId: "w4",
+    tag: "React",
+    level: "Interview",
+    title:
+      "React Machine Coding (Part 2) — Performance, Portals & Async UI Data",
     resources: [
       {
-        label: "Lee Robinson (Vercel)",
-        note: "App Router patterns — from the framework team itself",
+        label: "GreatFrontEnd",
+        note: "Frontend system design guidelines for autocomplete and infinite lists",
       },
       {
-        label: "ByteGrad",
-        note: "Practical App Router course — Server Actions + TS",
-      },
-      {
-        label: "Jack Herrington",
-        note: "RSC deep dives, caching series, performance",
-      },
-      {
-        label: "The Net Ninja",
-        note: "Next.js Tutorial playlist — structured beginner series",
+        label: "Codevolution",
+        note: "State optimization and async lifecycle management blueprints",
       },
     ],
     topics: [
       {
-        id: "n-b-1",
-        text: "File-based routing — folder = route segment",
+        id: "r-i-5",
+        text: "Build autocomplete — debounced network input execution, clientside cache map structure, dynamic result list layout, comprehensive keyboard navigation control (Arrow keys + Enter)",
+        interview: true,
+      },
+      {
+        id: "r-i-6",
+        text: "Build accessible modal — implementing programmatic focus trapping, Escape key event listener bindings, document body scroll locking mechanisms, aria-modal setup injected through React Portals",
+        interview: true,
+      },
+      {
+        id: "r-i-7",
+        text: "Build data table — sortable alpha/numeric columns, multi-field global filtering/search parsing, client-side pagination pagination calculation controls, useMemo optimization over large row arrays",
+        interview: true,
+      },
+      {
+        id: "r-i-8",
+        text: "Build infinite scroll — direct viewport tracking using IntersectionObserver API, handling dynamic asynchronous network image assets, building an isolated useInfiniteQuery-style custom state engine hook",
+        interview: true,
+      },
+    ],
+  },
+
+  // --- PART 3: MACHINE CODING ADVANCED --- //
+  {
+    id: "m-react-mc-3",
+    weekId: "w4",
+    tag: "React",
+    level: "Interview",
+    title:
+      "React Machine Coding (Part 3) — Advanced Data Flows & Complex Architectures",
+    resources: [
+      {
+        label: "Jack Herrington",
+        note: "Deep production engineering architectural challenges from scratch",
+      },
+    ],
+    topics: [
+      {
+        id: "r-i-9",
+        text: "Build global toast system — creating an out-of-component global notifier state machine (Zustand or Event Emitter/Pub-Sub model), programmatic auto-hide tracking timers, stacked dynamic positioning, and slide-in entry animations",
+        interview: true,
+      },
+      {
+        id: "r-i-10",
+        text: "Build nested file explorer — deep recursive directory folder mapping, building CRUD controls directly on UI nodes (create/rename/delete files/folders), syncing structure transformations to persistent local storage",
+        interview: true,
+      },
+      {
+        id: "r-i-11",
+        text: "Build Kanban board with Drag & Drop — using native HTML5 DnD interface or tracking custom MouseEvents, multi-column task/subtask status sorting, implementing optimistic UI mutation state rollbacks on mock server error failures",
+        interview: true,
+      },
+      {
+        id: "r-i-12",
+        text: "Build real-time data dashboard — handling persistent high-frequency webSocket stream pipelines, list windowing/virtualization rendering engine optimization for 10k+ continuous incoming items, useTransition integration preventing heavy filter recalculation UI freeze",
+        interview: true,
+      },
+    ],
+  },
+
+  //********************** ************ WEEK 5 ************ ************ /
+  // --- PART 1: NEXT.JS FUNDAMENTALS (HYBRID ARCHITECTURE & ASYNC LAYOUTS) --- //
+  {
+    id: "m-next-fund-1",
+    weekId: "w5",
+    tag: "Next.js",
+    level: "Beginner",
+    title:
+      "Next.js Fundamentals (Part 1) — Hybrid Architecture & Component Layouts",
+    resources: [
+      {
+        label: "The Net Ninja",
+        note: "Next.js App Router playlist — structured beginner fundamentals",
+      },
+      {
+        label: "Lee Robinson (Vercel)",
+        note: "Mastering the mental shift between Server and Client routing trees",
+      },
+    ],
+    topics: [
+      {
+        id: "n-f-1",
+        text: "File-based routing mechanics — folder hierarchies, nested segments, dynamic slots [id], catch-all workflows, and optional routing arrays",
         interview: false,
       },
       {
-        id: "n-b-2",
-        text: "layout.tsx, loading.tsx, error.tsx, not-found.tsx purpose",
+        id: "n-f-2",
+        text: "Special file conventions — hierarchical evaluation order and structural containment of layout.tsx, page.tsx, loading.tsx, error.tsx, and not-found.tsx",
         interview: true,
       },
       {
-        id: "n-b-3",
-        text: "Server Components vs Client Components — boundary rules",
+        id: "n-f-3",
+        text: "React Server Components (RSC) vs Client Components — defining serialization boundaries, asset import restrictions, and tree composition rules",
         interview: true,
       },
       {
-        id: "n-b-4",
-        text: "Async Server Components — await directly in component body",
+        id: "n-f-4",
+        text: "Modern Async Lifecycle Rules — adapting to asynchronous environments by explicitly awaiting component props like params and searchParams",
+        interview: true,
+      },
+    ],
+  },
+
+  // --- PART 2: NEXT.JS INTERMEDIATE (THE NEXT 15/16 CACHING & DATA LAYER) ---//
+  {
+    id: "m-next-int-2",
+    weekId: "w5",
+    tag: "Next.js",
+    level: "Intermediate",
+    title: "Next.js Intermediate (Part 2) — Caching Ecosystem & Server Actions",
+    resources: [
+      {
+        label: "ByteGrad",
+        note: "Practical App Router patterns — Server Actions + Explicit Data Flow",
+      },
+      {
+        label: "Jack Herrington",
+        note: "Navigating the Next.js 15/16 uncached-by-default architecture shifts",
+      },
+    ],
+    topics: [
+      {
+        id: "n-i-1",
+        text: "The Uncached-by-Default Shift — understanding why modern fetch requests and GET Route Handlers default to no-store to eliminate implicit caching bugs",
         interview: true,
       },
       {
-        id: "n-b-5",
-        text: "fetch cache options: force-cache vs no-store vs revalidate",
+        id: "n-i-2",
+        text: "Explicit Cache Control — configuring cache: 'force-cache', setting explicit interval revalidation timers, or using top-level route-segment overrides",
         interview: true,
       },
       {
-        id: "n-b-6",
-        text: "Four caching layers: request memo, data, full-route, router",
+        id: "n-i-3",
+        text: "Modern Cache Components Engine — enabling cacheComponents config in next.config.ts, using the native 'use cache' directive, and managing cacheLife parameters",
         interview: true,
       },
       {
-        id: "n-b-7",
-        text: "Server Actions — use server, form actions, revalidatePath",
+        id: "n-i-4",
+        text: "Core Rendering Paradigms — contrasting execution contexts of Server-Side Rendering (SSR), Static Site Generation (SSG), Incremental Static Regeneration (ISR via revalidatePath/Tag), and Partial Prerendering (PPR)",
         interview: true,
       },
       {
-        id: "n-b-8",
-        text: "useOptimistic — optimistic UI updates with Server Actions",
-        interview: false,
-      },
-      {
-        id: "n-b-9",
-        text: "ISR: revalidatePath, revalidateTag, on-demand revalidation",
+        id: "n-i-5",
+        text: "Server Actions Architecture — mutating database targets directly via inline 'use server' bindings, handling dynamic errors, and executing immediate path purging",
         interview: true,
       },
       {
-        id: "n-b-10",
-        text: "Auth.js v5 — providers, sessions, middleware route guard",
-        interview: false,
-      },
-      {
-        id: "n-b-11",
-        text: "Metadata API — generateMetadata, OG images, sitemap.ts",
-        interview: false,
-      },
-      {
-        id: "n-b-12",
-        text: "Middleware — auth redirect, i18n detection, edge runtime",
+        id: "n-i-6",
+        text: "Native Form UI Hooks — tracking action pipeline executions natively using React hooks like useActionState and useFormStatus without manual local states",
         interview: false,
       },
     ],
   },
-  // ── WEEK 6 ──────────────────────────────────────────────────
+
+  // --- PART 3: NEXT.JS ADVANCED (ENTERPRISE ROUTING, UX & PERFORMANCE) ---//
   {
-    id: "m-next-adv",
-    weekId: "w6",
+    id: "m-next-adv-3",
+    weekId: "w5",
     tag: "Next.js",
     level: "Advanced",
-    title: "Next.js — Advanced",
+    title:
+      "Next.js Advanced (Part 3) — Enterprise Architecture & Optimization Guards",
     resources: [
       {
         label: "Lee Robinson",
-        note: "Streaming, parallel routes, production tips",
-      },
-      {
-        label: "Jack Herrington",
-        note: "Next.js performance, caching deep dives",
+        note: "Streaming, parallel layouts, and real-world edge routing solutions",
       },
       {
         label: "Theo (t3.gg)",
-        note: "Architecture opinions, real product-level Next.js",
+        note: "Production architectures, security bounds, and deployment profiles",
       },
     ],
     topics: [
       {
         id: "n-a-1",
-        text: "Streaming with Suspense — progressive HTML flush to browser",
-        interview: false,
+        text: "HTML Streaming Architecture — splitting component paint weight via Suspense boundaries to flush raw HTML skeletons progressively down the wire",
+        interview: true,
       },
       {
         id: "n-a-2",
-        text: "Parallel routes — @folder convention, dashboard tab panels",
+        text: "Parallel Routes UI — organizing dashboard matrix slots with the @folder convention and mastering mandatory default.js fallback matching patterns",
         interview: false,
       },
       {
         id: "n-a-3",
-        text: "Intercepting routes — modal pattern with URL state",
+        text: "Intercepting Routing Contexts — capturing routing navigations to present overlays matching specific URL paths without replacing current client state",
         interview: false,
       },
       {
         id: "n-a-4",
-        text: "next/image — optimization, WebP, blur placeholder",
+        text: "Performance Asset Tuning — configuring next/image layout boundaries, addressing local IP authorization constraints, and embedding zero-layout-shift self-hosted typography via next/font",
         interview: false,
       },
       {
         id: "n-a-5",
-        text: "next/font — self-host fonts, eliminate FOUT",
-        interview: false,
+        text: "Edge-Authenticated Router Shields — deploying Auth.js v5 frameworks to isolate token payloads, execute cookie storage verification, and build cross-route interceptors in Edge Middleware",
+        interview: true,
       },
       {
         id: "n-a-6",
-        text: "Bundle analysis with @next/bundle-analyzer",
+        text: "Bundle Auditing & Compiler Performance — profiling distribution sizes via @next/bundle-analyzer and observing Turbopack compilation traces",
         interview: false,
-      },
-      {
-        id: "n-a-7",
-        text: "Interview Q: SSR vs SSG vs ISR vs CSR — when to choose each",
-        interview: true,
-      },
-      {
-        id: "n-a-8",
-        text: "Interview Q: Server Component vs Client Component decision",
-        interview: true,
-      },
-      {
-        id: "n-a-9",
-        text: "Interview Q: How does Next.js caching work end-to-end?",
-        interview: true,
       },
     ],
   },
+
+  //********************** ************ WEEK 6 ************ ************ /
+  // --- WEEK 6, PART 1: RUNTIME ARCHITECTURE & APPLICATION PIPELINES --- //
   {
-    id: "m-node-basic",
+    id: "m-node-core-1",
     weekId: "w6",
     tag: "Node.js",
     level: "Beginner",
-    title: "Node.js + Express — Fundamentals",
+    title: "Node.js Core (Part 1) — Runtime Architecture & Express Pipelines",
     resources: [
       {
         label: "Dave Gray",
-        note: "Node.js full series — most thorough on YouTube",
+        note: "Node.js full architectural series — exceptionally thorough execution",
       },
       {
         label: "Traversy Media",
-        note: "Node.js & Express Crash Course — fastest start",
+        note: "Node.js & Express HTTP lifecycle and middleware crash course",
+      },
+    ],
+    topics: [
+      {
+        id: "nd-b1-1",
+        text: "Node.js Event Loop architecture — diving deep into libuv, non-blocking asynchronous I/O execution, and the kernel thread pool worker limits",
+        interview: true,
       },
       {
+        id: "nd-b1-2",
+        text: "Phases of the Event Loop — explicitly tracing microtask execution priority across process.nextTick vs setImmediate vs setTimeout queues",
+        interview: true,
+      },
+      {
+        id: "nd-b1-3",
+        text: "Express framework mechanics — analyzing route-matching engines, the middleware execution chain, and the isolated req/res/next execution pipeline",
+        interview: false,
+      },
+      {
+        id: "nd-b1-4",
+        text: "Express centralized error handling — creating dedicated error-interception boundaries using the 4-argument signature (err, req, res, next)",
+        interview: true,
+      },
+      {
+        id: "nd-b1-5",
+        text: "Async controller error wrapper patterns — implementing un-caught promise catchers to cleanly eliminate try/catch blocks from router controllers",
+        interview: false,
+      },
+      {
+        id: "nd-b1-6",
+        text: "Declarative request payload validation — constructing reusable Express middleware abstractions using Zod schema parsing and structural type matching",
+        interview: false,
+      },
+    ],
+  },
+
+  // --- WEEK 6, PART 2: ADVANCED DATA LAYER & REST SYSTEM DESIGN --- //
+  {
+    id: "m-node-core-2",
+    weekId: "w6",
+    tag: "Node.js",
+    level: "Intermediate",
+    title: "Node.js Core (Part 2) — Database Modeling & Advanced Aggregations",
+    resources: [
+      {
         label: "Programming with Mosh",
-        note: "Node.js Tutorial for Beginners — clean intro",
+        note: "Clean backend API architecture and clean database mapping fundamentals",
       },
       {
         label: "MongoDB Official",
-        note: "Schema design talks — straight from the source",
+        note: "Schema design principles, performance implications, and anti-patterns directly from the core team",
       },
     ],
     topics: [
       {
-        id: "nd-b-1",
-        text: "Node.js event loop — libuv, non-blocking I/O, thread pool",
+        id: "nd-b2-1",
+        text: "Data modeling trade-offs — contrasting embedding documents vs referenced normalization models based on read/write operation ratios",
         interview: true,
       },
       {
-        id: "nd-b-2",
-        text: "process.nextTick vs setImmediate vs setTimeout order",
+        id: "nd-b2-2",
+        text: "Mongoose ODM architecture — utilizing model schemas, document virtual properties, pre/post save query hooks, and index definitions",
+        interview: false,
+      },
+      {
+        id: "nd-b2-3",
+        text: "Query execution optimization — unlocking higher memory performance using .lean() flags to bypass full Mongoose document hydration, and multi-collection .populate() steps",
         interview: true,
       },
       {
-        id: "nd-b-3",
-        text: "Express: routing, middleware chain, req/res/next pattern",
-        interview: false,
-      },
-      {
-        id: "nd-b-4",
-        text: "Error handling middleware — 4 arguments (err, req, res, next)",
+        id: "nd-b2-4",
+        text: "MongoDB aggregation pipelines — writing multi-stage data operations manipulating $match, $group, $project, and relational $lookup operations",
         interview: true,
       },
       {
-        id: "nd-b-5",
-        text: "Async error wrapper — avoid try/catch in every controller",
-        interview: false,
-      },
-      {
-        id: "nd-b-6",
-        text: "MongoDB: embedding vs referencing — trade-offs",
+        id: "nd-b2-5",
+        text: "Enterprise REST API blueprinting — formalizing resource naming conventions, semantic HTTP status codes, routing structures, and API path versioning",
         interview: true,
-      },
-      {
-        id: "nd-b-7",
-        text: "Mongoose: schema, virtuals, hooks, lean(), populate()",
-        interview: false,
-      },
-      {
-        id: "nd-b-8",
-        text: "Aggregation pipeline: $match, $group, $project, $lookup",
-        interview: false,
-      },
-      {
-        id: "nd-b-9",
-        text: "REST API design: resource naming, status codes, versioning",
-        interview: true,
-      },
-      {
-        id: "nd-b-10",
-        text: "Request validation with Zod middleware",
-        interview: false,
       },
     ],
   },
-  // ── WEEK 7 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 7 ************ ************ /
+  // --- WEEK 7, PART 1: PRODUCTION AUTHENTICATION & ACCESS CONTROLS ---//
   {
-    id: "m-node-adv",
+    id: "m-node-infra-1",
     weekId: "w7",
     tag: "Node.js",
     level: "Advanced",
-    title: "Node.js + Express — Advanced",
+    title:
+      "Backend Infrastructure (Part 1) — Production Authentication & Authorization Architecture",
     resources: [
       {
         label: "Dave Gray",
-        note: "JWT auth series + RBAC deep dive — best on YouTube",
+        note: "JWT authentication lifecycles and secure role-based access control (RBAC) implementations",
       },
-      { label: "Traversy Media", note: "MERN stack full projects with auth" },
       {
         label: "Academind",
-        note: "Node.js REST API + security patterns full course",
+        note: "Node.js REST API security profiles and secure cookie storage layouts",
       },
     ],
     topics: [
       {
-        id: "nd-a-1",
-        text: "JWT — header.payload.signature structure explained",
+        id: "nd-a1-1",
+        text: "JSON Web Tokens (JWT) internals — evaluating header.payload.signature compilation, state-less payload hazards, and verification protocols",
         interview: true,
       },
       {
-        id: "nd-a-2",
-        text: "Access token (15min) + refresh token (7d) rotation pattern",
+        id: "nd-a1-2",
+        text: "Token rotation security frameworks — implementing short-lived Access Tokens paired with sliding long-term Refresh Tokens managed via HTTP-Only cookies",
         interview: true,
       },
       {
-        id: "nd-a-3",
-        text: "bcrypt — hashing, salting rounds, timing attack prevention",
+        id: "nd-a1-3",
+        text: "Cryptographic credential protection — hashing user passwords using bcrypt, tuning cost/salting rounds, and designing protection routines against timing attacks",
         interview: true,
       },
       {
-        id: "nd-a-4",
-        text: "RBAC middleware — admin / user / guest role checks",
+        id: "nd-a1-4",
+        text: "Granular authorization middleware — building dynamic Role-Based Access Control (RBAC) validation loops protecting tiered endpoint structures",
+        interview: true,
+      },
+    ],
+  },
+
+  // --- WEEK 7, PART 2: SPEED, SCALING & SECURITY HARDENING --- //
+  {
+    id: "m-node-infra-2",
+    weekId: "w7",
+    tag: "Node.js",
+    level: "Advanced",
+    title:
+      "Backend Infrastructure (Part 2) — Distributed Memory, Message Queues & Security Hardening",
+    resources: [
+      {
+        label: "Traversy Media",
+        note: "Scaling backend layers with caching protocols and asset distribution strategies",
+      },
+      {
+        label: "Redis Official",
+        note: "Caching paradigms, real-time metrics storage, and memory optimization tactics",
+      },
+    ],
+    topics: [
+      {
+        id: "nd-a2-1",
+        text: "Redis primitives and mechanics — using strings, hashes, key Time-To-Live (TTL) expiration policies, and least-recently-used (LRU) memory eviction models",
         interview: true,
       },
       {
-        id: "nd-a-5",
-        text: "Redis: strings, hashes, TTL, eviction policies",
+        id: "nd-a2-2",
+        text: "Cache-Aside pattern implementation — orchestrating optimal database check-hits, handling cache-misses, fetching data payloads, and refreshing cache values",
         interview: true,
       },
       {
-        id: "nd-a-6",
-        text: "Cache-aside pattern — check cache → miss → fetch → store",
+        id: "nd-a2-3",
+        text: "Distributed API rate limiting — building traffic limit thresholds using a Redis sliding-window log counter middleware engine",
         interview: true,
       },
       {
-        id: "nd-a-7",
-        text: "Rate limiting — Redis sliding window counter implementation",
-        interview: true,
-      },
-      {
-        id: "nd-a-8",
-        text: "BullMQ: queue + worker, job lifecycle, retry strategies",
+        id: "nd-a2-4",
+        text: "Asynchronous job execution — separating expensive workloads (emails, media processing) using BullMQ queue producers, concurrent background workers, tracking lifecycles, and automatic retry back-offs",
         interview: false,
       },
       {
-        id: "nd-a-9",
-        text: "File uploads: Multer → Cloudinary / S3 presigned URLs",
+        id: "nd-a2-5",
+        text: "Cloud binary asset streaming — managing multi-part file uploads through local disk-bound Multer configurations vs cloud object streaming utilizing AWS S3 Pre-signed URLs",
         interview: false,
       },
       {
-        id: "nd-a-10",
-        text: "Helmet.js, CORS config, NoSQL injection, input sanitization",
+        id: "nd-a2-6",
+        text: "Security profile hardening — setting up cross-origin security arrays using Helmet.js, customizing CORS permissions, guarding against NoSQL injection vectors, and sterilizing user inputs",
         interview: false,
       },
       {
-        id: "nd-a-11",
-        text: "PM2 cluster mode — all CPU cores, zero-downtime reload",
+        id: "nd-a2-7",
+        text: "Production scaling optimization — utilizing PM2 cluster execution mode to split node traffic balances symmetrically across multiple host CPU cores with zero-downtime hot reloads",
         interview: false,
       },
     ],
   },
-  // ── WEEK 8 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 8 ************ ************ /
   {
     id: "m-testing",
     weekId: "w8",
@@ -1239,165 +1416,217 @@ export const MODULES = [
       },
     ],
   },
-  // ── WEEK 9 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 9 ************ ************ /
+  // --- WEEK 9, PART 1: CHAT COMPLETIONS, SSE STREAMING & BASE SDK HOOKS --- //
   {
-    id: "m-ai-basic",
+    id: "m-ai-core-1",
     weekId: "w9",
     tag: "AI",
     level: "Beginner",
-    title: "AI Integration — Fundamentals",
+    title: "AI Integration (Part 1) — LLM Runtime Mechanics & Streaming UIs",
     resources: [
       {
-        label: "Jack Herrington",
-        note: "Vercel AI SDK series — best for React/Next.js + AI",
+        label: "Vercel AI SDK Documentation",
+        note: "Official guide on core concepts, streamText, and framework-agnostic providers",
       },
-      { label: "Fireship", note: "OpenAI API intro + AI app build videos" },
       {
-        label: "Sam Witteveen",
-        note: "Function calling, embeddings, prompt engineering",
+        label: "Jack Herrington",
+        note: "Vercel AI SDK playlist — industry-standard Next.js App Router integration patterns",
       },
       {
         label: "DeepLearning.AI",
-        note: "Free short courses at learn.deeplearning.ai — start here",
+        note: "Prompt Engineering for Developers — foundational mechanics of system framing and temperature tuning",
       },
     ],
     topics: [
       {
-        id: "ai-b-1",
-        text: "OpenAI chat completions — models, roles, temperature, tokens",
+        id: "ai-b1-1",
+        text: "OpenAI Chat Completions engine — parsing model selection parameters, adjusting temperature/top_p variation scales, and defining stateful system/user/assistant roles",
         interview: false,
       },
       {
-        id: "ai-b-2",
-        text: "Token counting, cost calculation, model tiering (4o vs 4o-mini)",
+        id: "ai-b1-2",
+        text: "Token economy and cost modeling — managing prompt/completion token usage weights, calculating request pricing models, and understanding frontier vs utility cost tiering (e.g., gpt-4o vs gpt-4o-mini)",
         interview: true,
       },
       {
-        id: "ai-b-3",
-        text: "Streaming responses — SSE + ReadableStream in Next.js",
+        id: "ai-b1-3",
+        text: "Real-time streaming internals — building custom Server-Sent Events (SSE) pipelines utilizing native web ReadableStreams over HTTP network connections in Next.js",
         interview: true,
       },
       {
-        id: "ai-b-4",
-        text: "Vercel AI SDK: streamText, useChat, useCompletion hooks",
+        id: "ai-b1-4",
+        text: "Vercel AI SDK Core abstractions — migrating legacy endpoint logic to clean streamText wrappers backed by the standardized AI provider interface layer",
         interview: false,
       },
       {
-        id: "ai-b-5",
-        text: "Function calling — tool definitions, multi-step reasoning",
-        interview: true,
-      },
-      {
-        id: "ai-b-6",
-        text: "generateObject with Zod — structured type-safe LLM output",
+        id: "ai-b1-5",
+        text: "AI UI Hooks integration — managing automatic client-side message parsing, input state tracking, and error retry operations using useChat and useCompletion hooks",
         interview: false,
       },
       {
-        id: "ai-b-7",
-        text: "Prompt engineering: zero-shot, few-shot, chain-of-thought",
+        id: "ai-b1-6",
+        text: "Prompt engineering frameworks — designing scalable operational wrappers utilizing zero-shot contextual guidelines, few-shot structural examples, and chain-of-thought reasonings",
         interview: false,
       },
       {
-        id: "ai-b-8",
-        text: "Context window management — truncation and summarization",
-        interview: false,
-      },
-      {
-        id: "ai-b-9",
-        text: "Prompt injection risks and mitigations",
-        interview: true,
-      },
-      {
-        id: "ai-b-10",
-        text: "AI error handling — retry on 429, fallback on 5xx",
+        id: "ai-b1-7",
+        text: "Resilient AI network exception handling — implementing global middleware controllers handling 429 rate limits with exponential backoff and 5xx upstream fallback safety rules",
         interview: false,
       },
     ],
   },
-  // ── WEEK 10 ──────────────────────────────────────────────────
+
+  // --- WEEK 9, PART 2: STRUCTURED OUTPUTS, FUNCTION CALLING & RUNTIME GUARDS ---//
   {
-    id: "m-ai-adv",
-    weekId: "w10",
+    id: "m-ai-infra-2",
+    weekId: "w9",
     tag: "AI",
-    level: "Advanced",
-    title: "AI — RAG + Vector DBs + Agents",
+    level: "Intermediate",
+    title:
+      "AI Integration (Part 2) — Structured Generation, Function Tools & Agent Guards",
     resources: [
       {
         label: "Sam Witteveen",
-        note: "RAG pipeline construction, embeddings deep dive",
+        note: "Advanced LLM engineering — systematic tool execution loops, context boundaries, and agentic workflows",
       },
       {
-        label: "LangChain Official",
-        note: "LangGraph agents, RAG evaluation series",
-      },
-      {
-        label: "AI Jason",
-        note: "Practical agent construction + real project walkthroughs",
-      },
-      {
-        label: "Jack Herrington",
-        note: "RAG with Next.js — full implementation",
+        label: "Fireship",
+        note: "AI Tool Calling & Structured outputs explained through concise real-world software scenarios",
       },
     ],
     topics: [
       {
-        id: "ai-a-1",
-        text: "RAG: chunk → embed → store → retrieve → augment → generate",
-        interview: true,
-      },
-      {
-        id: "ai-a-2",
-        text: "Chunking: fixed-size vs sentence vs semantic strategies",
-        interview: true,
-      },
-      {
-        id: "ai-a-3",
-        text: "Embeddings with text-embedding-3-small",
+        id: "ai-b2-1",
+        text: "Type-safe structured generation — executing data extractions via generateObject or streamObject validated against schema frameworks like Zod to ensure guaranteed UI rendering shapes",
         interview: false,
       },
       {
-        id: "ai-a-4",
-        text: "Pinecone / Supabase pgvector — upsert, query, metadata filter",
-        interview: false,
-      },
-      {
-        id: "ai-a-5",
-        text: "Hybrid search — combine BM25 keyword + vector similarity",
-        interview: false,
-      },
-      {
-        id: "ai-a-6",
-        text: "Citation tracking — show source passages alongside answer",
-        interview: false,
-      },
-      {
-        id: "ai-a-7",
-        text: "ReAct agent: Reason → Act → Observe → Repeat loop",
+        id: "ai-b2-2",
+        text: "Autonomous tool execution (Function Calling) — declaring programmatic parameters, managing automated multi-step LLM execution loops, and piping backend data returns back to model contexts",
         interview: true,
       },
       {
-        id: "ai-a-8",
-        text: "Agent memory — short-term (conversation) vs long-term (DB)",
+        id: "ai-b2-3",
+        text: "Context window scaling — engineering proactive retention architectures including sliding messaging queues, token truncation loops, and asynchronous historical background conversation summarizations",
         interview: false,
       },
       {
-        id: "ai-a-9",
-        text: "Semantic caching with Redis — avoid redundant LLM calls",
+        id: "ai-b2-4",
+        text: "System vulnerability mitigation — securing model pipelines against prompt injection attacks, enforcing structural boundaries within system framing, and calling AI moderation layers to block malicious text payloads",
         interview: true,
       },
       {
-        id: "ai-a-10",
-        text: "Interview Q: Design a scalable AI chat system",
-        interview: true,
-      },
-      {
-        id: "ai-a-11",
-        text: "Interview Q: Walk through a RAG pipeline end-to-end",
+        id: "ai-b2-5",
+        text: "Generative UI patterns — leveraging advanced Vercel AI SDK tools to automatically render interactive client-side React UI components directly from structural model tool execution payloads",
         interview: true,
       },
     ],
   },
-  // ── WEEK 11 ──────────────────────────────────────────────────
+
+  //********************** ************ WEEK 10 ************ ************ /
+  // --- WEEK 10, PART 1: RAG ARCHITECTURE & VECTOR RETRIEVAL NETWORKS ---//
+
+  {
+    id: "m-ai-adv-1",
+    weekId: "w10",
+    tag: "AI",
+    level: "Advanced",
+    title:
+      "AI Advanced (Part 1) — Retrieval-Augmented Generation & Vector Infrastructure",
+    resources: [
+      {
+        label: "Sam Witteveen",
+        note: "Deep-dive tutorials on ingestion parsing, chunking math, and hybrid vector indexing",
+      },
+      {
+        label: "Jack Herrington",
+        note: "Building enterprise RAG features in Next.js using Vercel AI SDK and vector stores",
+      },
+    ],
+    topics: [
+      {
+        id: "ai-a1-1",
+        text: "The E2E RAG engineering lifecycle — mapping the pipeline from chunking data → computing embeddings → vector ingestion → vector search → prompt augmentation → generation",
+        interview: true,
+      },
+      {
+        id: "ai-a1-2",
+        text: "Advanced document partitioning strategies — comparing character-count fixed-size, recursive paragraph, token-bound sentence, and modern embedding-driven semantic chunking",
+        interview: true,
+      },
+      {
+        id: "ai-a1-3",
+        text: "Vector calculation topologies — tokenizing textual metadata payloads using standard open-weights or frontier models like text-embedding-3-small",
+        interview: false,
+      },
+      {
+        id: "ai-a1-4",
+        text: "Vector storage operations — orchestration of payload upserts, cosine similarity queries, and hard meta-filtering constraints within Pinecone and Supabase pgvector database engines",
+        interview: false,
+      },
+      {
+        id: "ai-a1-5",
+        text: "Hybrid search infrastructure — combining lexical BM25 token-matching indexes with dense semantic vector searches, and merging rankings via Reciprocal Rank Fusion (RRF)",
+        interview: true,
+      },
+      {
+        id: "ai-a1-6",
+        text: "Source citation tracking architecture — maintaining relational source context maps down the LLM generation wire to render explicit UI highlighting for referenced source passages",
+        interview: false,
+      },
+    ],
+  },
+
+  // --- WEEK 10, PART 2: AUTONOMOUS AGENTS, SYSTEM MEMORY & ENTERPRISE SCALING --- //
+  {
+    id: "m-ai-adv-2",
+    weekId: "w10",
+    tag: "AI",
+    level: "Advanced",
+    title:
+      "AI Advanced (Part 2) — Autonomous Agent Design & Enterprise System Engineering",
+    resources: [
+      {
+        label: "LangChain Official",
+        note: "LangGraph architectural courses — building stateful, multi-agent execution graphs with explicit memory boundaries",
+      },
+      {
+        label: "AI Jason",
+        note: "Production-grade agent frameworks, multi-tool orchestration, and real-world project debugging",
+      },
+    ],
+    topics: [
+      {
+        id: "ai-a2-1",
+        text: "The ReAct agent loop framework — engineering programmatic Reason → Act → Observe → Repeat state execution machines utilizing specialized model prompts",
+        interview: true,
+      },
+      {
+        id: "ai-a2-2",
+        text: "Stateful agent memory hierarchies — designing sliding short-term transactional contexts vs long-term external persistent storage entities",
+        interview: false,
+      },
+      {
+        id: "ai-a2-3",
+        text: "Distributed semantic performance layer — intercepting incoming prompt payloads via Redis caching layers using embedding vector distance checks to serve instant cached matches",
+        interview: true,
+      },
+      {
+        id: "ai-a2-4",
+        text: "AI System Design: Scalability — planning infrastructure limits for large concurrent streaming chat platforms, incorporating event queues, load balancers, and vector index replication",
+        interview: true,
+      },
+      {
+        id: "ai-a2-5",
+        text: "AI System Design: Evaluation — measuring execution latency benchmarks, prompt processing accuracy margins, retrieval precision metrics, and mitigating hallucination states in enterprise pipelines",
+        interview: true,
+      },
+    ],
+  },
+
+  //********************** ************ WEEK 11 ************ ************ /
   {
     id: "m-devops",
     weekId: "w11",
@@ -1473,7 +1702,7 @@ export const MODULES = [
     ],
   },
 
-  // ── WEEK 12 ──────────────────────────────────────────────────
+  //********************** ************ WEEK 12 ************ ************ /
   {
     id: "m-system-design",
     weekId: "w12",
