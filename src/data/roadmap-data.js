@@ -1796,420 +1796,403 @@ export const DSA = [
   {
     id: "dsa-1",
     week: "W1",
-    title: "Arrays & Hashing",
+    title: "Complexity, Foundations & Spatial Visualization",
     level: "Beginner",
-    pattern: "Lookup optimization · Prefix sums · Frequency maps",
-
+    pattern: "Physical mental models · Growth rates · Memory layouts",
     topics: [
       {
         id: "dsa-1-1",
-        text: "Array traversal patterns",
+        text: "Time & Space Complexity: Visualizing growth rates",
         diff: "Easy",
       },
       {
         id: "dsa-1-2",
-        text: "HashMap frequency counting",
+        text: "Big O, Omega, and Theta formal intuition",
         diff: "Easy",
       },
       {
         id: "dsa-1-3",
-        text: "Prefix sum technique",
-        diff: "Medium",
+        text: "Contiguous vs Non-contiguous memory structures",
+        diff: "Easy",
       },
       {
         id: "dsa-1-4",
-        text: "Sliding window basics",
-        diff: "Medium",
+        text: "Iterative loop analysis & state space visualization",
+        diff: "Easy",
       },
       {
         id: "dsa-1-5",
-        text: "Kadane’s Algorithm",
-        diff: "Medium",
-      },
-      {
-        id: "dsa-1-6",
-        text: "Two pointer optimization",
+        text: "Amortized time complexity analysis",
         diff: "Medium",
       },
     ],
   },
-
   {
     id: "dsa-2",
     week: "W2",
-    title: "Stack, Queue & Linked Lists",
+    title: "Linear Exploration: Arrays, Strings & Hashing",
     level: "Beginner",
-    pattern: "Monotonic stack · Pointer manipulation",
-
+    pattern: "Two pointers · Sliding windows · Accumulators",
     topics: [
       {
         id: "dsa-2-1",
-        text: "Stack implementation",
+        text: "Prefix Sums: Pre-computing continuous ranges",
         diff: "Easy",
       },
       {
         id: "dsa-2-2",
-        text: "Queue & deque concepts",
+        text: "Two-Pointer Strategy: Squeezing and scanning bounds",
         diff: "Easy",
       },
       {
         id: "dsa-2-3",
-        text: "Fast & slow pointer technique",
+        text: "Sliding Window (Fixed vs Variable size tracking)",
         diff: "Medium",
       },
       {
         id: "dsa-2-4",
-        text: "Linked list reversal",
+        text: "Frequency Arrays vs HashMaps under the hood",
         diff: "Easy",
       },
       {
         id: "dsa-2-5",
-        text: "Cycle detection",
+        text: "Kadane's Algorithm: Visualizing maximum subarrays",
         diff: "Medium",
       },
       {
         id: "dsa-2-6",
-        text: "Monotonic stack problems",
+        text: "Boyer-Moore Majority Vote Algorithm",
         diff: "Medium",
       },
     ],
   },
-
   {
     id: "dsa-3",
     week: "W3",
-    title: "Binary Search & Trees",
-    level: "Intermediate",
-    pattern: "DFS · BFS · Divide & conquer",
-
+    title: "Restricted Access: Stacks, Queues & Matrices",
+    level: "Beginner",
+    pattern: "LIFO/FIFO constraints · Monotonic constraints · Grid navigation",
     topics: [
       {
         id: "dsa-3-1",
-        text: "Binary search template",
+        text: "Stack simulation and expression parsing",
         diff: "Easy",
       },
       {
         id: "dsa-3-2",
-        text: "Search space reduction",
+        text: "Queue & Deque: Visualizing sliding window maxes",
         diff: "Medium",
       },
       {
         id: "dsa-3-3",
-        text: "DFS traversals",
-        diff: "Easy",
+        text: "Monotonic Stack: Finding the next greater/smaller element",
+        diff: "Medium",
       },
       {
         id: "dsa-3-4",
-        text: "BFS level order traversal",
-        diff: "Medium",
+        text: "Matrix Traversal: Row-major, column-major, spiral bounds",
+        diff: "Easy",
       },
       {
         id: "dsa-3-5",
-        text: "Binary Search Trees",
-        diff: "Medium",
-      },
-      {
-        id: "dsa-3-6",
-        text: "Lowest Common Ancestor",
-        diff: "Hard",
+        text: "Flood Fill and matrix boundary scanning",
+        diff: "Easy",
       },
     ],
   },
-
   {
     id: "dsa-4",
     week: "W4",
-    title: "Graphs & Backtracking",
-    level: "Intermediate",
-    pattern: "DFS/BFS graph traversal · State space exploration",
-
+    title: "Node-Link Interconnection: Linked Lists & Pointers",
+    level: "Beginner",
+    pattern: "Structural rewiring · Fast/Slow pointer decoupling",
     topics: [
       {
         id: "dsa-4-1",
-        text: "Graph representations",
+        text: "Linked list structural mechanics & pointer mutations",
         diff: "Easy",
       },
       {
         id: "dsa-4-2",
-        text: "DFS on graphs",
-        diff: "Medium",
+        text: "In-place Reversal: Step-by-step wire reconfiguration",
+        diff: "Easy",
       },
       {
         id: "dsa-4-3",
-        text: "BFS shortest path",
+        text: "Floyd's Tortoise and Hare Cycle Detection",
         diff: "Medium",
       },
       {
         id: "dsa-4-4",
-        text: "Topological sorting",
-        diff: "Hard",
+        text: "Interleaving, merging, and partitioning lists",
+        diff: "Medium",
       },
       {
         id: "dsa-4-5",
-        text: "Backtracking template",
-        diff: "Medium",
-      },
-      {
-        id: "dsa-4-6",
-        text: "Subset & permutation generation",
-        diff: "Medium",
+        text: "Sentinel nodes and boundary simplification",
+        diff: "Easy",
       },
     ],
   },
-
   {
     id: "dsa-5",
     week: "W5",
-    title: "Dynamic Programming I",
+    title: "Divide & Conquer, Recursion & Backtracking",
     level: "Intermediate",
-    pattern: "Memoization · Tabulation",
-
+    pattern: "Decision trees · Execution stacks · Search space pruning",
     topics: [
       {
         id: "dsa-5-1",
-        text: "1D DP fundamentals",
+        text: "The Execution Stack: Visualizing recursive frames",
         diff: "Easy",
       },
       {
         id: "dsa-5-2",
-        text: "Memoization recursion",
-        diff: "Medium",
+        text: "Binary Search Template: Search space elimination",
+        diff: "Easy",
       },
       {
         id: "dsa-5-3",
-        text: "Bottom-up DP",
+        text: "Merge Sort & Quick Sort: Partitioning paradigms",
         diff: "Medium",
       },
       {
         id: "dsa-5-4",
-        text: "Knapsack-style problems",
-        diff: "Hard",
+        text: "Backtracking Core: State space decision trees",
+        diff: "Medium",
       },
       {
         id: "dsa-5-5",
-        text: "Coin change pattern",
-        diff: "Medium",
+        text: "Subsets, Permutations & Pruning invalid branches",
+        diff: "Hard",
       },
     ],
   },
-
   {
     id: "dsa-6",
     week: "W6",
-    title: "Dynamic Programming II",
-    level: "Advanced",
-    pattern: "State transitions · 2D DP",
-
+    title: "Hierarchical Networks: Trees & Priority Queues",
+    level: "Intermediate",
+    pattern: "Branching execution · Balancing metrics · Bubble-up/Sift-down",
     topics: [
       {
         id: "dsa-6-1",
-        text: "2D DP grids",
-        diff: "Medium",
+        text: "Tree Traversals (DFS: Pre/In/Post-order intuition)",
+        diff: "Easy",
       },
       {
         id: "dsa-6-2",
-        text: "Longest Common Subsequence",
-        diff: "Hard",
-      },
-      {
-        id: "dsa-6-3",
-        text: "Palindrome DP",
-        diff: "Hard",
-      },
-      {
-        id: "dsa-6-4",
-        text: "State machine DP",
-        diff: "Hard",
-      },
-    ],
-  },
-
-  {
-    id: "dsa-7",
-    week: "W7",
-    title: "Greedy, Heaps & Intervals",
-    level: "Advanced",
-    pattern: "Priority queues · Greedy choice",
-
-    topics: [
-      {
-        id: "dsa-7-1",
-        text: "Heap fundamentals",
+        text: "Level-Order Traversal (BFS: Queue layer processing)",
         diff: "Medium",
       },
       {
+        id: "dsa-6-3",
+        text: "Binary Search Tree properties and validation",
+        diff: "Medium",
+      },
+      {
+        id: "dsa-6-4",
+        text: "Lowest Common Ancestor (LCA) convergence",
+        diff: "Medium",
+      },
+      {
+        id: "dsa-6-5",
+        text: "Binary Heaps: Visualizing array-backed priority queues",
+        diff: "Medium",
+      },
+    ],
+  },
+  {
+    id: "dsa-7",
+    week: "W7",
+    title: "Network Interconnection: Graph Fundamentals",
+    level: "Intermediate",
+    pattern: "Adjacency mappings · State propagation · Layer exploration",
+    topics: [
+      {
+        id: "dsa-7-1",
+        text: "Graph Representations: Tradeoffs of lists vs matrices",
+        diff: "Easy",
+      },
+      {
         id: "dsa-7-2",
-        text: "Top K problems",
+        text: "Graph DFS: Exploring paths, marking states",
         diff: "Medium",
       },
       {
         id: "dsa-7-3",
-        text: "Greedy strategy design",
-        diff: "Hard",
+        text: "Graph BFS: Discovering unweighted shortest paths",
+        diff: "Medium",
       },
       {
         id: "dsa-7-4",
-        text: "Interval merge patterns",
+        text: "Cycle detection in directed & undirected systems",
         diff: "Medium",
       },
       {
         id: "dsa-7-5",
-        text: "Scheduling problems",
+        text: "Topological Sort: Kahn's Algorithm & DFS approach",
         diff: "Hard",
       },
     ],
   },
-
   {
     id: "dsa-8",
     week: "W8",
-    title: "Tries & Advanced Structures",
+    title: "Advanced Networks: Shortest Paths & Connectivity",
     level: "Advanced",
-    pattern: "Efficient lookup structures",
-
+    pattern: "Path relaxation · Set consolidation · Greedy graph expansion",
     topics: [
       {
         id: "dsa-8-1",
-        text: "Trie insert/search",
+        text: "Dijkstra's Algorithm: Single-source shortest path",
         diff: "Medium",
       },
       {
         id: "dsa-8-2",
-        text: "LRU cache design",
+        text: "Bellman-Ford Algorithm & Negative cycle capturing",
         diff: "Hard",
       },
       {
         id: "dsa-8-3",
-        text: "Union Find / DSU",
+        text: "Kruskal's & Prim's Minimum Spanning Tree (MST)",
         diff: "Hard",
       },
       {
         id: "dsa-8-4",
-        text: "Segment tree basics",
+        text: "Disjoint Set Union (DSU): Path compression & Rank",
         diff: "Hard",
       },
     ],
   },
-
   {
     id: "dsa-9",
     week: "W9",
-    title: "Bit Manipulation",
+    title: "Dynamic Programming I: Linear & Choice Patterns",
     level: "Advanced",
-    pattern: "Binary optimization",
-
+    pattern:
+      "Subproblem dependency · Memoization tables · Tabulation directional flow",
     topics: [
       {
         id: "dsa-9-1",
-        text: "Bitwise operators",
+        text: "Identifying Overlapping Subproblems & Optimal Substructure",
         diff: "Easy",
       },
       {
         id: "dsa-9-2",
-        text: "XOR tricks",
+        text: "Top-Down Memoization vs Bottom-Up Tabulation state flow",
         diff: "Medium",
       },
       {
         id: "dsa-9-3",
-        text: "Bitmasking",
-        diff: "Hard",
+        text: "1D DP: Climbing stairs & House robber pattern",
+        diff: "Medium",
       },
       {
         id: "dsa-9-4",
-        text: "Bitmask DP",
+        text: "0/1 Knapsack Framework: Item selection/rejection",
         diff: "Hard",
+      },
+      {
+        id: "dsa-9-5",
+        text: "Unbounded Knapsack & Coin Change variation",
+        diff: "Medium",
       },
     ],
   },
-
   {
     id: "dsa-10",
     week: "W10",
-    title: "System Design Foundations",
+    title: "Dynamic Programming II: Structural Patterns",
     level: "Advanced",
-    pattern: "Scalability · Tradeoffs",
-
+    pattern: "Coordinate intersections · Multi-dimensional state tracking",
     topics: [
       {
         id: "dsa-10-1",
-        text: "Caching strategies",
+        text: "Grid DP: Minimum path sums and obstacle handling",
         diff: "Medium",
       },
       {
         id: "dsa-10-2",
-        text: "Load balancing",
-        diff: "Medium",
+        text: "Longest Common Subsequence (LCS) matrix alignment",
+        diff: "Hard",
       },
       {
         id: "dsa-10-3",
-        text: "Rate limiting",
+        text: "Edit Distance string transformation matrix",
         diff: "Hard",
       },
       {
         id: "dsa-10-4",
-        text: "Database sharding",
+        text: "Interval DP basics: Matrix chain multiplication core",
         diff: "Hard",
       },
     ],
   },
-
   {
     id: "dsa-11",
     week: "W11",
-    title: "High Level System Design",
-    level: "Expert",
-    pattern: "Distributed systems",
-
+    title: "Greedy Choices & Specialized Text/Range Structs",
+    level: "Advanced",
+    pattern: "Local optimization · Prefix tries · Interval sorting",
     topics: [
       {
         id: "dsa-11-1",
-        text: "CAP theorem",
-        diff: "Hard",
+        text: "The Greedy Choice Property: Local optimal to global optimal",
+        diff: "Medium",
       },
       {
         id: "dsa-11-2",
-        text: "Message queues",
-        diff: "Hard",
+        text: "Interval Scheduling & Overlapping interval merge loops",
+        diff: "Medium",
       },
       {
         id: "dsa-11-3",
-        text: "Distributed caching",
-        diff: "Hard",
+        text: "Tries (Prefix Trees): Character path state machines",
+        diff: "Medium",
       },
       {
         id: "dsa-11-4",
-        text: "Designing scalable APIs",
+        text: "Segment Trees: Visualizing range query segment partitions",
+        diff: "Expert",
+      },
+      {
+        id: "dsa-11-5",
+        text: "LRU Cache Architecture: Combining maps and lists",
         diff: "Hard",
       },
     ],
   },
-
   {
     id: "dsa-12",
     week: "W12",
-    title: "Interview Mastery & Revision",
+    title: "Bitwise Manipulations, Math & Abstract Mastery",
     level: "Expert",
-    pattern: "Speed · Pattern recognition · Mock rounds",
-
+    pattern: "Binary masks · Modular arithmetic · Generalizing templates",
     topics: [
       {
         id: "dsa-12-1",
-        text: "Blind 75 revision",
-        diff: "Mixed",
+        text: "Bitwise Operators & Hardware-level processing mental models",
+        diff: "Easy",
       },
       {
         id: "dsa-12-2",
-        text: "NeetCode 150 revision",
-        diff: "Mixed",
+        text: "XOR cancellations and properties",
+        diff: "Medium",
       },
       {
         id: "dsa-12-3",
-        text: "Timed mock interviews",
+        text: "Bitmasking and Bitmask DP foundations",
         diff: "Hard",
       },
       {
         id: "dsa-12-4",
-        text: "Pattern recognition drills",
+        text: "Sieve of Eratosthenes & Greatest Common Divisor (Euclid)",
+        diff: "Medium",
+      },
+      {
+        id: "dsa-12-5",
+        text: "The Framework: Decoding unseen problems into mental models",
         diff: "Hard",
       },
     ],
