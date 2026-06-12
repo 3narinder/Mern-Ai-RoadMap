@@ -4,6 +4,7 @@ import {
   PHASE_BADGE,
   PHASE_BORDER,
   PHASES,
+  ReactNativeRoadmap,
   WEEKS,
 } from "./data/roadmap-data";
 import { useState } from "react";
@@ -113,6 +114,14 @@ const RoadmapApp = () => {
           <div className="space-y-3">
             {DSA.map((dsa) => (
               <DSACard key={dsa.id} dsa={dsa} checks={checks} toggle={toggle} />
+            ))}
+          </div>
+        )}
+
+        {phase === "react_native" && (
+          <div className="space-y-3">
+            {ReactNativeRoadmap.map((rn) => (
+              <DSACard key={rn.id} dsa={rn} checks={checks} toggle={toggle} />
             ))}
           </div>
         )}

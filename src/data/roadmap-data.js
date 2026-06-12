@@ -34,6 +34,14 @@ export const PHASES = [
     subtitle: "Weeks 1–12 · Data Structures and Algorithms",
     weeks: [],
   },
+
+  {
+    id: "react_native",
+    label: "Phase 5",
+    title: "React Native 12 weeks",
+    subtitle: "Weeks 1–12 · React native beginners to Advance",
+    weeks: [],
+  },
 ];
 
 export const WEEKS = [
@@ -2199,6 +2207,350 @@ export const DSA = [
   },
 ];
 
+export const ReactNativeRoadmap = [
+  {
+    id: "rn-1",
+    week: "W1",
+    title: "Foundations, Setup & Architecture Mental Models",
+    level: "Beginner",
+    pattern:
+      "Expo ecosystem · Metro Bundler · New Architecture (Fabric/TurboModules)",
+    topics: [
+      {
+        id: "rn-1-1",
+        text: "Expo Core vs Bare Workflow: Understanding managed development",
+        diff: "Easy",
+      },
+      {
+        id: "rn-1-2",
+        text: "Setting up Expo Go, development builds, and the Metro bundler pipeline",
+        diff: "Easy",
+      },
+      {
+        id: "rn-1-3",
+        text: "The React Native Threading Model: JS Thread, UI Thread, and Background Thread",
+        diff: "Medium",
+      },
+      {
+        id: "rn-1-4",
+        text: "React Native under the hood: The Bridge vs the New Architecture (JSI, Fabric, TurboModules)",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-2",
+    week: "W2",
+    title: "Structural Layouts: Core Components & Flexbox Engine",
+    level: "Beginner",
+    pattern: "Yoga layout engine · View-Text containment · Viewport adaptivity",
+    topics: [
+      {
+        id: "rn-2-1",
+        text: "Core Native Components: View, Text, Image, ScrollView, and Pressable",
+        diff: "Easy",
+      },
+      {
+        id: "rn-2-2",
+        text: "Flexbox in React Native: Cross-platform differences (defaults, column orientation)",
+        diff: "Easy",
+      },
+      {
+        id: "rn-2-3",
+        text: "Handling Viewport boundaries: SafeAreaView, Dimensions API, and useWindowDimensions",
+        diff: "Easy",
+      },
+      {
+        id: "rn-2-4",
+        text: "Platform-Specific Code: Platform split modules (.ios.js / .android.js) and Platform.select",
+        diff: "Medium",
+      },
+    ],
+  },
+  {
+    id: "rn-3",
+    week: "W3",
+    title: "Efficient Lists & User Input Systems",
+    level: "Beginner",
+    pattern: "Memory recycling · Virtualized lists · Keyboarding view bounds",
+    topics: [
+      {
+        id: "rn-3-1",
+        text: "FlatList Optimization: Key extractors, initialNumToRender, and windowSize",
+        diff: "Medium",
+      },
+      {
+        id: "rn-3-2",
+        text: "SectionList: Grouping heterogeneous dataset views with sticky headers",
+        diff: "Medium",
+      },
+      {
+        id: "rn-3-3",
+        text: "Handling Form Inputs: TextInput states, secureTextEntry, and placeholder syncing",
+        diff: "Easy",
+      },
+      {
+        id: "rn-3-4",
+        text: "The Keyboard Problem: KeyboardAvoidingView, ScrollView interactions, and Keyboard dismissals",
+        diff: "Medium",
+      },
+    ],
+  },
+  {
+    id: "rn-4",
+    week: "W4",
+    title: "Navigation Architecture & Multi-Screen Routing",
+    level: "Beginner",
+    pattern: "Navigation stacks · Tab/Drawer hierarchies · Shared deep linking",
+    topics: [
+      {
+        id: "rn-4-1",
+        text: "Expo Router vs React Navigation: File-based routing under the hood",
+        diff: "Easy",
+      },
+      {
+        id: "rn-4-2",
+        text: "Stack Navigation: Screen pushing, popping, and route parameter transitions",
+        diff: "Easy",
+      },
+      {
+        id: "rn-4-3",
+        text: "Tab & Drawer Navigators: Creating seamless compound modern layouts",
+        diff: "Medium",
+      },
+      {
+        id: "rn-4-4",
+        text: "Deep Linking configuration: Mapping URLs to deep nested screens natively",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-5",
+    week: "W5",
+    title: "Data Hydration: Async Networking & Offline Caching",
+    level: "Intermediate",
+    pattern: "Cache-first fetch · Revalidation states · Axios interceptors",
+    topics: [
+      {
+        id: "rn-5-1",
+        text: "Network integration via Fetch/Axios and managing global interceptor rules",
+        diff: "Easy",
+      },
+      {
+        id: "rn-5-2",
+        text: "React Query (TanStack Query) for mobile: Cache invalidation and background loading",
+        diff: "Medium",
+      },
+      {
+        id: "rn-5-3",
+        text: "Handling unstable connection states: NetInfo API network event listeners",
+        diff: "Easy",
+      },
+      {
+        id: "rn-5-4",
+        text: "Optimistic UI updates for high-performance cross-platform applications",
+        diff: "Medium",
+      },
+    ],
+  },
+  {
+    id: "rn-6",
+    week: "W6",
+    title: "Hardware Integration: Camera, Location & Storage",
+    level: "Intermediate",
+    pattern:
+      "Native permissions · Async hardware streaming · Persistent disk storage",
+    topics: [
+      {
+        id: "rn-6-1",
+        text: "The Async Storage Framework: Local key-value disk serialization",
+        diff: "Easy",
+      },
+      {
+        id: "rn-6-2",
+        text: "Expo Permissions API: Requesting system-level camera, photos, and location permissions",
+        diff: "Easy",
+      },
+      {
+        id: "rn-6-3",
+        text: "Expo Camera implementation: Capturing assets, handling resolutions, and flashbacks",
+        diff: "Medium",
+      },
+      {
+        id: "rn-6-4",
+        text: "Location Tracking: Foreground vs Background GPS geolocation listeners",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-7",
+    week: "W7",
+    title: "Fluid Interfaces: Gestures & Micro-Animations",
+    level: "Intermediate",
+    pattern:
+      "Declarative UI layout nodes · Interpolation maps · Continuous gestures",
+    topics: [
+      {
+        id: "rn-7-1",
+        text: "React Native Animated API: Value instances, timing interpolation, and springs",
+        diff: "Medium",
+      },
+      {
+        id: "rn-7-2",
+        text: "The Native Driver: Offloading animation interpolation frames to the UI thread",
+        diff: "Medium",
+      },
+      {
+        id: "rn-7-3",
+        text: "React Native Reanimated: Worklets, shared values, and high-performance UI threads",
+        diff: "Hard",
+      },
+      {
+        id: "rn-7-4",
+        text: "Gesture Handler (RNGH): Pan, Pinch, and Tap interactions matching native response profiles",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-8",
+    week: "W8",
+    title: "Global Enterprise State Systems & Multi-Threading",
+    level: "Advanced",
+    pattern:
+      "Flux/Zustand decoupling · Component atomic isolation · Action side-effects",
+    topics: [
+      {
+        id: "rn-8-1",
+        text: "Zustand for Mobile: Light, fast, atomic decoupled global data state",
+        diff: "Medium",
+      },
+      {
+        id: "rn-8-2",
+        text: "Redux Toolkit (RTK) architecture: Slices, selectors, and async Thunk lifecycles",
+        diff: "Hard",
+      },
+      {
+        id: "rn-8-3",
+        text: "State persistence solutions and deep reconciliation mechanics on boot",
+        diff: "Medium",
+      },
+    ],
+  },
+  {
+    id: "rn-9",
+    week: "W9",
+    title: "Native Code Customization & Config Plugins",
+    level: "Advanced",
+    pattern:
+      "Continuous prebuilds · Native manifests · Custom bridge overrides",
+    topics: [
+      {
+        id: "rn-9-1",
+        text: "Understanding Expo Prebuild and managing android/ ios/ directories safely",
+        diff: "Medium",
+      },
+      {
+        id: "rn-9-2",
+        text: "Writing Expo Config Plugins to inject code into Info.plist and AndroidManifest.xml",
+        diff: "Hard",
+      },
+      {
+        id: "rn-9-3",
+        text: "Expo Modules API: Writing lightweight custom Swift/Kotlin extensions",
+        diff: "Expert",
+      },
+    ],
+  },
+  {
+    id: "rn-10",
+    week: "W10",
+    title: "Robustness Engine: Architecture, Security & Offline-First",
+    level: "Advanced",
+    pattern:
+      "Encrypted memory containers · Schema validation · Local relational tables",
+    topics: [
+      {
+        id: "rn-10-1",
+        text: "Securing keys and auth tokens using Expo SecureStore (Keychain / Keystore)",
+        diff: "Medium",
+      },
+      {
+        id: "rn-10-2",
+        text: "Offline-First Databases: WatermelonDB or Expo SQLite schema architecture",
+        diff: "Hard",
+      },
+      {
+        id: "rn-10-3",
+        text: "SSL Pinning and secure network transport architectures for mobile targets",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-11",
+    week: "W11",
+    title: "Stability Guard: Testing, Profiling & Memory Management",
+    level: "Advanced",
+    pattern:
+      "Render performance profiling · Memory leak diagnostics · Simulated interactions",
+    topics: [
+      {
+        id: "rn-11-1",
+        text: "Component Unit Testing: React Native Testing Library (RNTL) and Jest matchers",
+        diff: "Medium",
+      },
+      {
+        id: "rn-11-2",
+        text: "Debugging with React Native Debugger, Flipper, and Expo DevTools",
+        diff: "Easy",
+      },
+      {
+        id: "rn-11-3",
+        text: "Performance profiling: Identifying unnecessary re-renders via WhyDidYouRender",
+        diff: "Medium",
+      },
+      {
+        id: "rn-11-4",
+        text: "Memory leak identification: Tracking down dangling global event listeners and unmounted states",
+        diff: "Hard",
+      },
+    ],
+  },
+  {
+    id: "rn-12",
+    week: "W12",
+    title: "The Launchpad: OTA Updates, CI/CD & App Store Delivery",
+    level: "Expert",
+    pattern:
+      "Automated binary compilation · Runtime code swapping · App store signing keys",
+    topics: [
+      {
+        id: "rn-12-1",
+        text: "Expo Application Services (EAS): Configuring eas.json for remote cloud builds",
+        diff: "Medium",
+      },
+      {
+        id: "rn-12-2",
+        text: "Over-The-Air (OTA) Updates via Expo Updates: Strategies, rollouts, and hazards",
+        diff: "Hard",
+      },
+      {
+        id: "rn-12-3",
+        text: "App Store Connect & Google Play Console: Production credentials and bundle certificates",
+        diff: "Hard",
+      },
+      {
+        id: "rn-12-4",
+        text: "Continuous Deployment: Automation via EAS GitHub Actions pipelines",
+        diff: "Expert",
+      },
+    ],
+  },
+];
+
 export const TAG_STYLE = {
   JS: "bg-yellow-100 text-yellow-800",
   TS: "bg-blue-100 text-blue-800",
@@ -2224,6 +2576,7 @@ export const PHASE_BORDER = {
   p2: "border-green-200 bg-violet-50",
   p3: "border-emerald-200 bg-emerald-50",
   dsa: "border-violet-200 bg-yellow-50",
+  react_native: "border-green-200 bg-green-50",
 };
 
 export const PHASE_BADGE = {
@@ -2231,4 +2584,5 @@ export const PHASE_BADGE = {
   p2: "bg-violet-600 text-white",
   p3: "bg-emerald-600 text-white",
   dsa: "bg-yellow-600 text-yellow-50",
+  react_native: "bg-green-600 text-green-50",
 };
