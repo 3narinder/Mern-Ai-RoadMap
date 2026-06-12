@@ -30,15 +30,17 @@ export const PHASES = [
   {
     id: "dsa",
     label: "Phase 4",
-    title: "DSA 12 weeks",
+    title: "DSA",
     subtitle: "Weeks 1–12 · Data Structures and Algorithms",
     weeks: [],
   },
 
+  //********************** ************ Phase 5 ************ ************ /
+
   {
     id: "react_native",
     label: "Phase 5",
-    title: "React Native 12 weeks",
+    title: "React Native",
     subtitle: "Weeks 1–12 · React native beginners to Advance",
     weeks: [],
   },
