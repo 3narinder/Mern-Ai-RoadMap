@@ -426,20 +426,20 @@ export const MODULES = [
     title: "JavaScript — Advanced",
     resources: [
       {
-        label: "Fireship",
-        note: "JS Pro Tips, Event Loop explained, 100 JS Concepts",
-      },
-      {
-        label: "Fun Fun Function",
-        note: "Functional Programming in JS playlist — FP patterns",
-      },
-      {
         label: "JSConf — Philip Roberts",
         note: "What the heck is the event loop? — watch this first",
       },
       {
         label: "Jake Archibald (YouTube)",
         note: "In The Loop — microtasks vs macrotasks deep dive",
+      },
+      {
+        label: "Fireship",
+        note: "JS Pro Tips, Event Loop explained, 100 JS Concepts",
+      },
+      {
+        label: "Fun Fun Function",
+        note: "Functional Programming in JS playlist — FP patterns",
       },
     ],
     topics: [
@@ -463,14 +463,15 @@ export const MODULES = [
         text: "Closures — definition, private state, module pattern",
         interview: true,
       },
+
       {
         id: "js-a-5",
-        text: "Implement debounce from scratch",
+        text: "this keyword — 4 binding rules (default, implicit, explicit, new)",
         interview: true,
       },
       {
         id: "js-a-6",
-        text: "Implement throttle from scratch",
+        text: "Implement bind, call, apply from scratch",
         interview: true,
       },
       {
@@ -478,34 +479,53 @@ export const MODULES = [
         text: "Prototype chain — how property lookup works",
         interview: true,
       },
+
       {
         id: "js-a-8",
-        text: "this keyword — 4 binding rules (default, implicit, explicit, new)",
+        text: "Promise internals — states, chaining, error propagation",
         interview: true,
       },
       {
         id: "js-a-9",
-        text: "Implement bind, call, apply from scratch",
+        text: "Implement Promise.all, Promise.allSettled, Promise.race from scratch",
         interview: true,
       },
+
       {
         id: "js-a-10",
-        text: "Promise internals — states, implement Promise.all from scratch",
+        text: "Implement debounce from scratch",
         interview: true,
       },
       {
         id: "js-a-11",
-        text: "Functional patterns: compose, pipe, curry, memoize",
-        interview: false,
+        text: "Implement throttle from scratch",
+        interview: true,
       },
       {
         id: "js-a-12",
-        text: "Memory leaks — common causes and detection in DevTools",
+        text: "Implement memoize from scratch (closure-based cache)",
+        interview: true,
+      },
+
+      {
+        id: "js-a-13",
+        text: "Functional patterns: compose and pipe (data pipeline thinking)",
         interview: false,
       },
       {
-        id: "js-a-13",
-        text: "WeakMap and WeakRef — weak references explained",
+        id: "js-a-14",
+        text: "Currying — partial application and why it matters in real code",
+        interview: false,
+      },
+
+      {
+        id: "js-a-15",
+        text: "Memory leaks — closures holding refs, detached DOM, forgotten timers",
+        interview: false,
+      },
+      {
+        id: "js-a-16",
+        text: "WeakMap and WeakRef — when and why to use weak references",
         interview: false,
       },
     ],
@@ -605,62 +625,73 @@ export const MODULES = [
         label: "Codevolution",
         note: "React Query full playlist + Zustand intro",
       },
-      { label: "Jack Herrington", note: "Advanced React patterns series" },
+      {
+        label: "Jack Herrington",
+        note: "Advanced React patterns series",
+      },
     ],
     topics: [
       {
         id: "r-m-1",
-        text: "Custom hooks — extract shared stateful logic with naming convention",
+        text: "Custom hooks — extract shared stateful logic, naming rules, and composability",
         interview: true,
       },
       {
         id: "r-m-2",
-        text: "useLocalStorage, useFetch, useDebounce, useMediaQuery hooks",
+        text: "Build from scratch: useDebounce, useLocalStorage, useMediaQuery, useFetch",
         interview: false,
       },
+
       {
         id: "r-m-3",
-        text: "React.memo — skip re-render if props shallowly equal",
+        text: "When NOT to optimize — referential equality cost, premature memoization pitfalls",
         interview: true,
       },
       {
         id: "r-m-4",
-        text: "useMemo — memoize expensive computed values",
+        text: "React.memo — skip re-render on shallow prop equality, when it breaks",
         interview: true,
       },
       {
         id: "r-m-5",
-        text: "useCallback — stable function reference across renders",
+        text: "useMemo — memoize expensive derived values (heavy computation, stable object refs)",
         interview: true,
       },
       {
         id: "r-m-6",
-        text: "When NOT to optimize — premature optimization cost",
+        text: "useCallback — stable function refs for memo'd children and effect deps",
         interview: true,
       },
+
       {
         id: "r-m-7",
-        text: "TanStack Query: useQuery, query keys, staleTime, gcTime",
+        text: "TanStack Query mental model — server state vs client state, why it exists",
         interview: true,
       },
       {
         id: "r-m-8",
-        text: "TanStack Query: useMutation + optimistic updates with onMutate",
+        text: "useQuery — query keys as cache addresses, staleTime, gcTime, background refetch",
         interview: true,
       },
       {
         id: "r-m-9",
-        text: "TanStack Query: useInfiniteQuery for infinite scroll / pagination",
-        interview: false,
-      },
-      {
-        id: "r-m-10",
-        text: "Zustand: create store, slices, persist + devtools middleware",
+        text: "useMutation + optimistic updates — onMutate, rollback on error, cache invalidation",
         interview: true,
       },
       {
+        id: "r-m-10",
+        text: "useInfiniteQuery — cursor-based pagination and infinite scroll pattern",
+        interview: false,
+      },
+
+      {
         id: "r-m-11",
-        text: "State decision: local vs Context vs Zustand vs TanStack Query",
+        text: "Zustand — create store, slice pattern, persist + devtools middleware",
+        interview: true,
+      },
+      {
+        id: "r-m-12",
+        text: "State architecture decision: local state vs Context vs Zustand vs TanStack Query",
         interview: true,
       },
     ],
@@ -668,13 +699,13 @@ export const MODULES = [
 
   //********************** ************ WEEK 3 ************ ************ /
 
-  //----React Advance P-1 -------
+  // ─── REACT ADVANCED PART 1 ───────────────────────────────────────────────────
   {
     id: "m-react-adv-1",
     weekId: "w3",
     tag: "React",
     level: "Advanced",
-    title: "React Advanced (Part 1) — Architecture & Concurrent Performance",
+    title: "React Advanced (Part 1) — Internals, Concurrency & Data Layer",
     resources: [
       {
         label: "Jack Herrington",
@@ -690,61 +721,86 @@ export const MODULES = [
       },
     ],
     topics: [
+      // ── BLOCK 1: Reconciler Internals — how React decides what to update ──
+      // Fiber is the prerequisite for understanding why concurrent mode,
+      // Suspense, and the compiler work the way they do. One hour here saves
+      // ten hours of confusion later.
       {
         id: "r-a1-1",
-        text: "Fiber architecture — the unit of work, singly-linked fiber trees, and the cooperative scheduling work loop",
+        text: "Fiber architecture — unit of work, fiber tree structure, cooperative scheduling work loop",
         interview: true,
       },
       {
         id: "r-a1-2",
-        text: "Render vs Commit phase — side-effects isolation, double buffering strategy, and DOM mutations execution",
+        text: "Render vs Commit phase — side-effect isolation, double-buffering, DOM mutation timing",
         interview: true,
       },
       {
         id: "r-a1-3",
-        text: "Reconciliation engine — O(n) diffing heuristic, rules of keys, element type checks, and component unmounting mechanics",
+        text: "Reconciliation — O(n) diffing heuristic, key rules, element type checks, unmount mechanics",
         interview: true,
       },
+
+      // ── BLOCK 2: Concurrent React — scheduling and prioritization ─────────
+      // Builds directly on Fiber. Now that you know React can pause work,
+      // useTransition and useDeferredValue are obvious, not magic.
       {
         id: "r-a1-4",
-        text: "The React Compiler — how automatic build-time memoization works, dependency array elimination, and code rules required to prevent compiler opt-out",
+        text: "useTransition — mark non-urgent state updates, keep input responsive during heavy re-renders",
         interview: true,
       },
       {
         id: "r-a1-5",
-        text: "useTransition & useDeferredValue — prioritizing high-urgency user inputs over non-urgent expensive background UI updates",
+        text: "useDeferredValue — defer an expensive derived value, compare to useTransition use cases",
         interview: true,
       },
+
+      // ── BLOCK 3: React 19 APIs — new primitives for MERN + AI apps ────────
+      // Actions API is the most relevant new addition for MERN full-stack work.
+      // The React Compiler directly removes the need for manual useMemo/useCallback.
       {
         id: "r-a1-6",
-        text: "React 19 Actions API — managing async pending states natively via form action props, useActionState, and useFormStatus",
+        text: "React 19 Actions API — useActionState, useFormStatus, async form action props",
         interview: true,
       },
       {
         id: "r-a1-7",
-        text: "TanStack Query Engine — query keys, state lifecycle (stale, fresh, fetching, inactive), and automatic garbage collection",
+        text: "The React Compiler — automatic memoization at build time, rules that prevent opt-out",
         interview: true,
       },
+
+      // ── BLOCK 4: TanStack Query Internals ─────────────────────────────────
+      // You used the API in Intermediate. Now understand what happens underneath:
+      // why deduplication works, how GC triggers, and what stale actually means.
       {
         id: "r-a1-8",
-        text: "TanStack Query Mutations — optimistic updates, cache invalidation strategies, and request deduplication flows",
+        text: "Query engine internals — observer model, state lifecycle (fresh → stale → inactive → deleted)",
         interview: true,
       },
       {
         id: "r-a1-9",
-        text: "React DevTools Profiler — reading flamegraphs, interaction tracking, and identifying commit phase performance bottlenecks",
+        text: "Mutation internals — request deduplication, optimistic cache writes, and rollback flows",
+        interview: true,
+      },
+
+      // ── BLOCK 5: Profiling — measure before you optimize ──────────────────
+      // Always last because you need to understand renders, commits, and the
+      // scheduler before flamegraphs make sense.
+      {
+        id: "r-a1-10",
+        text: "React DevTools Profiler — reading flamegraphs, commit timelines, interaction tracking",
         interview: true,
       },
     ],
   },
 
-  //----React Advance P-2 -------
+  // ─── REACT ADVANCED PART 2 ───────────────────────────────────────────────────
   {
     id: "m-react-adv-2",
     weekId: "w3",
     tag: "React",
     level: "Advanced",
-    title: "React Advanced (Part 2) — Design Patterns & Resilient Architecture",
+    title: "React Advanced (Part 2) — Patterns, Server Boundary & Resilience",
     resources: [
       {
         label: "Web Dev Simplified",
@@ -756,49 +812,71 @@ export const MODULES = [
       },
     ],
     topics: [
+      // ── BLOCK 1: Component Design Patterns ────────────────────────────────
+      // These are the patterns that separate mid-level from senior React devs
+      // in interviews. Compound components appear in every design system.
       {
         id: "r-a2-1",
-        text: "Compound components — structural flexibility using React Context, explicit vs implicit child state sharing (Select/Option, Tabs)",
+        text: "Compound components — implicit state sharing via Context (Tabs, Select/Option pattern)",
         interview: true,
       },
       {
         id: "r-a2-2",
-        text: "Control Props & State Reducer patterns — building highly customizable design system elements with external state overrides",
+        text: "Control Props & State Reducer pattern — external state overrides for design system components",
         interview: true,
       },
+
+      // ── BLOCK 2: Global State Architecture ───────────────────────────────
+      // After patterns, revisit state at scale. By now you have TanStack (server),
+      // Zustand (client), and Context — the decision of which to reach for is a
+      // common system design question in senior MERN interviews.
       {
         id: "r-a2-3",
-        text: "Global Client State Architecture — lightweight atomic state management via Zustand vs legacy Redux Toolkit/Context solutions",
+        text: "Global state architecture comparison — Zustand vs Redux Toolkit vs Context at scale",
         interview: true,
       },
+
+      // ── BLOCK 3: The Server Boundary (RSC + Suspense + Streaming) ─────────
+      // This is the most important block for MERN + Next.js + AI work.
+      // RSC, Suspense, and Streaming SSR are deeply connected — learn them together.
       {
         id: "r-a2-4",
-        text: "React Server Components (RSC) — data fetching on the server, zero-bundle-size components, and defining the client-server serialization boundary ('use client' vs 'use server')",
+        text: "React Server Components — zero-bundle components, server data fetching, 'use client' / 'use server' serialization boundary",
         interview: true,
       },
       {
         id: "r-a2-5",
-        text: "The use() Hook — handling un-awaited promises and Context values conditionally inside loops or early returns",
+        text: "The use() hook — unwrap un-awaited Promises and Context inside conditionals/loops",
         interview: true,
       },
       {
         id: "r-a2-6",
-        text: "Suspense & Streaming SSR — data-fetching orchestration, avoiding network waterfalls, and handling skeleton screen states",
+        text: "Suspense + Streaming SSR — waterfall elimination, progressive HTML flushing, skeleton states",
         interview: true,
       },
+
+      // ── BLOCK 4: Resilience ───────────────────────────────────────────────
+      // Error boundaries make sense only after Suspense — they're the failure
+      // counterpart to Suspense's loading state.
       {
         id: "r-a2-7",
-        text: "Error Boundaries — catching runtime rendering crashes, react-error-boundary integration, fallbacks, and boundary-reset actions",
+        text: "Error Boundaries — catching render crashes, react-error-boundary, reset strategies",
         interview: true,
       },
+
+      // ── BLOCK 5: Scale & Delivery ─────────────────────────────────────────
+      // Code splitting is the production output of everything above: RSC reduces
+      // bundles automatically, lazy/dynamic import handles the rest manually.
       {
         id: "r-a2-8",
-        text: "Code splitting at scale — React.lazy, dynamic import syntax, and route-level vs conditional-level boundary chunking",
+        text: "Code splitting at scale — React.lazy, dynamic import, route-level vs component-level boundaries",
         interview: true,
       },
+
+      // ── BLOCK 6: Accessibility — non-negotiable for senior roles ──────────
       {
         id: "r-a2-9",
-        text: "Enterprise Accessibility & WAI-ARIA — managing dynamic focus traps, screen reader announcements, and keyboard navigation profiles",
+        text: "WAI-ARIA & focus management — dynamic focus traps, screen reader announcements, keyboard nav",
         interview: false,
       },
     ],
