@@ -9,7 +9,6 @@ import {
 } from "./data/roadmap-data";
 import { useState } from "react";
 import WeekCard from "./components/WeekCard";
-import DSACard from "./components/DSACard";
 import PhaseHeader from "./components/PhaseHeader";
 import Footer from "./components/Footer";
 import Tabs from "./components/Tabs";
@@ -17,6 +16,7 @@ import Header from "./components/Header";
 import ActivityHeatmap from "./components/ActivityHeatmap";
 import { useChecks } from "./Hooks/useChecks";
 import Loader from "./components/Loader";
+import DailyWorkCard from "./components/DailyWorkCard";
 
 // ─── Inner app — has access to CheckContext ───────────────────
 const RoadmapApp = () => {
@@ -109,19 +109,15 @@ const RoadmapApp = () => {
           </div>
         ))}
 
-        {/* DSA tab */}
-        {phase === "dsa" && (
-          <div className="space-y-3">
-            {DSA.map((dsa) => (
-              <DSACard key={dsa.id} dsa={dsa} checks={checks} toggle={toggle} />
-            ))}
-          </div>
-        )}
-
         {phase === "react_native" && (
           <div className="space-y-3">
             {ReactNativeRoadmap.map((rn) => (
-              <DSACard key={rn.id} dsa={rn} checks={checks} toggle={toggle} />
+              <DailyWorkCard
+                key={rn.id}
+                dsa={rn}
+                checks={checks}
+                toggle={toggle}
+              />
             ))}
           </div>
         )}

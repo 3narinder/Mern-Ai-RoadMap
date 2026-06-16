@@ -4,7 +4,7 @@ import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
 import { getDateRange, formatDateShort } from "../utils/check-helpers";
 
-const DSACard = ({ dsa }) => {
+const DailyWorkCard = ({ dsa }) => {
   const [open, setOpen] = useState(false);
   const {
     isChecked,
@@ -131,4 +131,4 @@ const DSACard = ({ dsa }) => {
   );
 };
 
-export default DSACard;
+export default DailyWorkCard;
