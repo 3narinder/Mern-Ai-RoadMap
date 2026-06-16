@@ -4,7 +4,7 @@ export const PHASES = [
     id: "p1",
     label: "Phase 1",
     title: "Frontend Foundations",
-    subtitle: "Weeks 1–4 · JS + TS + React",
+    subtitle: "JS + TS + React",
     weeks: ["w1", "w2", "w3", "w4"],
   },
 
@@ -13,7 +13,7 @@ export const PHASES = [
     id: "p2",
     label: "Phase 2",
     title: "Full-Stack Engineering",
-    subtitle: "Weeks 5–8 · Next.js + MERN + Testing",
+    subtitle: "Next.js + MERN + Testing",
     weeks: ["w5", "w6", "w7", "w8"],
   },
 
@@ -22,7 +22,7 @@ export const PHASES = [
     id: "p3",
     label: "Phase 3",
     title: "AI + Production",
-    subtitle: "Weeks 9–12 · AI + DevOps + System Design",
+    subtitle: "AI + DevOps + System Design",
     weeks: ["w9", "w10", "w11", "w12"],
   },
 
@@ -32,7 +32,7 @@ export const PHASES = [
     id: "react_native",
     label: "Phase 4",
     title: "React Native",
-    subtitle: "Weeks 1–12 · React native beginners to Advance",
+    subtitle: "React native beginners to Advance",
     weeks: [],
   },
 ];

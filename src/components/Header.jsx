@@ -14,7 +14,7 @@ const Header = ({ totalDone, allIds, totalPct }) => {
 
           <div className="min-w-0">
             <h1 className="font-bold text-gray-900 text-xl md:text-2xl leading-tight truncate">
-              12-Week Engineering Roadmap
+              MERN + AI Roadmap
             </h1>
 
             <p className="text-xs text-gray-500 font-medium mt-1 truncate">
