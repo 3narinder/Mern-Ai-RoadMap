@@ -1,5 +1,4 @@
 import {
-  DSA,
   MODULES,
   PHASE_BADGE,
   PHASE_BORDER,
@@ -32,10 +31,7 @@ const RoadmapApp = () => {
     dailyActivity,
   } = useChecks();
 
-  const allIds = [
-    ...MODULES.flatMap((m) => m.topics.map((t) => t.id)),
-    ...DSA.flatMap((d) => d.topics.map((t) => t.id)),
-  ];
+  const allIds = [...MODULES.flatMap((m) => m.topics.map((t) => t.id))];
 
   const totalDone = countChecked(allIds);
   const totalPct = allIds.length
