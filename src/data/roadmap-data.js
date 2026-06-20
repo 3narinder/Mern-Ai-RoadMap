@@ -530,6 +530,7 @@ export const MODULES = [
       },
     ],
   },
+
   //----TS advance -------
   {
     id: "m-ts-adv",
@@ -554,14 +555,10 @@ export const MODULES = [
     topics: [
       {
         id: "ts-a-1",
-        text: "Generic functions — T as type parameter with constraints",
+        text: "Generic functions — T as type parameter with constraints (extends, default types, generic interfaces)",
         interview: true,
       },
-      {
-        id: "ts-a-2",
-        text: "Generic interfaces and generic classes",
-        interview: false,
-      },
+
       {
         id: "ts-a-3",
         text: "Utility types: Partial, Required, Readonly, Pick, Omit, Record",
@@ -572,6 +569,7 @@ export const MODULES = [
         text: "Exclude, Extract, ReturnType, Parameters, NonNullable",
         interview: true,
       },
+
       {
         id: "ts-a-5",
         text: "Conditional types: T extends U ? X : Y",
@@ -587,24 +585,58 @@ export const MODULES = [
         text: "Mapped types: { [K in keyof T]: ... }",
         interview: true,
       },
-      { id: "ts-a-8", text: "Template literal types", interview: false },
       {
-        id: "ts-a-9",
-        text: "Build DeepPartial and DeepReadonly recursive utility types",
+        id: "ts-a-8",
+        text: "Template literal types — constructing string unions and key remapping",
+        interview: true, // bumped: commonly asked, very practical for API key shaping
+      },
+
+      {
+        id: "ts-a-13",
+        text: "Discriminated unions + exhaustive narrowing with never (switch default guard)",
+        interview: true,
+      },
+      {
+        id: "ts-a-15",
+        text: "satisfies operator — validate shape without widening the inferred type",
+        interview: true,
+      },
+
+      {
+        id: "ts-a-12",
+        text: "Declaration merging & module augmentation — extending third-party types (e.g. Express Request, next-auth Session)",
         interview: false,
       },
       {
+        id: "ts-a-14",
+        text: "Function overloads — multiple call signatures for the same implementation",
+        interview: true,
+      },
+
+      {
+        id: "ts-a-9",
+        text: "Deep utility types with type-fest / ts-reset (DeepPartial, DeepReadonly) — use don't reinvent",
+        interview: false,
+      },
+      {
+        id: "ts-a-16",
+        text: "Type-safe API response pattern — generic fetch/axios wrapper with typed success/error union",
+        interview: true,
+      },
+
+      {
         id: "ts-a-10",
-        text: "Zod — schema, safeParse, z.infer, refinements",
+        text: "Zod — schema, safeParse, z.infer, refinements, .brand()",
         interview: false,
       },
       {
         id: "ts-a-11",
-        text: "Zod + React Hook Form — full typed form integration",
+        text: "Zod + React Hook Form — full typed form integration with zodResolver",
         interview: false,
       },
     ],
   },
+
   //----React Intermediate -------
   {
     id: "m-react-mid",
