@@ -29,7 +29,28 @@ const ModuleCard = ({ mod, open, onToggle }) => {
   // Handle smooth height animation
   useEffect(() => {
     if (contentRef.current) {
-      setHeight(open ? contentRef.current.scrollHeight : 0);
+      if (open) {
+        // Use requestAnimationFrame to ensure content is fully rendered
+        const updateHeight = () => {
+          if (contentRef.current) {
+            setHeight(contentRef.current.scrollHeight);
+          }
+        };
+        
+        // Initial measurement
+        updateHeight();
+        
+        // Double-check after render
+        const rafId = requestAnimationFrame(updateHeight);
+        const timeoutId = setTimeout(updateHeight, 100);
+        
+        return () => {
+          cancelAnimationFrame(rafId);
+          clearTimeout(timeoutId);
+        };
+      } else {
+        setHeight(0);
+      }
     }
   }, [open]);
 
@@ -107,11 +128,14 @@ const ModuleCard = ({ mod, open, onToggle }) => {
       {/* body with smooth animation */}
       <div 
         id={`module-content-${mod.id}`}
-        ref={contentRef}
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ maxHeight: height }}
       >
-        <div className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
+        <div 
+          ref={contentRef}
+          className="px-3 py-2" 
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* resources */}
           {mod.resources?.length > 0 && (
             <div className="mb-2.5 border border-gray-100 rounded bg-gray-50 px-3 py-2">

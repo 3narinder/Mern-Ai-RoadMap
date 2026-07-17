@@ -27,7 +27,28 @@ const WeekCard = ({ week, modules }) => {
   // Handle smooth height animation
   useEffect(() => {
     if (contentRef.current) {
-      setHeight(open ? contentRef.current.scrollHeight : 0);
+      if (open) {
+        // Use requestAnimationFrame to ensure content is fully rendered
+        const updateHeight = () => {
+          if (contentRef.current) {
+            setHeight(contentRef.current.scrollHeight);
+          }
+        };
+        
+        // Initial measurement
+        updateHeight();
+        
+        // Double-check after render
+        const rafId = requestAnimationFrame(updateHeight);
+        const timeoutId = setTimeout(updateHeight, 100);
+        
+        return () => {
+          cancelAnimationFrame(rafId);
+          clearTimeout(timeoutId);
+        };
+      } else {
+        setHeight(0);
+      }
     }
   }, [open, activeModules]);
 
@@ -120,11 +141,13 @@ const WeekCard = ({ week, modules }) => {
       {/* expanded body with smooth animation */}
       <div 
         id={`week-content-${week.id}`}
-        ref={contentRef}
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ maxHeight: height }}
       >
-        <div className="border-t border-gray-100 px-5 py-4 bg-gray-50 space-y-3">
+        <div 
+          ref={contentRef}
+          className="border-t border-gray-100 px-5 py-4 bg-gray-50 space-y-3"
+        >
           {modules.map((m) => (
             <ModuleCard
               key={m.id}
