@@ -2,7 +2,6 @@ import { TAG_STYLE } from "../data/roadmap-data";
 import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
 import { getDateRange, formatDateShort } from "../utils/check-helpers";
-import { useRef, useEffect, useState } from "react";
 
 const ModuleCard = ({ mod, open, onToggle }) => {
   const {
@@ -17,42 +16,11 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     completionDates,
   } = useChecks();
 
-  const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
   const ids = mod.topics.map((t) => t.id);
   const done = countChecked(ids);
   const pct = pctComplete(ids);
   const complete = allChecked(ids);
   const dateRange = getDateRange(completionDates, ids, complete);
-
-  // Handle smooth height animation
-  useEffect(() => {
-    if (contentRef.current) {
-      if (open) {
-        // Use requestAnimationFrame to ensure content is fully rendered
-        const updateHeight = () => {
-          if (contentRef.current) {
-            setHeight(contentRef.current.scrollHeight);
-          }
-        };
-        
-        // Initial measurement
-        updateHeight();
-        
-        // Double-check after render
-        const rafId = requestAnimationFrame(updateHeight);
-        const timeoutId = setTimeout(updateHeight, 100);
-        
-        return () => {
-          cancelAnimationFrame(rafId);
-          clearTimeout(timeoutId);
-        };
-      } else {
-        setHeight(0);
-      }
-    }
-  }, [open]);
 
   function handleBulk(e) {
     e.stopPropagation();
@@ -125,15 +93,11 @@ const ModuleCard = ({ mod, open, onToggle }) => {
         />
       </div>
 
-      {/* body with smooth animation */}
-      <div 
-        id={`module-content-${mod.id}`}
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: height }}
-      >
+      {/* body */}
+      {open && (
         <div 
-          ref={contentRef}
-          className="px-3 py-2" 
+          id={`module-content-${mod.id}`}
+          className="px-3 py-2"
           onClick={(e) => e.stopPropagation()}
         >
           {/* resources */}
@@ -197,7 +161,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
             );
           })}
         </div>
-      </div>
+      )}
     </div>
   );
 };

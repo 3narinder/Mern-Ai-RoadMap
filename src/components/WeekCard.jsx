@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { useChecks } from "../Hooks/useChecks";
 import { getDateRange } from "../utils/check-helpers";
@@ -6,8 +6,6 @@ import { getDateRange } from "../utils/check-helpers";
 const WeekCard = ({ week, modules }) => {
   const [open, setOpen] = useState(false);
   const [activeModules, setActiveModules] = useState(new Set());
-  const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
 
   const {
     countChecked,
@@ -23,34 +21,6 @@ const WeekCard = ({ week, modules }) => {
   const pct = pctComplete(ids);
   const completed = allChecked(ids);
   const dateRange = getDateRange(completionDates, ids, completed);
-
-  // Handle smooth height animation
-  useEffect(() => {
-    if (contentRef.current) {
-      if (open) {
-        // Use requestAnimationFrame to ensure content is fully rendered
-        const updateHeight = () => {
-          if (contentRef.current) {
-            setHeight(contentRef.current.scrollHeight);
-          }
-        };
-        
-        // Initial measurement
-        updateHeight();
-        
-        // Double-check after render
-        const rafId = requestAnimationFrame(updateHeight);
-        const timeoutId = setTimeout(updateHeight, 100);
-        
-        return () => {
-          cancelAnimationFrame(rafId);
-          clearTimeout(timeoutId);
-        };
-      } else {
-        setHeight(0);
-      }
-    }
-  }, [open, activeModules]);
 
   function handleBulk(e) {
     e.stopPropagation();
@@ -138,14 +108,10 @@ const WeekCard = ({ week, modules }) => {
         </div>
       </button>
 
-      {/* expanded body with smooth animation */}
-      <div 
-        id={`week-content-${week.id}`}
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: height }}
-      >
+      {/* expanded body */}
+      {open && (
         <div 
-          ref={contentRef}
+          id={`week-content-${week.id}`}
           className="border-t border-gray-100 px-5 py-4 bg-gray-50 space-y-3"
         >
           {modules.map((m) => (
@@ -157,7 +123,7 @@ const WeekCard = ({ week, modules }) => {
             />
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };
