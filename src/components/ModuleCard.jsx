@@ -111,7 +111,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ maxHeight: height }}
       >
-        <div className="px-3 py-2">
+        <div className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
           {/* resources */}
           {mod.resources?.length > 0 && (
             <div className="mb-2.5 border border-gray-100 rounded bg-gray-50 px-3 py-2">
@@ -145,6 +145,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
             return (
               <label
                 key={t.id}
+                onClick={(e) => e.stopPropagation()}
                 className={`flex items-start gap-2.5 py-1.5 px-2 rounded cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
                   checked ? "bg-gray-50" : ""
                 }`}
