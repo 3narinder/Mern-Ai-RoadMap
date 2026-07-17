@@ -2,6 +2,7 @@ import { TAG_STYLE } from "../data/roadmap-data";
 import Tick from "./Tick";
 import { useChecks } from "../Hooks/useChecks";
 import { getDateRange, formatDateShort } from "../utils/check-helpers";
+import { useRef, useEffect, useState } from "react";
 
 const ModuleCard = ({ mod, open, onToggle }) => {
   const {
@@ -16,15 +17,32 @@ const ModuleCard = ({ mod, open, onToggle }) => {
     completionDates,
   } = useChecks();
 
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
   const ids = mod.topics.map((t) => t.id);
   const done = countChecked(ids);
   const pct = pctComplete(ids);
   const complete = allChecked(ids);
   const dateRange = getDateRange(completionDates, ids, complete);
 
+  // Handle smooth height animation
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(open ? contentRef.current.scrollHeight : 0);
+    }
+  }, [open]);
+
   function handleBulk(e) {
     e.stopPropagation();
     complete ? uncheckAll(ids) : checkAll(ids);
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onToggle();
+    }
   }
 
   return (
@@ -32,7 +50,10 @@ const ModuleCard = ({ mod, open, onToggle }) => {
       {/* header */}
       <button
         onClick={onToggle}
-        className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-gray-50 text-left"
+        onKeyDown={handleKeyPress}
+        aria-expanded={open}
+        aria-controls={`module-content-${mod.id}`}
+        className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-gray-50 text-left transition-colors duration-200"
       >
         <span
           className={`text-xs font-semibold px-2 py-0.5 rounded ${
@@ -65,7 +86,14 @@ const ModuleCard = ({ mod, open, onToggle }) => {
         <span className="text-xs text-gray-400">
           {done}/{ids.length}
         </span>
-        <span className="text-gray-400 text-xs ml-1">{open ? "▲" : "▼"}</span>
+        <svg 
+          className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ml-1 ${open ? 'rotate-180' : ''}`} 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
       {/* progress bar */}
@@ -76,8 +104,13 @@ const ModuleCard = ({ mod, open, onToggle }) => {
         />
       </div>
 
-      {/* body */}
-      {open && (
+      {/* body with smooth animation */}
+      <div 
+        id={`module-content-${mod.id}`}
+        ref={contentRef}
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: height }}
+      >
         <div className="px-3 py-2">
           {/* resources */}
           {mod.resources?.length > 0 && (
@@ -112,15 +145,15 @@ const ModuleCard = ({ mod, open, onToggle }) => {
             return (
               <label
                 key={t.id}
-                className={`flex items-start gap-2.5 py-1.5 px-2 rounded cursor-pointer hover:bg-gray-50 ${
-                  checked ? "opacity-40" : ""
+                className={`flex items-start gap-2.5 py-1.5 px-2 rounded cursor-pointer hover:bg-gray-50 transition-colors duration-150 ${
+                  checked ? "bg-gray-50" : ""
                 }`}
               >
                 <Tick on={checked} toggle={() => toggle(t.id)} />
 
                 <span
                   className={`text-sm leading-snug flex-1 ${
-                    checked ? "line-through text-gray-400" : "text-gray-700"
+                    checked ? "line-through text-gray-500" : "text-gray-700"
                   }`}
                 >
                   {t.interview && (
@@ -139,7 +172,7 @@ const ModuleCard = ({ mod, open, onToggle }) => {
             );
           })}
         </div>
-      )}
+      </div>
     </div>
   );
 };

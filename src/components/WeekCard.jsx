@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ModuleCard from "./ModuleCard";
 import { useChecks } from "../Hooks/useChecks";
 import { getDateRange } from "../utils/check-helpers";
 
 const WeekCard = ({ week, modules }) => {
   const [open, setOpen] = useState(false);
-
-  const [activeModule, setActiveModule] = useState(null);
+  const [activeModules, setActiveModules] = useState(new Set());
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState(0);
 
   const {
     countChecked,
@@ -23,9 +24,35 @@ const WeekCard = ({ week, modules }) => {
   const completed = allChecked(ids);
   const dateRange = getDateRange(completionDates, ids, completed);
 
+  // Handle smooth height animation
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(open ? contentRef.current.scrollHeight : 0);
+    }
+  }, [open, activeModules]);
+
   function handleBulk(e) {
     e.stopPropagation();
     completed ? uncheckAll(ids) : checkAll(ids);
+  }
+
+  function handleModuleToggle(moduleId) {
+    setActiveModules((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(moduleId)) {
+        newSet.delete(moduleId);
+      } else {
+        newSet.add(moduleId);
+      }
+      return newSet;
+    });
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setOpen((o) => !o);
+    }
   }
 
   return (
@@ -37,8 +64,11 @@ const WeekCard = ({ week, modules }) => {
       {/* header row */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer ${
-          completed ? "" : "hover:bg-gray-50"
+        onKeyDown={handleKeyPress}
+        aria-expanded={open}
+        aria-controls={`week-content-${week.id}`}
+        className={`w-full flex items-start gap-4 px-5 py-4 text-left cursor-pointer transition-colors duration-200 ${
+          completed ? "hover:bg-green-50" : "hover:bg-gray-50"
         }`}
       >
         <div className="w-10 h-10 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
@@ -76,25 +106,35 @@ const WeekCard = ({ week, modules }) => {
             {done}/{ids.length}
           </span>
 
-          <span className="text-gray-400 text-sm">{open ? "▲" : "▼"}</span>
+          <svg 
+            className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </button>
 
-      {/* expanded body */}
-      {open && (
+      {/* expanded body with smooth animation */}
+      <div 
+        id={`week-content-${week.id}`}
+        ref={contentRef}
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: height }}
+      >
         <div className="border-t border-gray-100 px-5 py-4 bg-gray-50 space-y-3">
           {modules.map((m) => (
             <ModuleCard
               key={m.id}
               mod={m}
-              open={activeModule === m.id}
-              onToggle={() =>
-                setActiveModule((prev) => (prev === m.id ? null : m.id))
-              }
+              open={activeModules.has(m.id)}
+              onToggle={() => handleModuleToggle(m.id)}
             />
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
